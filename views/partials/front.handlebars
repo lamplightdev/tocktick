@@ -1,3 +1,13 @@
 <div id='view-front'>
+  <div class='front-timer'>
   {{> timer}}
+  </div>
+
+  <div class='front-history'>
+    {{#each archives}}
+    <div>
+      {{> archive}}
+    </div>
+    {{/each}}
+  </div>
 </div>

@@ -1,4 +1,5 @@
 var request = require('then-request');
+var shortId = require('shortid');
 
 var timer = document.querySelector('.timer');
 var time = document.querySelector('.time');
@@ -20,45 +21,46 @@ var time = document.querySelector('.time');
  var strokeStyles = ['#ad2323', '#333'];
 
 var jobs = {
-  dev: {
+  1: {
     active: false,
-    items: [], //each element has: 'start', 'stop'
+    items: {}, //each element has key: 'id', values: 'id', 'start', 'stop'
   }
 };
 
-var currentJob = 'dev';
-var currentItemIndex = 0;
+var currentJobID = 1;
+var currentItemID = shortId.generate();
 
 timer.addEventListener('click', function() {
-  if (jobs[currentJob].active) {
+  if (jobs[currentJobID].active) {
 
-    jobs[currentJob].items[currentItemIndex].stop = new Date().getTime();
-    jobs[currentJob].active = false;
+    jobs[currentJobID].items[currentItemID].stop = new Date().getTime();
+    jobs[currentJobID].active = false;
 
-    request('PUT', '/api/timer/stop/' + currentJob + '/' + currentItemIndex, {
+    var id = currentItemID;
+    request('PUT', '/api/timer/stop/' + id, {
       json: {
-        job: jobs[currentJob]
+        item: jobs[currentJobID].items[id]
       }
     }).then(function(response) {
       console.log(response);
     });
+    currentItemID = shortId.generate();
 
-    currentItemIndex++;
   } else {
-
-    jobs[currentJob].items[currentItemIndex] = {
+    jobs[currentJobID].items[currentItemID] = {
+      id: currentItemID,
       start: new Date().getTime()
     };
 
-    jobs[currentJob].active = true;
+    jobs[currentJobID].active = true;
     animate();
 
-    request('POST', '/api/timer/start/' + currentJob + '/' + currentItemIndex, {
+    request('POST', '/api/timer/start/' + currentJobID, {
       json: {
-        job: jobs[currentJob]
+        item: jobs[currentJobID].items[currentItemID]
       }
     }).then(function(response) {
-      console.log(response);
+      //jobs[currentJobID].items[currentItemID].serverID = JSON.parse(response.body).id;
     });
   }
 
@@ -66,10 +68,10 @@ timer.addEventListener('click', function() {
 });
 
 function animate(current) {
-  if (jobs[currentJob].active) {
+  if (jobs[currentJobID].active) {
 
     var now = new Date().getTime();
-    var elapsed = now - jobs[currentJob].items[currentItemIndex].start;
+    var elapsed = now - jobs[currentJobID].items[currentItemID].start;
 
     time.innerHTML = (elapsed / 1000).toFixed(1) + 's';
 

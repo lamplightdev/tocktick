@@ -67,7 +67,7 @@ gulp.task('dev', function () {
         script: 'server.js',
         //nodeArgs: ['--harmony'],
         ext: 'js json scss handlebars',
-        ignore: ["public/js/dist/*"],
+        ignore: ["public/js/dist/*", ".git", "node_modules", ".sass-cache"],
     })
       .on('start', ['scripts', 'sass'])
       .on('restart', ['sass']); //let watchify handle scripts restarting
