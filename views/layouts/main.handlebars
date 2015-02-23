@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#1976d2">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" sizes="192x192" href="/images/logo-app.png">
+  <link rel="apple-touch-icon" href="/images/logo-app.png">
+
+  <title>{{title}}</title>
+
+  <link href="/css/app.css" media="all" rel="stylesheet" type="text/css" />
+
+  <body lang="en">
+
+    {{{body}}}
+
+    <script>
+        {{{state}}}
+    </script>
+
+    <!-- build:js(./public) /js/dist/app.min.js -->
+    <script src="/js/dist/0.0.1.tocktick.min.js"></script>
+    <!-- endbuild -->
+
+  </body>
+
+</html>
