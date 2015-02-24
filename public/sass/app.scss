@@ -1,3 +1,5 @@
+@import "mixins";
+
 body {
        margin: 0px;
        padding: 0px;
@@ -7,3 +9,63 @@ body {
 .time {
   text-align: center;
 }
+
+.timer {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  margin: 0 auto;
+
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+  .timer__add, .timer__clock {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .timer__clock {
+      @include animation(spin 1s ease-in-out infinite);
+  }
+
+  .timer--running, .timer--stopped {
+    .timer__add, .timer__clock {
+      transition: opacity 0.2s linear 0s;
+    }
+  }
+
+  .timer--init {
+    .timer__add, .timer__clock {
+      transition: none;
+    }
+  }
+
+
+  .timer--running {
+
+    .timer__add {
+      opacity: 0;
+    }
+
+    .timer__clock {
+      opacity: 1;
+    }
+
+  }
+
+  .timer--stopped {
+
+    .timer__add {
+      opacity: 1;
+    }
+
+    .timer__clock {
+      opacity: 0;
+    }
+
+  }
+

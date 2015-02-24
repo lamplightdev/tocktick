@@ -1,6 +1,9 @@
 {{#if timers.current}}
-<div class='time'>{{timers.current.start}}</div>
+<div class='timer-time'>{{timers.current.start}}</div>
 {{else}}
-<div class='time'>0</div>
+<div class='timer-time'>0</div>
 {{/if}}
-<canvas class='timer' width="500" height="500"></canvas>
+<div class='timer {{#if timers.current}}timer--running{{else}}timer--stopped{{/if}} timer--init'>
+  <img class='timer__clock' src='/images/timer.svg' alt='running'>
+  <img class='timer__add' src='/images/add.svg' alt='add'>
+</div>

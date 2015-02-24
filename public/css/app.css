@@ -1,3 +1,19 @@
+@-webkit-keyframes spin {
+  100% {
+    transform: rotate(360deg); } }
+
+@-moz-keyframes spin {
+  100% {
+    transform: rotate(360deg); } }
+
+@-ms-keyframes spin {
+  100% {
+    transform: rotate(360deg); } }
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg); } }
+
 body {
   margin: 0px;
   padding: 0px;
@@ -5,3 +21,40 @@ body {
 
 .time {
   text-align: center; }
+
+.timer {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  margin: 0 auto;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent; }
+
+.timer__add, .timer__clock {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 0;
+  left: 0; }
+
+.timer__clock {
+  -webkit-animation: spin 1s ease-in-out infinite;
+  -moz-animation: spin 1s ease-in-out infinite;
+  -ms-animation: spin 1s ease-in-out infinite;
+  animation: spin 1s ease-in-out infinite; }
+
+.timer--running .timer__add, .timer--running .timer__clock, .timer--stopped .timer__add, .timer--stopped .timer__clock {
+  transition: opacity 0.2s linear 0s; }
+
+.timer--init .timer__add, .timer--init .timer__clock {
+  transition: none; }
+
+.timer--running .timer__add {
+  opacity: 0; }
+.timer--running .timer__clock {
+  opacity: 1; }
+
+.timer--stopped .timer__add {
+  opacity: 1; }
+.timer--stopped .timer__clock {
+  opacity: 0; }

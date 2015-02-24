@@ -1,0 +1,53 @@
+$desktop-width: 1280px;
+$tablet-width: 1024px;
+$mobile-width: 300px;
+$breakpoint: $desktop-width - 1;
+
+@mixin respond-to($media) {
+  @if $media == desktop {
+    @media only screen and (min-width: $desktop-width) { @content; }
+  } @elseif $media == mobileandtablet {
+    @media only screen and (max-width: $desktop-width - 1) { @content; }
+  } @elseif $media == tablet {
+    @media only screen and (min-width: $tablet-width) { @content; }
+  } @elseif $media == mobile {
+    @media only screen and (max-width: $tablet-width - 1) { @content; }
+  }
+}
+
+@mixin input-placeholder {
+    &.placeholder { @content; }
+    &:-moz-placeholder { @content; }
+    &::-moz-placeholder { @content; }
+    &:-ms-input-placeholder { @content; }
+    &::-webkit-input-placeholder { @content; }
+}
+
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin animation($vars) {
+  -webkit-animation: $vars;
+  -moz-animation: $vars;
+  -ms-animation: $vars;
+  animation: $vars;
+}
+
+@include keyframes(spin) {
+  100% {
+    transform: rotate(360deg);
+  }
+}

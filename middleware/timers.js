@@ -7,11 +7,17 @@ module.exports = function exposeTimers() {
     var db = res.locals.db;
 
     db.smembers('jobs:1:timers')
-        .then( (timerIDs) => {
+        .then( timerIDs => {
             var gets = [];
 
             timerIDs.forEach( timerID => {
-                gets.push(db.hgetall('timer:' + timerID));
+                var promise = db.hgetall('timer:' + timerID)
+                .then(timer => {
+                    timer.id = timerID;
+                    return timer;
+                });
+
+                return gets.push(promise);
             });
 
             return Promise.all(gets);
