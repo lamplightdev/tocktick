@@ -19,6 +19,7 @@
     "express-state": "*",
     "handlebars": "^3.0.0",
     "morgan": "*",
+    "qs": "^2.3.3",
     "redis": "*",
     "shortid": "*",
     "then-redis": "*",

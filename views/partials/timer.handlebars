@@ -1,3 +1,6 @@
+{{#if timers.current}}
+<div class='time'>{{timers.current.start}}</div>
+{{else}}
 <div class='time'>0</div>
-
+{{/if}}
 <canvas class='timer' width="500" height="500"></canvas>

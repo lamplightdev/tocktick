@@ -1,12 +1,13 @@
 <div id='view-front'>
+  <a href='/account' data-nav>account</a>
   <div class='front-timer'>
   {{> timer}}
   </div>
 
   <div class='front-history'>
-    {{#each archives}}
+    {{#each timers.all}}
     <div>
-      {{> archive}}
+      {{> timer-item}}
     </div>
     {{/each}}
   </div>

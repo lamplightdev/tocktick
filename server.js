@@ -77,7 +77,7 @@ function setupServer () {
     });
 
     app.use(middleware.exposeTemplates());
-    app.use(middleware.exposeArchives());
+    app.use(middleware.exposeTimers());
 
     app.use(express.Router());
 
