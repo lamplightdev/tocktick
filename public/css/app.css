@@ -26,35 +26,43 @@ body {
   width: 100px;
   height: 100px;
   position: relative;
-  margin: 0 auto;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent; }
+  margin: 0 auto; }
 
 .timer__add, .timer__clock {
+  display: block;
   width: 100%;
   height: auto;
   position: absolute;
   top: 0;
-  left: 0; }
+  left: 0;
+  border: 0;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  outline: none; }
+  .timer__add img, .timer__clock img {
+    width: 100%; }
 
-.timer__clock {
+.timer__clock img {
   -webkit-animation: spin 1s ease-in-out infinite;
   -moz-animation: spin 1s ease-in-out infinite;
   -ms-animation: spin 1s ease-in-out infinite;
   animation: spin 1s ease-in-out infinite; }
 
-.timer--running .timer__add, .timer--running .timer__clock, .timer--stopped .timer__add, .timer--stopped .timer__clock {
+.timer--running .timer__add img, .timer--running .timer__clock img, .timer--stopped .timer__add img, .timer--stopped .timer__clock img {
   transition: opacity 0.2s linear 0s; }
 
-.timer--init .timer__add, .timer--init .timer__clock {
+.timer--init .timer__add img, .timer--init .timer__clock img {
   transition: none; }
 
-.timer--running .timer__add {
+.timer--running .timer__add img {
   opacity: 0; }
-.timer--running .timer__clock {
+.timer--running .timer__clock img {
   opacity: 1; }
 
-.timer--stopped .timer__add {
+.timer--stopped .timer__add img {
   opacity: 1; }
-.timer--stopped .timer__clock {
+.timer--stopped .timer__clock img {
   opacity: 0; }

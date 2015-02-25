@@ -6,8 +6,9 @@ module.exports = function exposeTimers() {
   return function (req, res, next) {
     var db = res.locals.db;
 
-    db.smembers('jobs:1:timers')
+    db.lrange('jobs:2:timers', 0, -1)
         .then( timerIDs => {
+            console.log(timerIDs);
             var gets = [];
 
             timerIDs.forEach( timerID => {
@@ -27,12 +28,14 @@ module.exports = function exposeTimers() {
             timers.forEach(timer => {
                 if (timer.stop) {
                     timer.active = false;
-                    timer.elapsed = (timer.stop - timer.start) / 1000 + 's';
+                    timer.elapsed = ((timer.stop - timer.start) / 1000).toFixed(0);
                 } else {
                     timer.active = true;
                     current = timer;
                 }
             });
+
+            console.log(timers, current);
 
             res.locals.timers = {
                 all: timers,

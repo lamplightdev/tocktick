@@ -9,7 +9,7 @@ module.exports = (function() {
       db.hmset('timer:' + timerID, {
         start: req.body.timer.start
       });
-      db.sadd('jobs:' + req.params.jobID + ':timers', timerID);
+      db.lpush('jobs:' + req.params.jobID + ':timers', timerID);
 
       res.statusCode = 200;
       res.json({id: timerID});

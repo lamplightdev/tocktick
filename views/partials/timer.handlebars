@@ -4,6 +4,8 @@
 <div class='timer-time'>0</div>
 {{/if}}
 <div class='timer {{#if timers.current}}timer--running{{else}}timer--stopped{{/if}} timer--init'>
-  <img class='timer__clock' src='/images/timer.svg' alt='running'>
-  <img class='timer__add' src='/images/add.svg' alt='add'>
+  <button class='timer__clock' type='submit'><img src='/images/timer.svg' alt='running'></button>
+  <button class='timer__add' type='submit'><img src='/images/add.svg' alt='add'></button>
 </div>
+<input type='text' name='job-name'>
+<input type='text' name='timer-description'>

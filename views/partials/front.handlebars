@@ -6,9 +6,11 @@
 
   <div class='front-history'>
     {{#each timers.all}}
+    {{#unless this.active}}
     <div>
       {{> timer-item}}
     </div>
+    {{/unless}}
     {{/each}}
   </div>
 </div>

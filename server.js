@@ -21,10 +21,9 @@ var express  = require('express'),
 
 
 
-var redis = require('then-redis');
-var db = redis.createClient();
 
-db.on('connect', function() {
+
+require('lib/redis-db').on('connect', function() {
     console.log('redis connected');
     setupServer();
 });
