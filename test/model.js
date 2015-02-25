@@ -30,6 +30,7 @@ describe('Base Model', function () {
     it('creates id and save models to db', function (done) {
 
       Model.find(m.getID()).then(function (m2) {
+        assert.equal(m.getID(), m2.getID());
         assert.deepEqual(m.getMembers(), m2.getMembers());
         done();
       });

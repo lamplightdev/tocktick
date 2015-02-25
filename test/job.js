@@ -3,6 +3,7 @@ require("babel/register");
 var assert = require("assert");
 
 var Job = require('../lib/models/job');
+var Timer = require('../lib/models/timer');
 
 var db = require('../lib/redis-db');
 db.select(10);  //our test db
@@ -11,7 +12,46 @@ db.select(10);  //our test db
 
 describe('Job Model', function () {
 
-  it('can get Job with related Timers');
+  var ts, j;
+
+  beforeEach(function (done) {
+    db.flushdb();
+
+    j = new Job({
+      name: 'fixsite'
+    });
+
+    ts = [];
+
+    for (var i=0; i<10; i++) {
+      ts.push(new Timer({
+        description: 'readdocs-' + i
+      }));
+    }
+
+    j.save()
+      .then(function () {
+        var promises = [];
+        ts.forEach(function (t) {
+          promises.push(t.save(j.getID()));
+        });
+
+        return Promise.all(promises);
+      })
+      .then(function () {
+        done();
+      }).then(null, done);
+
+  });
+
+  it("can load a job's Timers", function (done) {
+
+    j.loadTimers().then(function (timers) {
+      assert.equal(timers.length, 10);
+      done();
+    }).then(null, done);
+
+  });
 
   it('can get Job name');
   it('can update Job name');
