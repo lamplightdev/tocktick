@@ -53,21 +53,39 @@ describe('Job Model', function () {
 
   });
 
-  it('can get Job name');
-  it('can update Job name');
 
-  it('can get number of related Timers');
-  it('can get number of active Timers');
-  it('can get number of inactive Timers');
+  it('can get running Timers', function (done) {
+    ts[0].start(0).stop(100).save();
+    ts[1].start(0).stop(100).save();
+    ts[2].start(0).save();
+    ts[3].start(0).save();
+    ts[4].start(0).save();
+    ts[5].start(0).save();
 
-  it('can return an existing Timer');
-  it('can add a new Timer');
-  it('can remove an existing Timer');
+    j.loadRunningTimers()
+      .then(function(timers) {
+        assert.equal(timers.length, 4);
+        done();
+      });
+  });
 
-  it('can set parent User by id');
-  it('can get parent User id');
-  it('can get parent User');
+  it('can get stopped Timers', function (done) {
+    ts[0].start(0).stop(100).save();
+    ts[1].start(0).stop(100).save();
+    ts[2].start(0).save();
+    ts[3].start(0).save();
+    ts[4].start(0).save();
+    ts[5].start(0).save();
 
-  it('can get other associated User ids');
+    j.loadStoppedTimers()
+      .then(function(timers) {
+        assert.equal(timers.length, 2);
+        done();
+      });
+  });
+
+
+  it('can save with a parent User');
+
   it('can get other associated Users');
 });
