@@ -6,10 +6,40 @@ module.exports = (function() {
     'use strict';
     var router = require('express').Router();
 
+    router.post('/account/job/add', (req, res, next) => {
+        var sharedRouter = new RouterSharedAccount({
+            user: req.user
+        });
+
+        sharedRouter.getController().addJob({
+            name: req.body.name
+        }).then(job => {
+            res.redirect('/account');
+        }).then(null, next);
+    });
+
+    router.post('/account/timer/add', (req, res, next) => {
+        var sharedRouter = new RouterSharedAccount({
+            user: req.user,
+            jobs: res.locals.jobs
+        });
+
+        console.log(req.body);
+
+        sharedRouter.getController().addTimer({
+            jobID: req.body.jobid,
+            description: req.body.description
+        }).then(timer => {
+            res.redirect('/account');
+        }).then(null, next);
+    });
+
     // catch all for /account/...
     router.get(/account(?:$|\/(.*))/i, (req, res, next) => {
         var sharedRouter = new RouterSharedAccount({
             user: req.user,
+            jobs: res.locals.jobs,
+            timers: res.locals.timers
         });
 
         sharedRouter.match(req.params[0], req.query, (routeParts, queryString) => {
@@ -25,10 +55,35 @@ module.exports = (function() {
         });
     });
 
+    router.post('/timer/start/:id?', (req, res, next) => {
+        var sharedRouter = new RouterSharedFront({
+            user: req.user
+        });
+
+        sharedRouter.getController().startTimer(
+            req.params.id,
+            req.body.jobid,
+            req.body.description
+        ).then(timer => {
+            res.redirect('/');
+        }).then(null, next);
+    });
+
+    router.post('/timer/stop/:id', (req, res, next) => {
+        var sharedRouter = new RouterSharedFront({
+            user: req.user
+        });
+
+        sharedRouter.getController().stopTimer(req.params.id).then(timer => {
+            res.redirect('/');
+        }).then(null, next);
+    });
+
     // catch all for /...
     router.get(/(?:$|\/(.*))/i, (req, res, next) => {
         var sharedRouter = new RouterSharedFront({
             user: req.user,
+            jobs: res.locals.jobs,
             timers: res.locals.timers
         });
 

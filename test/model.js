@@ -96,6 +96,31 @@ describe('Base Model', function () {
 
     });
 
+    it('can get all models for a user', function (done) {
+      var ms = [];
+      var promises = [];
+
+      for (var i=0; i<20; i++) {
+        ms.push(new Model({
+          name: 'newmodel-' + i
+        }));
+      }
+
+      ms.forEach(function (m) {
+        promises.push(m.save());
+      });
+
+      Promise.all(promises)
+        .then(function () {
+          return Model.getAllForUser();
+        })
+        .then(function (models) {
+          assert.equal(models.length, 21);
+          done();
+        })
+        .then(null, done);
+    });
+
   });
 
 });

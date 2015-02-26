@@ -44,7 +44,7 @@ var bundler = watchify(browserify('./public/js/app.js', {
   fullPaths: true,
   debug: true,
 }));
-//bundler.ignore(require.resolve('./lib/models/storage/user'));
+bundler.ignore(require.resolve('./lib/redis-db'));
 bundler.transform(babelify);
 
 function bundle() {

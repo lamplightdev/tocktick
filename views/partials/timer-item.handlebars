@@ -1,1 +1,37 @@
-{{elapsed}}s
+<h4>{{_members.description}}</h4>
+
+{{#unless isStarted}}
+
+  <form action='/timer/start/{{_id}}' method='post' api-method='put'>
+  <button type='submit'>Start</button>
+  </form>
+
+{{else}}
+
+  {{#if isRunning}}
+
+  <h5>Running</h5>
+  <div>
+  Elapsed: {{getFormattedDuration}}
+  <div>
+  <form action='/timer/stop/{{_id}}' method='post' api-method='put'>
+  <button type='submit'>Stop</button>
+  </form>
+
+  {{else}}
+
+  <h5>Complete</h5>
+  <div>
+  Elapsed: {{getFormattedDuration}}
+  <div>
+  <div>
+  Start: {{getFormattedStartTime}}
+  </div>
+  <div>
+  Stop: {{getFormattedStopTime}}
+  </div>
+
+  {{/if}}
+
+{{/unless}}
+

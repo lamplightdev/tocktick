@@ -47,11 +47,13 @@ describe('Timer Model', function () {
   });
 
   it('can stop a timer', function () {
+    t.start(0);
     t.stop();
     assert(t.getStopTime() === 1000);
   });
 
   it('can stop a timer at specific time', function () {
+    t.start(0);
     t.stop('200');
     assert(t.getStopTime() === 200);
   });
@@ -63,6 +65,7 @@ describe('Timer Model', function () {
   });
 
   it('can see if a timer is stopped', function () {
+    t.start();
     assert(!t.isStopped());
     t.stop();
     assert(t.isStopped());
@@ -105,10 +108,6 @@ describe('Timer Model', function () {
 
     t.adjustDurationFromStart(300);
     assert.equal(t.getStopTime(), 400);
-
-    t.unstop();
-    t.adjustDurationFromStart(300);
-    assert.equal(t.getStartTime(), 700);
   });
 
 
@@ -131,13 +130,15 @@ describe('Timer Model', function () {
       });
   });
 
+  it('can only save a timer once to a job');
+
   it('remove a timer from Job', function (done) {
     t.save(j.getID())
       .then(function () {
         return j.loadTimers();
       }).then(function (timers) {
         assert.equal(timers.length, 1);
-        return t.save(null);
+        return t.save(false);
       }).then(function() {
         return t.getJob();
       }).then(function(job) {

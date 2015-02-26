@@ -84,6 +84,22 @@ describe('Job Model', function () {
       });
   });
 
+  it('can remove a job with associated timers', function (done) {
+    j.loadTimers()
+      .then(function (timers) {
+        assert.equal(timers.length, 10);
+      })
+      .then(function () {
+        return j.remove();
+      })
+      .then(function () {
+        return j.loadTimers();
+      })
+      .then(function (timers) {
+        assert.equal(timers.length, 0);
+        done();
+      });
+  });
 
   it('can save with a parent User');
 

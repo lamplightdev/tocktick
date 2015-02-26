@@ -3,9 +3,19 @@
 {{else}}
 <div class='timer-time'>0</div>
 {{/if}}
-<div class='timer {{#if timers.current}}timer--running{{else}}timer--stopped{{/if}} timer--init'>
-  <button class='timer__clock' type='submit'><img src='/images/timer.svg' alt='running'></button>
-  <button class='timer__add' type='submit'><img src='/images/add.svg' alt='add'></button>
-</div>
-<input type='text' name='job-name'>
-<input type='text' name='timer-description'>
+
+<form action='/timer/start' method='post'>
+
+  <input type='text' name='description'>
+  <select name='jobid'>
+    {{#each jobs}}
+      <option value='{{this._id}}'>{{this._members.name}}</option>
+    {{/each}}
+  </select>
+
+  <div class='timer {{#if timers.current}}timer--running{{else}}timer--stopped{{/if}} timer--init'>
+    <button class='timer__clock' type='submit'><img src='/images/timer.svg' alt='running'></button>
+    <button class='timer__add' type='submit'><img src='/images/add.svg' alt='add'></button>
+  </div>
+
+</form>

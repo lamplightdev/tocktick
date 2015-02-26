@@ -21,9 +21,10 @@ var express  = require('express'),
 
 
 
+var db = require('./lib/redis-db');
 
-
-require('lib/redis-db').on('connect', function() {
+db.on('connect', function() {
+    //db.select(10);
     console.log('redis connected');
     setupServer();
 });
@@ -70,7 +71,6 @@ function setupServer () {
         //res.cookie('XSRF-TOKEN', token);
         //res.locals._csrf = token;
         // app.expose(token, 'Data._csrf');
-        res.locals.db = db;
         app.expose(req.user, 'Data.user');
         next();
     });

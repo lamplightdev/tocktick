@@ -1,49 +1,39 @@
 'use strict';
 
+var Job = require('../lib/models/job');
 
 module.exports = function exposeTimers() {
 
   return function (req, res, next) {
-    var db = res.locals.db;
+    let allJobs = [];
 
-    db.lrange('jobs:2:timers', 0, -1)
-        .then( timerIDs => {
-            console.log(timerIDs);
-            var gets = [];
+    Job.getAllForUser()
+        .then(jobs => {
+            allJobs = jobs;
 
-            timerIDs.forEach( timerID => {
-                var promise = db.hgetall('timer:' + timerID)
-                .then(timer => {
-                    timer.id = timerID;
-                    return timer;
+            let promises = [];
+            jobs.forEach(job => {
+                promises.push(job.loadTimers());
+            });
+
+            return Promise.all(promises);
+        })
+        .then(jobTimers => {
+            let allTimers= [];
+            jobTimers.forEach(timers => {
+                timers.forEach(timer => {
+                    allTimers.push(timer);
                 });
-
-                return gets.push(promise);
             });
 
-            return Promise.all(gets);
-        }).then( timers => {
-            let current = false;
-
-            timers.forEach(timer => {
-                if (timer.stop) {
-                    timer.active = false;
-                    timer.elapsed = ((timer.stop - timer.start) / 1000).toFixed(0);
-                } else {
-                    timer.active = true;
-                    current = timer;
-                }
-            });
-
-            console.log(timers, current);
-
-            res.locals.timers = {
-                all: timers,
-                current: current
-            };
+            res.locals.timers = allTimers;
             res.expose(res.locals.timers, 'Data.timers');
 
+            res.locals.jobs = allJobs;
+            res.expose(res.locals.jobs, 'Data.jobs');
+
             next();
-        });
+        })
+        .then(null, next);
   };
 };

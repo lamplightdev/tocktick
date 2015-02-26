@@ -5,12 +5,10 @@
   </div>
 
   <div class='front-history'>
-    {{#each timers.all}}
-    {{#unless this.active}}
+    {{#each timers}}
     <div>
       {{> timer-item}}
     </div>
-    {{/unless}}
     {{/each}}
   </div>
 </div>

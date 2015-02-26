@@ -1,2 +1,19 @@
 <h1>Account</h1>
 <a href='/' data-nav>home</a>
+
+{{#each jobs}}
+<div>
+  Job: {{this._members.name}}
+  <h4>Timers</h4>
+  {{#each this._timers}}
+  <div>
+  Timer: {{this._members.description}}
+  </div>
+  {{/each}}
+</div>
+{{/each}}
+
+<form action='/account/job/add' method='post'>
+  <input type='text' name='name'>
+  <button type='submit'>Add Job</button>
+</form>
