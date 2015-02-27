@@ -30,6 +30,51 @@ if (!App.Data.status404) {
   router.router.check(true);
 }
 
+let overlay = document.querySelector('.overlay');
+let overlayContent = overlay.querySelector('.overlay__content__body');
+
+function overlayClose() {
+  overlay.classList.remove('overlay--show');
+}
+
+overlay.addEventListener('click', event => {
+  if (event.target.classList.contains('overlay__close')) {
+      overlayClose();
+  }
+});
+
+function chooseSelectMe(select, value) {
+  select.value = value;
+  overlayClose();
+}
+
+function openSelectMe(connect) {
+  let select = document.querySelector('[name=' + connect + ']');
+  let numOptions = select.options.length;
+
+  let optionText = '';
+
+  optionText += `<div class='selectmebox'></div>`;
+  for(let i=0; i<numOptions; i++) {
+    optionText += `
+      <button class='selectmebox__option' data-value='${select.options[i].value}'>${select.options[i].text}</button>
+    `;
+  }
+  optionText += `</div>`;
+
+  overlayContent.innerHTML = optionText;
+
+  let options = overlayContent.querySelectorAll('.selectmebox__option');
+  for (let i=0; i<options.length; i++) {
+    options[i].addEventListener('click', event => {
+      chooseSelectMe(select, event.target.dataset.value);
+    });
+  }
+
+
+  overlay.classList.add('overlay--show');
+}
+
 document.body.addEventListener('click', (event) => {
   if (typeof event.target.dataset.nav !== 'undefined') {
     event.preventDefault();
@@ -39,9 +84,8 @@ document.body.addEventListener('click', (event) => {
     event.preventDefault();
     event.stopPropagation();
     router.router.navigate(urlparse(event.target.parentNode.href).pathname);
-  } else if (event.target.classList.contains('overlay')) {
-    console.log('overlay click');
-    router.router.navigate('/contacts');
+  } else if (event.target.classList.contains('selectme')) {
+    openSelectMe(event.target.dataset.connect);
   }
 });
 

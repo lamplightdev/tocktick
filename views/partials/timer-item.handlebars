@@ -1,4 +1,4 @@
-<h4>{{_members.description}}</h4>
+<h4>{{_job._members.name}}: {{_members.description}}</h4>
 
 {{#unless isStarted}}
 
@@ -13,7 +13,7 @@
   <h5>Running</h5>
   <div>
   Elapsed: {{getFormattedDuration}}
-  <div>
+  </div>
   <form action='/timer/stop/{{_id}}' method='post' api-method='put'>
   <button type='submit'>Stop</button>
   </form>
@@ -22,8 +22,8 @@
 
   <h5>Complete</h5>
   <div>
-  Elapsed: {{getFormattedDuration}}
-  <div>
+  Duration: {{getFormattedDuration}}
+  </div>
   <div>
   Start: {{getFormattedStartTime}}
   </div>

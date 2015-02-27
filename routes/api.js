@@ -1,29 +1,38 @@
+var RouterSharedFront = require('../lib/routers/shared-front');
+
+
 module.exports = (function() {
     'use strict';
     var router = require('express').Router();
 
-    router.post('/timer/start/:jobID', function (req, res) {
-      var db = res.locals.db;
-
-      var timerID = req.body.timer.id;
-      db.hmset('timer:' + timerID, {
-        start: req.body.timer.start
+    router.post('/timer/start/:id?', function (req, res) {
+      var sharedRouter = new RouterSharedFront({
+          user: req.user
       });
-      db.lpush('jobs:' + req.params.jobID + ':timers', timerID);
 
-      res.statusCode = 200;
-      res.json({id: timerID});
+      sharedRouter.getController().startTimer(
+          req.params.id,
+          req.body.jobid,
+          req.body.description,
+          req.body.actiontime
+      ).then(timer => {
+        res.statusCode = 200;
+        res.json(timer);
+      });
     });
 
-    router.put('/timer/stop/:clientID', function (req, res) {
-      var db = res.locals.db;
-
-      db.hmset('timer:' + req.params.clientID, {
-        start: req.body.timer.start,
-        stop: req.body.timer.stop
+    router.put('/timer/stop/:id', function (req, res) {
+      var sharedRouter = new RouterSharedFront({
+          user: req.user
       });
-      res.statusCode = 200;
-      res.json(true);
+
+      sharedRouter.getController().stopTimer(
+          req.params.id,
+          req.body.actiontime
+      ).then(timer => {
+        res.statusCode = 200;
+        res.json(timer);
+      });
     });
 
     return router;

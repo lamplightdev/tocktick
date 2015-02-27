@@ -4,6 +4,9 @@ body {
        margin: 0px;
        padding: 0px;
        background: #f1ecec;
+       font-size: 16px;
+
+       position: relative;
    }
 
 .time {
@@ -81,3 +84,35 @@ body {
 
   }
 
+
+
+.overlay {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  background: black;
+  background: rgba(255, 255, 255, 0.9);
+
+  display: none;
+}
+
+  .overlay--show {
+    display: block;
+  }
+
+  .overlay__close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+
+  .overlay__content {
+  }
+
+    .overlay__content__body {
+      padding: 1rem;
+    }

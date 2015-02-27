@@ -1,10 +1,25 @@
-{{#if timers.current}}
-<div class='timer-time'>{{timers.current.start}}</div>
+{{#ifnotfalse currentTimerIndex}}
+<div class='timer-time'>{{arrindexprop timers currentTimerIndex 'getFormattedDuration'}}</div>
 {{else}}
 <div class='timer-time'>0</div>
-{{/if}}
+{{/ifnotfalse}}
 
-<form action='/timer/start' method='post'>
+<form
+  class='front-form-startstop'
+
+  action='/timer/{{#ifnotfalse currentTimerIndex}}stop/{{arrindexprop timers currentTimerIndex '_id'}}{{else}}start{{/ifnotfalse}}'
+  method='post'
+
+  data-api-action='/api/timer/{{#ifnotfalse currentTimerIndex}}stop/{{arrindexprop timers currentTimerIndex '_id'}}{{else}}start{{/ifnotfalse}}'
+  data-api-method='{{#ifnotfalse currentTimerIndex}}put{{else}}post{{/ifnotfalse}}'
+  >
+
+  {{#ifnotfalse currentTimerIndex}}
+  <input name='type' type='hidden' value='stop'>
+  {{else}}
+  <input name='type' type='hidden' value='start'>
+  {{/ifnotfalse}}
+  <input name='actiontime' type='hidden' value=''>
 
   <input type='text' name='description'>
   <select name='jobid'>
@@ -12,8 +27,9 @@
       <option value='{{this._id}}'>{{this._members.name}}</option>
     {{/each}}
   </select>
+  <button type='button' class='selectme' data-connect='jobid'>Job</button>
 
-  <div class='timer {{#if timers.current}}timer--running{{else}}timer--stopped{{/if}} timer--init'>
+  <div class='timer {{#ifnotfalse currentTimerIndex}}timer--running{{else}}timer--stopped{{/ifnotfalse}} timer--init'>
     <button class='timer__clock' type='submit'><img src='/images/timer.svg' alt='running'></button>
     <button class='timer__add' type='submit'><img src='/images/add.svg' alt='add'></button>
   </div>
