@@ -72,15 +72,29 @@ header {
 }
 
 .nav-timer {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 57px;
-  width: auto;
-  padding: 0.5rem;
 
-  &.rotate {
-    @include animation(spin 1s ease-in-out infinite);
+  .timer {
+    width: auto;
+  }
+
+  &> img, .nav-form-start {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 57px;
+    width: 57px;
+    padding: 0.5rem;
+
+    &.rotate {
+      @include animation(spin 1s ease-in-out infinite);
+    }
+  }
+
+  .nav-form-start {
+    button {
+      width: 100%;
+      height: auto;
+    }
   }
 }
 

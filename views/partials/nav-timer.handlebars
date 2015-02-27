@@ -1,5 +1,25 @@
+<div class='nav-timer'>
 {{#ifnotfalse currentTimerIndex}}
-<img class='nav-timer rotate' src='images/timer.svg' alt='Current status'>
+<img class='rotate' src='images/timer.svg' alt='Current status'>
 {{else}}
-<img class='nav-timer' src='images/add.svg' alt='Current status'>
+<form
+  class='nav-form-start'
+
+  action='/timer/start'
+  method='post'
+
+  data-api-action='/api/timer/start'
+  >
+
+  <input name='actiontime' type='hidden' value=''>
+  <input name='jobid' type='hidden' value=''>
+
+  <input name='description' type='hidden' value=''>
+
+  <div class='timer timer--stopped'>
+    <button class='timer__add' type='submit'><img src='/images/add.svg' alt='start'></button>
+  </div>
+
+</form>
 {{/ifnotfalse}}
+</div>

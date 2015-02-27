@@ -66,18 +66,23 @@ header {
       border-bottom: 4px solid gray;
       font-weight: bold; }
 
-.nav-timer {
+.nav-timer .timer {
+  width: auto; }
+.nav-timer > img, .nav-timer .nav-form-start {
   position: absolute;
   left: 0;
   top: 0;
   height: 57px;
-  width: auto;
+  width: 57px;
   padding: 0.5rem; }
-  .nav-timer.rotate {
+  .nav-timer > img.rotate, .nav-timer .nav-form-start.rotate {
     -webkit-animation: spin 1s ease-in-out infinite;
     -moz-animation: spin 1s ease-in-out infinite;
     -ms-animation: spin 1s ease-in-out infinite;
     animation: spin 1s ease-in-out infinite; }
+.nav-timer .nav-form-start button {
+  width: 100%;
+  height: auto; }
 
 main {
   margin-top: 7rem; }
