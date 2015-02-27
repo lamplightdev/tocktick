@@ -1,13 +1,93 @@
 @import "mixins";
 
-body {
-       margin: 0px;
-       padding: 0px;
-       background: #f1ecec;
-       font-size: 16px;
+$color-brand: #237dac;
 
-       position: relative;
-   }
+* {
+  box-sizing: border-box;
+}
+
+body {
+ position: relative;
+
+ margin: 0px;
+ padding: 0px;
+ background: #f1ecec;
+
+ font-size: 16px;
+ font-family: 'Montserrat', sans-serif;
+}
+
+button {
+  font-family: inherit;
+}
+
+select {
+  border: 0;
+}
+
+header {
+  position: fixed;
+  z-index: 10;
+
+  padding: 0.5rem;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  background: $color-brand;
+  color: white;
+}
+
+.nav-outer {
+  position: fixed;
+  z-index: 10;
+
+  left: 0;
+  right: 0;
+  top: 2.2rem;
+
+  background-color: white;
+  color: $color-brand;
+}
+
+.nav {
+  margin-left: 60px;
+  display: block;
+  border-bottom: 2px solid gray;
+
+  a {
+    width: 33.33%;
+    color: black;
+    display: inline-block;
+    padding: 1em;
+    text-align: center;
+    text-decoration: none;
+    border-bottom: 4px solid white;
+
+    &.active {
+      border-bottom: 4px solid gray;
+      font-weight: bold;
+    }
+  }
+}
+
+.nav-timer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 57px;
+  width: auto;
+  padding: 0.5rem;
+
+  &.rotate {
+    @include animation(spin 1s ease-in-out infinite);
+  }
+}
+
+main {
+  margin-top: 7rem;
+}
+
 
 .time {
   text-align: center;
@@ -88,6 +168,7 @@ body {
 
 .overlay {
   position: fixed;
+  z-index: 20;
 
   top: 0;
   left: 0;

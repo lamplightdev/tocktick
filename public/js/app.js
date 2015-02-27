@@ -23,7 +23,7 @@ var router = new RouterMain(Object.assign(
   App.Data,
   {
     templates: App.templates,
-    container: document.getElementById('view')
+    //container: document.getElementById('view')
   }));
 
 if (!App.Data.status404) {
@@ -88,4 +88,3 @@ document.body.addEventListener('click', (event) => {
     openSelectMe(event.target.dataset.connect);
   }
 });
-

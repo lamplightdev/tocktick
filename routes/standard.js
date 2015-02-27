@@ -39,7 +39,8 @@ module.exports = (function() {
         var sharedRouter = new RouterSharedAccount({
             user: req.user,
             jobs: res.locals.jobs,
-            timers: res.locals.timers
+            timers: res.locals.timers,
+            currentPage: 'account',
         });
 
         sharedRouter.match(req.params[0], req.query, (routeParts, queryString) => {
@@ -84,7 +85,8 @@ module.exports = (function() {
         var sharedRouter = new RouterSharedFront({
             user: req.user,
             jobs: res.locals.jobs,
-            timers: res.locals.timers
+            timers: res.locals.timers,
+            currentPage: 'front',
         });
 
         sharedRouter.match(req.params[0], req.query, (routeParts, queryString) => {
