@@ -14,7 +14,7 @@ body {
  background: #f1ecec;
 
  font-size: 16px;
- font-family: 'Montserrat', sans-serif;
+ font-family: 'Roboto', sans-serif;
 }
 
 button {
@@ -36,6 +36,11 @@ header {
 
   background: $color-brand;
   color: white;
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
 }
 
 .nav-outer {

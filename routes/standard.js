@@ -1,5 +1,6 @@
 var RouterSharedAccount = require('../lib/routers/shared-account');
 var RouterSharedFront = require('../lib/routers/shared-front');
+var RouterSharedTimers = require('../lib/routers/shared-timers');
 
 
 module.exports = (function() {
@@ -78,6 +79,27 @@ module.exports = (function() {
         sharedRouter.getController().stopTimer(req.params.id).then(timer => {
             res.redirect('/');
         }).then(null, next);
+    });
+
+    // catch all for /timers...
+    router.get(/timers(?:$|\/(.*))/i, (req, res, next) => {
+        var sharedRouter = new RouterSharedTimers({
+            user: req.user,
+            jobs: res.locals.jobs,
+            timers: res.locals.timers,
+            currentPage: 'timers',
+        });
+
+        sharedRouter.match(req.params[0], req.query, (routeParts, queryString) => {
+
+            if (routeParts[0] === 'placeholder') {
+            } else {
+                res.render("view-timers", sharedRouter.getController()._getViewData());
+            }
+        }, (err) => {
+            console.log('timers route error: ', err);
+            next();
+        });
     });
 
     // catch all for /...
