@@ -30,7 +30,7 @@ db.on('connect', function() {
         db.auth(process.env.TOCKTICK_REDIS_PASSWORD);
     }
 
-    console.log('redis connected');
+    console.log('redis connected!');
     setupServer();
 });
 
