@@ -26,10 +26,6 @@ var db = require('./lib/redis-db');
 db.on('connect', function() {
     db.select(process.env.TOCKTICK_REDIS_DB);
 
-    if (process.env.TOCKTICK_REDIS_PASSWORD) {
-        db.auth(process.env.TOCKTICK_REDIS_PASSWORD);
-    }
-
     console.log('redis connected!');
     setupServer();
 });
