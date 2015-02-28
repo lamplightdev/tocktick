@@ -1,7 +1,5 @@
 "use strict";
 
-require("babel/polyfill");
-
 var RouterMain = require("../../lib/router-main");
 
 var Handlebars = require("../../node_modules/handlebars/dist/handlebars.runtime");
