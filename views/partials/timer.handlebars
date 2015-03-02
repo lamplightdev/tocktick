@@ -1,5 +1,5 @@
-{{#ifnotfalse currentTimerIndex}}
-<div class='timer-time'>{{arrindexprop timers currentTimerIndex 'getFormattedDuration'}}</div>
+{{#ifnotfalse timers.current}}
+<div class='timer-time'>{{objcall timers.current 'getFormattedDuration'}}</div>
 {{else}}
 <div class='timer-time'>0</div>
 {{/ifnotfalse}}
@@ -7,14 +7,14 @@
 <form
   class='front-form-startstop'
 
-  action='/timer/{{#ifnotfalse currentTimerIndex}}stop/{{arrindexprop timers currentTimerIndex '_id'}}{{else}}start{{/ifnotfalse}}'
+  action='/timer/{{#ifnotfalse timers.current}}stop/{{timers.current._id}}{{else}}start{{/ifnotfalse}}'
   method='post'
 
-  data-api-action='/api/timer/{{#ifnotfalse currentTimerIndex}}stop/{{arrindexprop timers currentTimerIndex '_id'}}{{else}}start{{/ifnotfalse}}'
-  data-api-method='{{#ifnotfalse currentTimerIndex}}put{{else}}post{{/ifnotfalse}}'
+  data-api-action='/api/timer/{{#ifnotfalse timers.current}}stop/{{timers.current._id}}{{else}}start{{/ifnotfalse}}'
+  data-api-method='{{#ifnotfalse timers.current}}put{{else}}post{{/ifnotfalse}}'
   >
 
-  {{#ifnotfalse currentTimerIndex}}
+  {{#ifnotfalse timers.current}}
   <input name='type' type='hidden' value='stop'>
   {{else}}
   <input name='type' type='hidden' value='start'>
@@ -29,7 +29,7 @@
   </select>
   <button type='button' class='selectme' data-connect='jobid'>Job</button>
 
-  <div class='timer {{#ifnotfalse currentTimerIndex}}timer--running{{else}}timer--stopped{{/ifnotfalse}} timer--init'>
+  <div class='timer {{#ifnotfalse timers.current}}timer--running{{else}}timer--stopped{{/ifnotfalse}} timer--init'>
     <button class='timer__clock' type='submit'><img src='/images/timer.svg' alt='running'></button>
     <button class='timer__add' type='submit'><img src='/images/add.svg' alt='add'></button>
   </div>

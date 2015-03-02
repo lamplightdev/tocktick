@@ -75,14 +75,14 @@ header {
 
 .nav-timer .timer {
   width: auto; }
-.nav-timer > img, .nav-timer .nav-form-start {
+.nav-timer > a img, .nav-timer .nav-form-start {
   position: absolute;
   left: 0;
   top: 0;
   height: 57px;
   width: 57px;
   padding: 0.5rem; }
-  .nav-timer > img.rotate, .nav-timer .nav-form-start.rotate {
+  .nav-timer > a img.rotate, .nav-timer .nav-form-start.rotate {
     -webkit-animation: spin 1s ease-in-out infinite;
     -moz-animation: spin 1s ease-in-out infinite;
     -ms-animation: spin 1s ease-in-out infinite;
