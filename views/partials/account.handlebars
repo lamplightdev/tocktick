@@ -1,16 +1,16 @@
 <div id='view-account'>
 
-  {{#each jobs}}
+  {{#eachobjcall grouped 'getOrderedJobs'}}
   <div>
     Job: {{this._members.name}}
     <h4>Timers</h4>
-    {{#each this._timers}}
+    {{#eachobjcall @root.grouped 'getOrderedJobTimers' 0=this._id}}
     <div>
-    Timer: {{this._members.description}}
+    Timer: {{this._members.description}} ({{#if this.isRunning}}Running, {{/if}}{{this.getFormattedDuration}})
     </div>
-    {{/each}}
+    {{/eachobjcall}}
   </div>
-  {{/each}}
+  {{/eachobjcall}}
 
   <form action='/account/job/add' method='post'>
     <input type='text' name='name'>

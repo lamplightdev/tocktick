@@ -1,5 +1,5 @@
-{{#ifnotfalse timers.current}}
-<div class='timer-time'>{{objcall timers.current 'getFormattedDuration'}}</div>
+{{#ifnotfalse grouped._timers.current}}
+<div class='timer-time'>{{objcall grouped._timers.current 'getFormattedDuration'}}</div>
 {{else}}
 <div class='timer-time'>0</div>
 {{/ifnotfalse}}
@@ -7,14 +7,14 @@
 <form
   class='front-form-startstop'
 
-  action='/timer/{{#ifnotfalse timers.current}}stop/{{timers.current._id}}{{else}}start{{/ifnotfalse}}'
+  action='/timer/{{#ifnotfalse grouped._timers.current}}stop/{{grouped._timers.current._id}}{{else}}start{{/ifnotfalse}}'
   method='post'
 
-  data-api-action='/api/timer/{{#ifnotfalse timers.current}}stop/{{timers.current._id}}{{else}}start{{/ifnotfalse}}'
-  data-api-method='{{#ifnotfalse timers.current}}put{{else}}post{{/ifnotfalse}}'
+  data-api-action='/api/timer/{{#ifnotfalse grouped._timers.current}}stop/{{grouped._timers.current._id}}{{else}}start{{/ifnotfalse}}'
+  data-api-method='{{#ifnotfalse grouped._timers.current}}put{{else}}post{{/ifnotfalse}}'
   >
 
-  {{#ifnotfalse timers.current}}
+  {{#ifnotfalse grouped._timers.current}}
   <input name='type' type='hidden' value='stop'>
   {{else}}
   <input name='type' type='hidden' value='start'>
@@ -23,13 +23,13 @@
 
   <input type='text' name='description'>
   <select name='jobid'>
-    {{#each jobs}}
+    {{#each grouped._jobs.all}}
       <option value='{{this._id}}'>{{this._members.name}}</option>
     {{/each}}
   </select>
   <button type='button' class='selectme' data-connect='jobid'>Job</button>
 
-  <div class='timer {{#ifnotfalse timers.current}}timer--running{{else}}timer--stopped{{/ifnotfalse}} timer--init'>
+  <div class='timer {{#ifnotfalse grouped._timers.current}}timer--running{{else}}timer--stopped{{/ifnotfalse}} timer--init'>
     <button class='timer__clock' type='submit'><img src='/images/timer.svg' alt='running'></button>
     <button class='timer__add' type='submit'><img src='/images/add.svg' alt='add'></button>
   </div>

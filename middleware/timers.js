@@ -7,8 +7,7 @@ module.exports = function exposeTimers() {
   return function (req, res, next) {
 
     Group.fromDB().then((grouped) => {
-        res.locals.jobs = grouped.getJobInfo();
-        res.locals.timers = grouped.getTimerInfo();
+        res.locals.grouped = grouped;
         res.expose(grouped.getJobs(), 'Data.jobs');
         res.expose(grouped.getTimers(), 'Data.timers');
 

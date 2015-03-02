@@ -9,7 +9,8 @@ module.exports = (function() {
 
     router.post('/account/job/add', (req, res, next) => {
         var sharedRouter = new RouterSharedAccount({
-            user: req.user
+            user: req.user,
+            grouped: res.locals.grouped,
         });
 
         sharedRouter.getController().addJob({
@@ -22,7 +23,7 @@ module.exports = (function() {
     router.post('/account/timer/add', (req, res, next) => {
         var sharedRouter = new RouterSharedAccount({
             user: req.user,
-            jobs: res.locals.jobs
+            grouped: res.locals.grouped,
         });
 
         console.log(req.body);
@@ -39,8 +40,7 @@ module.exports = (function() {
     router.get(/account(?:$|\/(.*))/i, (req, res, next) => {
         var sharedRouter = new RouterSharedAccount({
             user: req.user,
-            jobs: res.locals.jobs,
-            timers: res.locals.timers,
+            grouped: res.locals.grouped,
             currentPage: 'account',
         });
 
@@ -59,7 +59,8 @@ module.exports = (function() {
 
     router.post('/timer/start/:id?', (req, res, next) => {
         var sharedRouter = new RouterSharedFront({
-            user: req.user
+            user: req.user,
+            grouped: res.locals.grouped,
         });
 
         sharedRouter.getController().startTimer(
@@ -73,7 +74,8 @@ module.exports = (function() {
 
     router.post('/timer/stop/:id', (req, res, next) => {
         var sharedRouter = new RouterSharedFront({
-            user: req.user
+            user: req.user,
+            grouped: res.locals.grouped,
         });
 
         sharedRouter.getController().stopTimer(req.params.id).then(timer => {
@@ -85,8 +87,7 @@ module.exports = (function() {
     router.get(/timers(?:$|\/(.*))/i, (req, res, next) => {
         var sharedRouter = new RouterSharedTimers({
             user: req.user,
-            jobs: res.locals.jobs,
-            timers: res.locals.timers,
+            grouped: res.locals.grouped,
             currentPage: 'timers',
         });
 
@@ -106,8 +107,7 @@ module.exports = (function() {
     router.get(/(?:$|\/(.*))/i, (req, res, next) => {
         var sharedRouter = new RouterSharedFront({
             user: req.user,
-            jobs: res.locals.jobs,
-            timers: res.locals.timers,
+            grouped: res.locals.grouped,
             currentPage: 'front',
         });
 

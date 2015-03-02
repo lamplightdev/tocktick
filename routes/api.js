@@ -7,7 +7,8 @@ module.exports = (function() {
 
     router.post('/timer/start/:id?', function (req, res) {
       var sharedRouter = new RouterSharedFront({
-          user: req.user
+          user: req.user,
+          grouped: res.locals.grouped,
       });
 
       sharedRouter.getController().startTimer(
@@ -23,7 +24,8 @@ module.exports = (function() {
 
     router.put('/timer/stop/:id', function (req, res) {
       var sharedRouter = new RouterSharedFront({
-          user: req.user
+          user: req.user,
+          grouped: res.locals.grouped,
       });
 
       sharedRouter.getController().stopTimer(
