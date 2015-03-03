@@ -30,7 +30,11 @@ body {
   font-family: 'Roboto', sans-serif; }
 
 button {
-  font-family: inherit; }
+  font-family: inherit;
+  border: 0;
+  background-color: transparent;
+  padding: 0;
+  margin: 0; }
 
 select {
   border: 0; }
@@ -62,7 +66,7 @@ header {
   display: block;
   border-bottom: 2px solid gray; }
   .nav a {
-    width: 33.33%;
+    width: 25%;
     color: black;
     display: inline-block;
     padding: 1em;
@@ -73,26 +77,54 @@ header {
       border-bottom: 4px solid gray;
       font-weight: bold; }
 
-.nav-timer .timer {
-  width: auto; }
-.nav-timer > a img, .nav-timer .nav-form-start {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 57px;
-  width: 57px;
-  padding: 0.5rem; }
-  .nav-timer > a img.rotate, .nav-timer .nav-form-start.rotate {
-    -webkit-animation: spin 1s ease-in-out infinite;
-    -moz-animation: spin 1s ease-in-out infinite;
-    -ms-animation: spin 1s ease-in-out infinite;
-    animation: spin 1s ease-in-out infinite; }
-.nav-timer .nav-form-start button {
-  width: 100%;
-  height: auto; }
+.nav-timer {
+  float: left; }
+  .nav-timer .timer {
+    width: auto; }
+  .nav-timer .nav-form-start {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 57px;
+    width: 57px;
+    padding: 0.5rem; }
+    .nav-timer .nav-form-start button {
+      width: 100%;
+      height: auto; }
+  .nav-timer .nav-timer__running {
+    position: relative;
+    height: 57px;
+    width: 57px; }
+    .nav-timer .nav-timer__running > a img, .nav-timer .nav-timer__running .nav-form-start {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 57px;
+      width: 57px;
+      padding: 0.5rem; }
+      .nav-timer .nav-timer__running > a img.rotate, .nav-timer .nav-timer__running .nav-form-start.rotate {
+        -webkit-animation: spin 1s ease-in-out infinite;
+        -moz-animation: spin 1s ease-in-out infinite;
+        -ms-animation: spin 1s ease-in-out infinite;
+        animation: spin 1s ease-in-out infinite; }
+  .nav-timer .nav-timer__running__count {
+    background-color: #237dac;
+    color: white;
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 1rem;
+    font-size: 0.5rem;
+    line-height: 1.1rem;
+    text-align: center; }
 
 main {
   margin-top: 7rem; }
+
+#view {
+  padding: 0.5rem; }
 
 .time {
   text-align: center; }
@@ -141,6 +173,16 @@ main {
   opacity: 1; }
 .timer--stopped .timer__clock img {
   opacity: 0; }
+
+.timer-list-item__name span {
+  margin-left: 1rem;
+  font-size: 0.7em; }
+
+.timer-list-item__status--running img {
+  -webkit-animation: spin 1s ease-in-out infinite;
+  -moz-animation: spin 1s ease-in-out infinite;
+  -ms-animation: spin 1s ease-in-out infinite;
+  animation: spin 1s ease-in-out infinite; }
 
 .overlay {
   position: fixed;

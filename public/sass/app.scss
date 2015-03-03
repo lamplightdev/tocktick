@@ -19,6 +19,11 @@ body {
 
 button {
   font-family: inherit;
+
+  border: 0;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
 }
 
 select {
@@ -61,7 +66,7 @@ header {
   border-bottom: 2px solid gray;
 
   a {
-    width: 33.33%;
+    width: 25%;
     color: black;
     display: inline-block;
     padding: 1em;
@@ -77,12 +82,13 @@ header {
 }
 
 .nav-timer {
+  float: left;
 
   .timer {
     width: auto;
   }
 
-  &> a img, .nav-form-start {
+  .nav-form-start {
     position: absolute;
     left: 0;
     top: 0;
@@ -90,21 +96,55 @@ header {
     width: 57px;
     padding: 0.5rem;
 
-    &.rotate {
-      @include animation(spin 1s ease-in-out infinite);
-    }
-  }
-
-  .nav-form-start {
     button {
       width: 100%;
       height: auto;
     }
   }
+
+  .nav-timer__running {
+    position: relative;
+    height: 57px;
+    width: 57px;
+
+    &> a img, .nav-form-start {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 57px;
+      width: 57px;
+      padding: 0.5rem;
+
+      &.rotate {
+        @include animation(spin 1s ease-in-out infinite);
+      }
+    }
+  }
+
+    .nav-timer__running__count {
+      background-color: $color-brand;
+      color: white;
+
+      position: absolute;
+      bottom: 0.5rem;
+      right: 0.5rem;
+
+      width: 1rem;
+      height: 1rem;
+      border-radius: 1rem;
+
+      font-size: 0.5rem;
+      line-height: 1.1rem;
+      text-align: center;
+    }
 }
 
 main {
   margin-top: 7rem;
+}
+
+#view {
+  padding: 0.5rem;
 }
 
 
@@ -184,6 +224,45 @@ main {
   }
 
 
+.timer-list-item {
+
+}
+
+  .timer-list-item__name {
+    span {
+      margin-left: 1rem;
+      font-size: 0.7em;
+    }
+  }
+
+  .timer-list-item__status {
+  }
+
+    .timer-list-item__status--running {
+      img {
+        @include animation(spin 1s ease-in-out infinite);
+      }
+    }
+
+    .timer-list-item__status--complete {
+
+    }
+
+  .timer-list-item__duration {
+
+  }
+
+  .timer-list-item__started {
+
+  }
+
+  .timer-list-item__stopped {
+
+  }
+
+  .timer-list-item__actions {
+
+  }
 
 .overlay {
   position: fixed;

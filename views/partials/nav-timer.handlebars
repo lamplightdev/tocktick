@@ -1,6 +1,9 @@
 <div class='nav-timer'>
 {{#ifnotfalse grouped._timers.current}}
-<a href='/timers/{{grouped._timers.current._id}}' data-nav><img class='rotate' src='/images/timer.svg' alt='Current status'></a>
+<div class='nav-timer__running'>
+  <a href='/timers/{{grouped._timers.current._id}}' data-nav><img class='rotate' src='/images/timer.svg' alt='Current status'></a>
+  <div class='nav-timer__running__count'>1</div>
+</div>
 {{else}}
 <form
   class='nav-form-start'
