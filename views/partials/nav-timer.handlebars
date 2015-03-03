@@ -1,8 +1,8 @@
 <div class='nav-timer'>
-{{#ifnotfalse grouped._timers.current}}
+{{#ifobjcall grouped 'getNumCurrentTimers'}}
 <div class='nav-timer__running'>
-  <a href='/timers/{{grouped._timers.current._id}}' data-nav><img class='rotate' src='/images/timer.svg' alt='Current status'></a>
-  <div class='nav-timer__running__count'>1</div>
+  <a href='/timers/' data-nav><img class='rotate' src='/images/timer.svg' alt='Current status'></a>
+  <div class='nav-timer__running__count'>{{objcall grouped 'getNumCurrentTimers'}}</div>
 </div>
 {{else}}
 <form
@@ -24,5 +24,5 @@
   </div>
 
 </form>
-{{/ifnotfalse}}
+{{/ifobjcall}}
 </div>
