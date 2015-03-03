@@ -252,7 +252,7 @@ main {
 
   .timer-list-item__status {
     float: left;
-    width: 60px;
+    width: 50px;
 
     padding: 0.5rem;
   }
@@ -285,9 +285,23 @@ main {
 
   .timer-list-item__actions {
     float: right;
-    width: 60px;
+    width: 100px;
     padding: 0.5rem;
+
+    text-align: right;
   }
+
+    .timer-list-item__actions__stop {
+      display: inline-block;
+    }
+
+  .timer-list-item__edit {
+    display: none;
+  }
+
+    .timer-list-item__edit--show {
+      display: block;
+    }
 
 .overlay {
   position: fixed;

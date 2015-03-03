@@ -37,5 +37,24 @@ module.exports = (function() {
       });
     });
 
+
+    router.put('/timer/update/:id', function (req, res) {
+      var sharedRouter = new RouterSharedFront({
+          user: req.user,
+          grouped: res.locals.grouped,
+      });
+
+      sharedRouter.getController().updateTimer(
+          req.params.id,
+          {
+            description: req.body.description,
+            jobID: req.body.jobid
+          }
+      ).then(timer => {
+        res.statusCode = 200;
+        res.json(timer);
+      });
+    });
+
     return router;
 })();

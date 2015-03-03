@@ -7,10 +7,18 @@
 
     <div class='timer-list-item__status timer-list-item__status--running'><img src='/images/timer.svg' alt='running'></div>
     <div class='timer-list-item__actions'>
-      <form class='timer-list-item__actions__stop' data-timer-id='{{_id}}' action='/timer/stop/{{_id}}' method='post' data-api-method='put' data-api-action='/api/timer/stop/{{_id}}'>
-      <input name='actiontime' type='hidden' value=''>
-      <button type='submit'><img src='/images/stop.svg' alt='stop'></button>
+      <form
+        class='timer-list-item__actions__stop'
+        data-timer-id='{{_id}}'
+        action='/timer/stop/{{_id}}'
+        method='post'
+        data-api-method='put'
+        data-api-action='/api/timer/stop/{{_id}}'
+        >
+        <input name='actiontime' type='hidden' value=''>
+        <button type='submit'><img src='/images/stop.svg' alt='stop'></button>
       </form>
+      <button type='button' class='timer-list-item__actions__edit' data-timer-id='{{_id}}'><img src='/images/cog.svg' alt='edit'></button>
     </div>
     <div class='timer-list-item__timings'>
       <div class='timer-list-item__timings__duration'>
@@ -26,6 +34,7 @@
 
     <div class='timer-list-item__status timer-list-item__status--complete'><img src='/images/checkmark.svg' alt='complete'></div>
     <div class='timer-list-item__actions'>
+      <button type='button' class='timer-list-item__actions__edit' data-timer-id='{{_id}}'><img src='/images/cog.svg' alt='edit'></button>
     </div>
     <div class='timer-list-item__timings'>
       <div class='timer-list-item__timings__duration'>
@@ -41,5 +50,28 @@
 
 
   {{/if}}
+
+  <form
+    class='timer-list-item__edit'
+    data-timer-id='{{_id}}'
+    action='/timer/update/{{_id}}'
+    method='post'
+    data-api-action='/api/timer/update/{{_id}}'
+    data-api-method='put'
+    >
+
+    <input type='text' name='description' value='{{_members.description}}'>
+    <select name='jobid' class='hide-for-js-version'>
+      {{#each @root.grouped._jobs.all}}
+        <option
+          value='{{this._id}}'
+          {{#ifequal this._id ../_members.jobID}}selected='selected'{{/ifequal}}
+          >{{this._members.name}}</option>
+      {{/each}}
+    </select>
+    <button type='button' class='selectme' data-connect='jobid'>Job</button>
+
+    <button type='submit'><img src='/images/checkmark.svg' alt='save'></button>
+  </form>
 
 </div>
