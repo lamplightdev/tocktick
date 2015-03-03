@@ -225,7 +225,8 @@ main {
   display: inline-block; }
 
 .timer-list-item__edit {
-  display: none; }
+  display: none;
+  clear: both; }
 
 .timer-list-item__edit--show {
   display: block; }
