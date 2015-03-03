@@ -12,7 +12,7 @@ module.exports = function exposeTimers() {
         res.expose(grouped.getTimers(), 'Data.timers');
 
         next();
-    })
+    }, next)
     .then(null, next);
 
   };
