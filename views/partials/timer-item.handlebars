@@ -7,13 +7,14 @@
 
     <div class='timer-list-item__status timer-list-item__status--running'><img src='/images/timer.svg' alt='running'></div>
     <div class='timer-list-item__actions'>
-      <form action='/timer/stop/{{_id}}' method='post' api-method='put'>
+      <form class='timer-list-item__actions__stop' data-timer-id='{{_id}}' action='/timer/stop/{{_id}}' method='post' data-api-method='put' data-api-action='/api/timer/stop/{{_id}}'>
+      <input name='actiontime' type='hidden' value=''>
       <button type='submit'><img src='/images/stop.svg' alt='stop'></button>
       </form>
     </div>
     <div class='timer-list-item__timings'>
       <div class='timer-list-item__timings__duration'>
-      <span>{{getFormattedDuration}}</span>
+      <span>{{objcall this 'getFormattedDuration' 0=true}}</span>
       </div>
       <div class='timer-list-item__timings__started'>
       Started: {{getFormattedStartTime}}
@@ -28,7 +29,7 @@
     </div>
     <div class='timer-list-item__timings'>
       <div class='timer-list-item__timings__duration'>
-      {{getFormattedDuration}}
+      {{objcall this 'getFormattedDuration' 0=true}}
       </div>
       <div class='timer-list-item__timings__started'>
       Started: {{getFormattedStartTime}}

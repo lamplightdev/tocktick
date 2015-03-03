@@ -50,6 +50,10 @@ header {
   }
 }
 
+.hide {
+  display: none;
+}
+
 .nav-outer {
   position: fixed;
   z-index: 10;
@@ -71,7 +75,7 @@ header {
     width: 25%;
     color: black;
     display: inline-block;
-    padding: 1em;
+    padding: 1rem 0;
     text-align: center;
     text-decoration: none;
     border-bottom: 4px solid white;
@@ -265,7 +269,6 @@ main {
 
   .timer-list-item__timings {
     float: left;
-    margin: 0 120px 0 6px;
     padding: 0.5rem;
   }
     .timer-list-item__timings__duration {
@@ -282,7 +285,7 @@ main {
 
   .timer-list-item__actions {
     float: right;
-    width: 120px;
+    width: 60px;
     padding: 0.5rem;
   }
 

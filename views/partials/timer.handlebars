@@ -22,7 +22,7 @@
   <input name='actiontime' type='hidden' value=''>
 
   <input type='text' name='description'>
-  <select name='jobid'>
+  <select name='jobid' class='hide-for-js-version'>
     {{#each grouped._jobs.all}}
       <option value='{{this._id}}'>{{this._members.name}}</option>
     {{/each}}
