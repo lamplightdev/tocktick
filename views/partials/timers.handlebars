@@ -1,7 +1,7 @@
 <div id='view-timers'>
 
   <div class='timers-history'>
-    {{#eachobjcall grouped 'getOrderedTimers'}}
+    {{#eachobjcall grouped 'getOrderedTimers' 0=10}}
     <div>
       {{> timer-item}}
     </div>

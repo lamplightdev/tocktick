@@ -1,35 +1,43 @@
 <div class='timer-list-item timer-list-item--{{_id}}'>
 
-  <h4 class='timer-list-item__name'>{{arrindexprop @root.grouped._jobs.all _members.jobID '_members.name'}}{{#if _members.description}}<span>{{_members.description}}{{/if}}</spam></h4>
+  <div class='timer-list-item__name'>{{arrindexprop @root.grouped._jobs.all _members.jobID '_members.name'}}{{#if _members.description}}<span>{{_members.description}}{{/if}}</spam></div>
 
 
   {{#if isRunning}}
 
     <div class='timer-list-item__status timer-list-item__status--running'><img src='/images/timer.svg' alt='running'></div>
-    <div class='timer-list-item__duration'>
-    <span>{{getFormattedDuration}}</span>
-    </div>
-    <div class='timer-list-item__started'>
-    Started: {{getFormattedStartTime}}
-    </div>
     <div class='timer-list-item__actions'>
       <form action='/timer/stop/{{_id}}' method='post' api-method='put'>
       <button type='submit'><img src='/images/stop.svg' alt='stop'></button>
       </form>
     </div>
+    <div class='timer-list-item__timings'>
+      <div class='timer-list-item__timings__duration'>
+      <span>{{getFormattedDuration}}</span>
+      </div>
+      <div class='timer-list-item__timings__started'>
+      Started: {{getFormattedStartTime}}
+      </div>
+    </div>
+
 
     {{else}}
 
     <div class='timer-list-item__status timer-list-item__status--complete'><img src='/images/checkmark.svg' alt='complete'></div>
-    <div class='timer-list-item__duration'>
-    {{getFormattedDuration}}
+    <div class='timer-list-item__actions'>
     </div>
-    <div class='timer-list-item__started'>
-    Started: {{getFormattedStartTime}}
+    <div class='timer-list-item__timings'>
+      <div class='timer-list-item__timings__duration'>
+      {{getFormattedDuration}}
+      </div>
+      <div class='timer-list-item__timings__started'>
+      Started: {{getFormattedStartTime}}
+      </div>
+      <div class='timer-list-item__timings__stopped'>
+      Stopped: {{getFormattedStopTime}}
+      </div>
     </div>
-    <div class='timer-list-item__stopped'>
-    Stopped: {{getFormattedStopTime}}
-    </div>
+
 
   {{/if}}
 

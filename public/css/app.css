@@ -34,7 +34,8 @@ button {
   border: 0;
   background-color: transparent;
   padding: 0;
-  margin: 0; }
+  margin: 0;
+  cursor: pointer; }
 
 select {
   border: 0; }
@@ -121,9 +122,9 @@ header {
     text-align: center; }
 
 main {
-  margin-top: 7rem; }
+  margin-top: 5.7rem; }
 
-#view {
+#view-front {
   padding: 0.5rem; }
 
 .time {
@@ -174,15 +175,48 @@ main {
 .timer--stopped .timer__clock img {
   opacity: 0; }
 
-.timer-list-item__name span {
-  margin-left: 1rem;
-  font-size: 0.7em; }
+.timer-list-item {
+  background-color: rgba(35, 125, 172, 0.1);
+  border-bottom: 1px solid white; }
+  .timer-list-item:after {
+    content: "";
+    display: table;
+    clear: both; }
+
+.timer-list-item__name {
+  background-color: rgba(35, 125, 172, 0.7);
+  color: white;
+  padding: 0.5rem; }
+  .timer-list-item__name span {
+    margin-left: 1rem;
+    font-size: 0.7em; }
+
+.timer-list-item__status {
+  float: left;
+  width: 60px;
+  padding: 0.5rem; }
 
 .timer-list-item__status--running img {
   -webkit-animation: spin 1s ease-in-out infinite;
   -moz-animation: spin 1s ease-in-out infinite;
   -ms-animation: spin 1s ease-in-out infinite;
   animation: spin 1s ease-in-out infinite; }
+
+.timer-list-item__timings {
+  float: left;
+  margin: 0 120px 0 6px;
+  padding: 0.5rem; }
+
+.timer-list-item__timings__started {
+  font-size: 0.7rem; }
+
+.timer-list-item__timings__stopped {
+  font-size: 0.7rem; }
+
+.timer-list-item__actions {
+  float: right;
+  width: 120px;
+  padding: 0.5rem; }
 
 .overlay {
   position: fixed;

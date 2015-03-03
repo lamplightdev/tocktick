@@ -24,6 +24,8 @@ button {
   background-color: transparent;
   padding: 0;
   margin: 0;
+
+  cursor: pointer;
 }
 
 select {
@@ -140,13 +142,15 @@ header {
 }
 
 main {
-  margin-top: 7rem;
+  margin-top: 5.7rem;
 }
 
 #view {
-  padding: 0.5rem;
 }
 
+#view-front {
+  padding: 0.5rem;
+}
 
 .time {
   text-align: center;
@@ -225,10 +229,17 @@ main {
 
 
 .timer-list-item {
+  background-color: rgba($color-brand, 0.1);
+  border-bottom: 1px solid white;
 
+  @include clearfix();
 }
 
   .timer-list-item__name {
+    background-color: rgba($color-brand, 0.7);
+    color: white;
+    padding: 0.5rem;
+
     span {
       margin-left: 1rem;
       font-size: 0.7em;
@@ -236,6 +247,10 @@ main {
   }
 
   .timer-list-item__status {
+    float: left;
+    width: 60px;
+
+    padding: 0.5rem;
   }
 
     .timer-list-item__status--running {
@@ -248,20 +263,27 @@ main {
 
     }
 
-  .timer-list-item__duration {
-
+  .timer-list-item__timings {
+    float: left;
+    margin: 0 120px 0 6px;
+    padding: 0.5rem;
   }
+    .timer-list-item__timings__duration {
 
-  .timer-list-item__started {
+    }
 
-  }
+    .timer-list-item__timings__started {
+      font-size: 0.7rem;
+    }
 
-  .timer-list-item__stopped {
-
-  }
+    .timer-list-item__timings__stopped {
+      font-size: 0.7rem;
+    }
 
   .timer-list-item__actions {
-
+    float: right;
+    width: 120px;
+    padding: 0.5rem;
   }
 
 .overlay {
