@@ -2,6 +2,7 @@ require("babel/register");
 
 var assert = require("assert");
 var rewire = require('rewire');
+var exec = require('child_process').exec;
 
 var Job = require('../lib/models/job');
 var Timer = rewire('../lib/models/timer');
@@ -23,16 +24,18 @@ describe('Timer Model', function () {
   beforeEach(function (done) {
     db.flushdb();
 
-    j = new Job({
-      name: 'fixsite'
-    });
+    exec('cat test/redis-fixture.txt | redis-cli', function(err, data) {
+      j = new Job({
+        name: 'fixsite'
+      });
 
-    t = new Timer({
-      description: 'readdocs'
-    });
+      t = new Timer({
+        description: 'readdocs'
+      });
 
-    Promise.all([j.save(), t.save()]).then(function () {
-      done();
+      Promise.all([j.save(), t.save()]).then(function () {
+        done();
+      });
     });
   });
 
@@ -88,6 +91,14 @@ describe('Timer Model', function () {
     assert(t.isRunning());
   });
 
+  it('can restart a timer', function () {
+    t.start(100);
+    t.stop(1500);
+    assert.equal(t.getDuration(), 1400);
+    t.restart();
+    assert.equal(t.getDuration(), 500);
+  });
+
   it('can get Timer description', function () {
     assert.equal(t.getDescription(), 'readdocs');
   });
@@ -95,7 +106,7 @@ describe('Timer Model', function () {
   it('can get Time duration', function () {
     assert.equal(t.getDuration(), 0);
     t.start(100);
-    assert(t.getDuration() > 100);
+    assert.equal(t.getDuration(), 900);
     t.stop(500);
     assert.equal(t.getDuration(), 400);
   });
@@ -120,6 +131,13 @@ describe('Timer Model', function () {
     assert.equal(t.getStartTime(), 400);
   });
 
+  it('can get a formatted time', function () {
+    t.start(0);
+    t.stop(55783069357);
+    assert.equal(t.getFormattedDuration(), '1 year 9 months 1 week 10 days 15 hours 17 minutes 48 seconds');
+    assert.equal(t.getFormattedDuration(true), '1y 9m 1w 10d 15h 17m 48s');
+  });
+
   it('can save with a parent Job', function (done) {
     t.save(j.getID())
       .then(function () {
@@ -135,7 +153,7 @@ describe('Timer Model', function () {
   it('remove a timer from Job', function (done) {
     t.save(j.getID())
       .then(function () {
-        return j.loadTimers();
+        return j.findTimers();
       }).then(function (timers) {
         assert.equal(timers.length, 1);
         return t.save(false);
@@ -143,7 +161,7 @@ describe('Timer Model', function () {
         return t.getJob();
       }).then(function(job) {
         assert(!job);
-        return j.loadTimers();
+        return j.findTimers();
       }).then(function (timers) {
         assert.equal(timers.length, 0);
         done();
@@ -153,16 +171,23 @@ describe('Timer Model', function () {
   it("removes itself from job's timer list when removed", function (done) {
     t.save(j.getID())
       .then(function () {
-        return j.loadTimers();
+        return j.findTimers();
       }).then(function (timers) {
         assert.equal(timers.length, 1);
         return t.remove();
       }).then(() => {
-        return j.loadTimers();
+        return j.findTimers();
       }).then(function (timers) {
         assert.equal(timers.length, 0);
         done();
       }).then(null, done);
+  });
+
+  it("can get the most recent timer", function (done) {
+    Timer.getMostRecent().then(function (timer) {
+      assert.equal(timer.getID(), t.getID());
+      done();
+    });
   });
 
   it('can save with a parent User');

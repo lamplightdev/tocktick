@@ -1,6 +1,7 @@
 require("babel/register");
 
 var assert = require("assert");
+var exec = require('child_process').exec;
 
 var Job = require('../lib/models/job');
 var Timer = require('../lib/models/timer');
@@ -17,36 +18,38 @@ describe('Job Model', function () {
   beforeEach(function (done) {
     db.flushdb();
 
-    j = new Job({
-      name: 'fixsite'
+    exec('cat test/redis-fixture.txt | redis-cli', function(err, data) {
+      j = new Job({
+        name: 'fixsite'
+      });
+
+      ts = [];
+
+      for (var i=0; i<10; i++) {
+        ts.push(new Timer({
+          description: 'readdocs-' + i
+        }));
+      }
+
+      j.save()
+        .then(function () {
+          var promises = [];
+          ts.forEach(function (t) {
+            promises.push(t.save(j.getID()));
+          });
+
+          return Promise.all(promises);
+        })
+        .then(function () {
+          done();
+        }).then(null, done);
     });
-
-    ts = [];
-
-    for (var i=0; i<10; i++) {
-      ts.push(new Timer({
-        description: 'readdocs-' + i
-      }));
-    }
-
-    j.save()
-      .then(function () {
-        var promises = [];
-        ts.forEach(function (t) {
-          promises.push(t.save(j.getID()));
-        });
-
-        return Promise.all(promises);
-      })
-      .then(function () {
-        done();
-      }).then(null, done);
 
   });
 
-  it("can load a job's Timers", function (done) {
+  it("can find a job's Timers", function (done) {
 
-    j.loadTimers().then(function (timers) {
+    j.findTimers().then(function (timers) {
       assert.equal(timers.length, 10);
       done();
     }).then(null, done);
@@ -54,7 +57,7 @@ describe('Job Model', function () {
   });
 
 
-  it('can get running Timers', function (done) {
+  it('can find running Timers', function (done) {
     ts[0].start(0).stop(100).save();
     ts[1].start(0).stop(100).save();
     ts[2].start(0).save();
@@ -62,14 +65,14 @@ describe('Job Model', function () {
     ts[4].start(0).save();
     ts[5].start(0).save();
 
-    j.loadRunningTimers()
+    j.findRunningTimers()
       .then(function(timers) {
         assert.equal(timers.length, 4);
         done();
       });
   });
 
-  it('can get stopped Timers', function (done) {
+  it('can find stopped Timers', function (done) {
     ts[0].start(0).stop(100).save();
     ts[1].start(0).stop(100).save();
     ts[2].start(0).save();
@@ -77,7 +80,7 @@ describe('Job Model', function () {
     ts[4].start(0).save();
     ts[5].start(0).save();
 
-    j.loadStoppedTimers()
+    j.findStoppedTimers()
       .then(function(timers) {
         assert.equal(timers.length, 2);
         done();
@@ -85,7 +88,7 @@ describe('Job Model', function () {
   });
 
   it('can remove a job with associated timers', function (done) {
-    j.loadTimers()
+    j.findTimers()
       .then(function (timers) {
         assert.equal(timers.length, 10);
       })
@@ -93,12 +96,26 @@ describe('Job Model', function () {
         return j.remove();
       })
       .then(function () {
-        return j.loadTimers();
+        return j.findTimers();
       })
       .then(function (timers) {
         assert.equal(timers.length, 0);
         done();
       });
+  });
+
+  it('can add a timer id', function () {
+    assert.equal(j.getTimerIDs().length, 0);
+    j.addTimerID(ts[0].getID());
+    assert.equal(j.getTimerIDs().length, 1);
+  });
+
+  it('can add set timer ids', function () {
+    assert.equal(j.getTimerIDs().length, 0);
+    j.setTimerIDs(ts.map(function (t) {
+      return t.getID();
+    }));
+    assert.equal(j.getTimerIDs().length, 10);
   });
 
   it('can save with a parent User');

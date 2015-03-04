@@ -1,6 +1,7 @@
 require("babel/register");
 
 var assert = require("assert");
+var exec = require('child_process').exec;
 
 var Model = require('../lib/models/model');
 
@@ -17,13 +18,15 @@ describe('Base Model', function () {
     beforeEach(function (done) {
       db.flushdb();
 
-      m = new Model({
-        name: 'test',
-        title: 'titletest'
-      });
+      exec('cat test/redis-fixture.txt | redis-cli', function(err, data) {
+        m = new Model({
+          name: 'test',
+          title: 'titletest'
+        });
 
-      m.save().then(function () {
-        done();
+        m.save().then(function () {
+          done();
+        });
       });
     });
 
@@ -120,6 +123,24 @@ describe('Base Model', function () {
         })
         .then(null, done);
     });
+
+    it('can create a model with a specific id', function (done) {
+
+      var newid = 'thisisatest';
+      var newm = new Model({
+        name: 'hoohaa'
+      }, newid);
+
+      newm.save().then(function (model) {
+        assert.equal(model.getID(), newid);
+
+        Model.find(newid).then(function (model) {
+          assert.deepEqual(newm.getMembers(), model.getMembers());
+          done();
+        });
+      });
+    });
+
 
   });
 
