@@ -64,8 +64,10 @@ function chooseSelectMe(select, value) {
   overlayClose();
 }
 
-function openSelectMe(connect) {
-  let select = document.querySelector('select[name=' + connect + ']');
+function openSelectMe(el) {
+  let form = el.form;
+  let connect = el.dataset.connect;
+  let select = form.querySelector('select[name=' + connect + ']');
   let numOptions = select.options.length;
 
   let optionText = '';
@@ -101,6 +103,6 @@ document.body.addEventListener('click', (event) => {
     event.stopPropagation();
     router.router.navigate(urlparse(event.target.parentNode.href).pathname);
   } else if (event.target.classList.contains('selectme')) {
-    openSelectMe(event.target.dataset.connect);
+    openSelectMe(event.target);
   }
 });
