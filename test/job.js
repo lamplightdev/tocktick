@@ -110,12 +110,29 @@ describe('Job Model', function () {
     assert.equal(j.getTimerIDs().length, 1);
   });
 
-  it('can add set timer ids', function () {
+  it('can set timer ids', function () {
     assert.equal(j.getTimerIDs().length, 0);
     j.setTimerIDs(ts.map(function (t) {
       return t.getID();
     }));
     assert.equal(j.getTimerIDs().length, 10);
+  });
+
+  it('can remove an existent timer id', function () {
+    assert.equal(j.getTimerIDs().length, 0);
+
+    var tIDs = ts.map(function (t) {
+      return t.getID();
+    });
+
+    j.setTimerIDs(tIDs);
+    assert.equal(j.getTimerIDs().length, 10);
+
+    var id = tIDs[5];
+    j.removeTimerID(id);
+    assert.equal(j.getTimerIDs().length, 9);
+    j.removeTimerID(id);
+    assert.equal(j.getTimerIDs().length, 9);
   });
 
   it('can save with a parent User');
