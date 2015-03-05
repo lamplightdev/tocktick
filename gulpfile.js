@@ -39,12 +39,9 @@ var getBundleName = function () {
 };
 
 var bundler = watchify(browserify('./public/js/app.js', {
-  cache: {},
-  packageCache: {},
-  fullPaths: true,
-  debug: true,
 }));
 bundler.ignore(require.resolve('./lib/redis-db'));
+bundler.ignore('crypto');
 bundler.transform(babelify);
 
 function bundle() {

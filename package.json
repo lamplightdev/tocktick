@@ -22,7 +22,7 @@
     "morgan": "*",
     "qs": "^2.3.3",
     "redis": "*",
-    "shortid": "*",
+    "shortid": "git://github.com/EgoAleSum/shortid.git#browser-support",
     "then-redis": "*",
     "then-request": "*"
   },
