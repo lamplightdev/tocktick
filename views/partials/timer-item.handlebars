@@ -51,7 +51,7 @@
 
   {{/if}}
 
-  <div class='timer-list-item__subactions'>
+  <div class='timer-list-item__subactions {{#ifequal @root.timerEdit _id}}timer-list-item__subactions--show{{/ifequal}}'>
     <form
       class='timer-list-item__edit'
       data-timer-id='{{_id}}'

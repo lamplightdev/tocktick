@@ -44,13 +44,10 @@ module.exports = (function() {
             currentPage: 'account',
         });
 
-        sharedRouter.match(req.params[0], req.query, (routeParts, queryString) => {
+        sharedRouter.match(req.params[0], req.query, (matched) => {
 
-            if (routeParts[0] === 'placeholder') {
-                res.redirect('/auth/signin/google/import');
-            } else {
-                res.render("view-account", sharedRouter.getController()._getViewData());
-            }
+            res.render("view-account", sharedRouter.getController()._getViewData());
+
         }, (err) => {
             console.log('account route error: ', err);
             next();
@@ -91,12 +88,15 @@ module.exports = (function() {
             currentPage: 'timers',
         });
 
-        sharedRouter.match(req.params[0], req.query, (routeParts, queryString) => {
+        sharedRouter.match(req.params[0], req.query, (matched) => {
 
-            if (routeParts[0] === 'placeholder') {
-            } else {
-                res.render("view-timers", sharedRouter.getController()._getViewData());
+            if (matched.name === 'timer-edit') {
+                sharedRouter.getController().setExtraData({
+                    timerEdit: matched.id
+                });
             }
+            res.render("view-timers", sharedRouter.getController()._getViewData());
+
         }, (err) => {
             console.log('timers route error: ', err);
             next();
@@ -111,12 +111,10 @@ module.exports = (function() {
             currentPage: 'front',
         });
 
-        sharedRouter.match(req.params[0], req.query, (routeParts, queryString) => {
+        sharedRouter.match(req.params[0], req.query, (matched) => {
 
-            if (routeParts[0] === 'placeholder') {
-            } else {
-                res.render("view-front", sharedRouter.getController()._getViewData());
-            }
+            res.render("view-front", sharedRouter.getController()._getViewData());
+
         }, (err) => {
             console.log('front route error: ', err);
             next();
