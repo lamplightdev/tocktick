@@ -35,7 +35,9 @@ button {
   background-color: transparent;
   padding: 0;
   margin: 0;
-  cursor: pointer; }
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  outline: none; }
 
 .btn {
   background-color: #237dac;
@@ -234,6 +236,13 @@ main {
 
 .timer-list-item__actions__stop {
   display: inline-block; }
+
+.timer-list-item__actions__edit img {
+  transition: transform 0.2s linear 0s; }
+
+.timer-list-item__actions__edit--active img {
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg); }
 
 .timer-list-item__subactions {
   display: none;
