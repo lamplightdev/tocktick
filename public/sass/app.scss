@@ -316,12 +316,13 @@ main {
       display: inline-block;
     }
 
-  .timer-list-item__edit {
+
+  .timer-list-item__subactions {
     display: none;
     clear: both;
   }
 
-    .timer-list-item__edit--show {
+    .timer-list-item__subactions--show {
       display: block;
     }
 

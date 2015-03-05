@@ -51,41 +51,43 @@
 
   {{/if}}
 
-  <form
-    class='timer-list-item__edit'
-    data-timer-id='{{_id}}'
-    action='/timer/update/{{_id}}'
-    method='post'
-    data-api-action='/api/timer/update/{{_id}}'
-    data-api-method='put'
-    >
+  <div class='timer-list-item__subactions'>
+    <form
+      class='timer-list-item__edit'
+      data-timer-id='{{_id}}'
+      action='/timer/update/{{_id}}'
+      method='post'
+      data-api-action='/api/timer/update/{{_id}}'
+      data-api-method='put'
+      >
 
-    <select name='jobid' class='hide-for-js-version'>
-      {{#each @root.grouped._jobs.all}}
-        <option
-          value='{{this._id}}'
-          {{#ifequal this._id ../_members.jobID}}selected='selected'{{/ifequal}}
-          >{{this._members.name}}</option>
-      {{/each}}
-    </select>
-    <div class='timer-list-item__edit__description'>
-      <label for='timer-list-item__edit__description__input'>Description</label>
-      <input type='text' id='imer-list-item__edit__description__input' name='description' value='{{_members.description}}'>
-    </div>
-    <button type='button' class='selectme btn' data-connect='jobid'>{{arrindexprop @root.grouped._jobs.all _members.jobID '_members.name'}}</button>
+      <select name='jobid' class='hide-for-js-version'>
+        {{#each @root.grouped._jobs.all}}
+          <option
+            value='{{this._id}}'
+            {{#ifequal this._id ../_members.jobID}}selected='selected'{{/ifequal}}
+            >{{this._members.name}}</option>
+        {{/each}}
+      </select>
+      <div class='timer-list-item__edit__description'>
+        <label for='timer-list-item__edit__description__input'>Description</label>
+        <input type='text' id='imer-list-item__edit__description__input' name='description' value='{{_members.description}}'>
+      </div>
+      <button type='button' class='selectme btn' data-connect='jobid'>{{arrindexprop @root.grouped._jobs.all _members.jobID '_members.name'}}</button>
 
-    <button type='submit'><img src='/images/checkmark.svg' alt='Save' title='Save'></button>
-  </form>
+      <button type='submit'><img class='icon-small' src='/images/checkmark.svg' alt='Save' title='Save'></button>
+    </form>
 
-  <form
-    class='timer-list-item__delete'
-    data-timer-id='{{_id}}'
-    action='/timer/delete/{{_id}}'
-    method='post'
-    data-api-action='/api/timer/delete/{{_id}}'
-    data-api-method='delete'
-    >
-    <button type='submit'><img src='/images/bin.svg' alt='Delete' title='Delete'></button>
-  </form>
+    <form
+      class='timer-list-item__delete'
+      data-timer-id='{{_id}}'
+      action='/timer/delete/{{_id}}'
+      method='post'
+      data-api-action='/api/timer/delete/{{_id}}'
+      data-api-method='delete'
+      >
+      <button type='submit'><img class='icon-small' src='/images/bin.svg' alt='Delete' title='Delete'></button>
+    </form>
+  </div>
 
 </div>
