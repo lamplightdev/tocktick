@@ -37,7 +37,6 @@ module.exports = (function() {
       });
     });
 
-
     router.put('/timer/update/:id', function (req, res) {
       var sharedRouter = new RouterSharedFront({
           user: req.user,
@@ -51,6 +50,18 @@ module.exports = (function() {
             jobID: req.body.jobid
           }
       ).then(timer => {
+        res.statusCode = 200;
+        res.json(timer);
+      });
+    });
+
+    router.delete('/timer/delete/:id', function (req, res) {
+      var sharedRouter = new RouterSharedFront({
+          user: req.user,
+          grouped: res.locals.grouped,
+      });
+
+      sharedRouter.getController().deleteTimer(req.params.id).then(timer => {
         res.statusCode = 200;
         res.json(timer);
       });

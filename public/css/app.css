@@ -43,6 +43,10 @@ button {
   padding: 3px 5px;
   border-radius: 2px; }
 
+.icon-small {
+  width: 20px;
+  height: 20px; }
+
 select {
   border: 0; }
 
@@ -245,6 +249,7 @@ main {
   left: 0;
   bottom: 0;
   right: 0;
+  padding-top: 2em;
   background: black;
   background: rgba(255, 255, 255, 0.9);
   display: none; }
@@ -252,10 +257,18 @@ main {
 .overlay--show {
   display: block; }
 
+.overlay__title {
+  position: absolute;
+  top: 0.5em;
+  left: 0.5em;
+  margin: 0;
+  font-size: 1.1em; }
+
 .overlay__close {
   position: absolute;
   top: 0.5em;
-  right: 0.5em; }
+  right: 0.5em;
+  font-size: 1.1em; }
 
 .overlay__content__body {
   padding: 1em; }

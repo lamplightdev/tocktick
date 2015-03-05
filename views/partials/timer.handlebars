@@ -10,10 +10,6 @@
 
   <input name='actiontime' type='hidden' value=''>
 
-  <div class='form-input front-form-start__description'>
-    <label for='front-form-start__description__input'>Description</label>
-    <input type='text' id='front-form-start__description__input' name='description'>
-  </div>
   <select name='jobid' class='hide-for-js-version'>
     {{#each grouped._jobs.all}}
       <option
@@ -22,6 +18,10 @@
         >{{this._members.name}}</option>
     {{/each}}
   </select>
+  <div class='form-input front-form-start__description'>
+    <label for='front-form-start__description__input'>Description</label>
+    <input type='text' id='front-form-start__description__input' name='description'>
+  </div>
   <button type='button' class='selectme btn' data-connect='jobid'>{{recentJob._members.name}}</button>
 
   <div class='timer'>

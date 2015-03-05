@@ -162,6 +162,8 @@ describe('Group Model', function () {
     assert.equal(g.getTimerIDs()[0], t.getID());
   });
 
+  it('can remove a timer');
+
   it("can add a job", function () {
     assert.equal(Object.keys(g.getJobs()).length, 5);
     assert.equal(g.getJobIDs().length, 5);
@@ -177,6 +179,8 @@ describe('Group Model', function () {
     assert.equal(g.getJobs()[j.getID()], j);
     assert.equal(g.getJobIDs()[0], j.getID());
   });
+
+  it('can remove a job');
 
   it("can start a new timer - with previous jobs and timers existing", function () {
     assert.equal(Object.keys(g.getJobs()).length, 5);

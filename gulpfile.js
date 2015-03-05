@@ -65,6 +65,7 @@ bundler.on('update', bundle);
 gulp.task('dev', function () {
     nodemon({
         script: 'server.js',
+        verbose: true,
         //nodeArgs: ['--harmony'],
         ext: 'js json scss handlebars',
         ignore: ["public/js/dist/*", ".git", "node_modules", ".sass-cache"],

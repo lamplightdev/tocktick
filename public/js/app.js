@@ -48,13 +48,21 @@ if (!App.Data.status404) {
 
 let overlay = document.querySelector('.overlay');
 let overlayContent = overlay.querySelector('.overlay__content__body');
+let overlayTitle = overlay.querySelector('.overlay__title');
+
+
+function overlayOpen(title) {
+  overlayTitle.textContent = title;
+  overlay.classList.add('overlay--show');
+}
 
 function overlayClose() {
   overlay.classList.remove('overlay--show');
 }
 
 overlay.addEventListener('click', event => {
-  if (event.target.classList.contains('overlay__close')) {
+  if (event.target.classList.contains('overlay__close') ||
+      event.target.parentNode.classList.contains('overlay__close') ) {
       overlayClose();
   }
 });
@@ -73,10 +81,10 @@ function openSelectMe(el) {
 
   let optionText = '';
 
-  optionText += `<div class='selectmebox'></div>`;
+  optionText += `<div class='selectmebox'>`;
   for(let i=0; i<numOptions; i++) {
     optionText += `
-      <button class='selectmebox__option' data-value='${select.options[i].value}' data-name='${select.options[i].text}'>${select.options[i].text}</button>
+      <button class='selectmebox__option btn' data-value='${select.options[i].value}' data-name='${select.options[i].text}'>${select.options[i].text}</button>
     `;
   }
   optionText += `</div>`;
@@ -90,8 +98,7 @@ function openSelectMe(el) {
     });
   }
 
-
-  overlay.classList.add('overlay--show');
+  overlayOpen('Select job');
 }
 
 document.body.addEventListener('click', (event) => {

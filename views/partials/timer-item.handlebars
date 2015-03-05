@@ -60,7 +60,6 @@
     data-api-method='put'
     >
 
-    <input type='text' name='description' value='{{_members.description}}'>
     <select name='jobid' class='hide-for-js-version'>
       {{#each @root.grouped._jobs.all}}
         <option
@@ -69,9 +68,24 @@
           >{{this._members.name}}</option>
       {{/each}}
     </select>
-    <button type='button' class='selectme' data-connect='jobid'>Job</button>
+    <div class='timer-list-item__edit__description'>
+      <label for='timer-list-item__edit__description__input'>Description</label>
+      <input type='text' id='imer-list-item__edit__description__input' name='description' value='{{_members.description}}'>
+    </div>
+    <button type='button' class='selectme btn' data-connect='jobid'>{{arrindexprop @root.grouped._jobs.all _members.jobID '_members.name'}}</button>
 
-    <button type='submit'><img src='/images/checkmark.svg' alt='save'></button>
+    <button type='submit'><img src='/images/checkmark.svg' alt='Save' title='Save'></button>
+  </form>
+
+  <form
+    class='timer-list-item__delete'
+    data-timer-id='{{_id}}'
+    action='/timer/delete/{{_id}}'
+    method='post'
+    data-api-action='/api/timer/delete/{{_id}}'
+    data-api-method='delete'
+    >
+    <button type='submit'><img src='/images/bin.svg' alt='Delete' title='Delete'></button>
   </form>
 
 </div>
