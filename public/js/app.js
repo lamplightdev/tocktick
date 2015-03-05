@@ -59,7 +59,8 @@ overlay.addEventListener('click', event => {
   }
 });
 
-function chooseSelectMe(select, value) {
+function chooseSelectMe(el, select, value, text) {
+  el.textContent = text;
   select.value = value;
   overlayClose();
 }
@@ -75,7 +76,7 @@ function openSelectMe(el) {
   optionText += `<div class='selectmebox'></div>`;
   for(let i=0; i<numOptions; i++) {
     optionText += `
-      <button class='selectmebox__option' data-value='${select.options[i].value}'>${select.options[i].text}</button>
+      <button class='selectmebox__option' data-value='${select.options[i].value}' data-name='${select.options[i].text}'>${select.options[i].text}</button>
     `;
   }
   optionText += `</div>`;
@@ -85,7 +86,7 @@ function openSelectMe(el) {
   let options = overlayContent.querySelectorAll('.selectmebox__option');
   for (let i=0; i<options.length; i++) {
     options[i].addEventListener('click', event => {
-      chooseSelectMe(select, event.target.dataset.value);
+      chooseSelectMe(el, select, event.target.dataset.value, event.target.dataset.name);
     });
   }
 

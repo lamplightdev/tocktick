@@ -178,8 +178,71 @@ describe('Group Model', function () {
     assert.equal(g.getJobIDs()[0], j.getID());
   });
 
-  it("can start a new timer");
+  it("can start a new timer - with previous jobs and timers existing", function () {
+    assert.equal(Object.keys(g.getJobs()).length, 5);
+    assert.equal(Object.keys(g.getTimers()).length, 8);
 
-  it("can stop a timer");
+    var recentTimer = g.getMostRecentTimer();
+    var newTimer = g.startNewTimer({
+      name: 'newtimer'
+    });
+
+    assert.equal(Object.keys(g.getJobs()).length, 5);
+    assert.equal(Object.keys(g.getTimers()).length, 9);
+
+    assert.equal(recentTimer.getJobID(), newTimer.getJobID());
+    assert(newTimer.isRunning());
+  });
+
+  it("can start a new timer - with no previous jobs/timers existing", function () {
+    db.flushdb();
+
+    var group = new Group();
+    var timer = group.startNewTimer({
+      name: 'newtimer'
+    });
+
+    assert.equal(Object.keys(group.getJobs()).length, 1);
+    assert.equal(Object.keys(group.getTimers()).length, 1);
+
+    var job = group.findJob(group.getJobIDs()[0]);
+    assert.equal(job.getName(), 'New Job');
+    assert.equal(job.getTimerIDs()[0], timer.getID());
+    assert.equal(timer.getJobID(), job.getID());
+    assert(timer.isRunning());
+  });
+
+  it("can start a new timer - with no previous timers existing", function () {
+    db.flushdb();
+
+    var group = new Group();
+    var job = new Job({
+      name: 'Existing job'
+    });
+    group.addJob(job);
+
+    var timer = group.startNewTimer({
+      name: 'newtimer'
+    });
+
+    assert.equal(Object.keys(group.getJobs()).length, 1);
+    assert.equal(Object.keys(group.getTimers()).length, 1);
+
+    assert.equal(job.getName(), 'Existing job');
+    assert.equal(job.getTimerIDs()[0], timer.getID());
+    assert.equal(timer.getJobID(), job.getID());
+    assert(timer.isRunning());
+  });
+
+  it("can stop a timer", function () {
+    assert.equal(g.getNumCurrentTimers(), 3);
+
+    var timer = g.getCurrentTimers(1)[0];
+    assert(timer.isRunning());
+
+    g.stopTimer(timer);
+    assert.equal(g.getNumCurrentTimers(), 2);
+    assert(timer.isStopped());
+  });
 
 });

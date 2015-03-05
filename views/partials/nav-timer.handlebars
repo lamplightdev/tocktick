@@ -1,7 +1,7 @@
 <div class='nav-timer'>
 {{#ifobjcall grouped 'getNumCurrentTimers'}}
 <div class='nav-timer__running'>
-  <a href='/timers/' data-nav><img class='rotate' src='/images/timer.svg' alt='Current status'></a>
+  <a href='/timers/' data-nav><img class='rotate' src='/images/timer.svg' alt='Current timers' title='Current timers'></a>
   <div class='nav-timer__running__count'>{{objcall grouped 'getNumCurrentTimers'}}</div>
 </div>
 {{else}}
@@ -20,7 +20,7 @@
   <input name='description' type='hidden' value=''>
 
   <div class='timer timer--stopped'>
-    <button class='timer__add' type='submit'><img src='/images/add.svg' alt='start'></button>
+    <button class='timer__add' type='submit'><img src='/images/add.svg' alt='Start a new timer' title='Start a new timer'></button>
   </div>
 
 </form>

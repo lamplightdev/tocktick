@@ -28,6 +28,13 @@ button {
   cursor: pointer;
 }
 
+.btn {
+  background-color: $color-brand;
+  color: white;
+  padding: 3px 5px;
+  border-radius: 2px;
+}
+
 select {
   border: 0;
 }
@@ -92,6 +99,7 @@ header {
 
   .timer {
     width: auto;
+    height: auto;
   }
 
   .nav-form-start {
