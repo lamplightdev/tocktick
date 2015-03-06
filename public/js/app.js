@@ -6,6 +6,8 @@ var Handlebars = require("../../node_modules/handlebars/dist/handlebars.runtime"
 var helpers = require("../../lib/helpers");
 var urlparse = require('url').parse;
 
+var Offline = require('../../lib/offline');
+var request = require('then-request');
 
 /*
 // Make sure we are accessing over https, if not redirect
@@ -46,6 +48,42 @@ var router = new RouterMain(Object.assign(
 if (!App.Data.status404) {
   router.router.check(false);
 }
+
+if (Offline.isOnline()) {
+  let queue = localStorage.getItem('api-queue');
+  if (queue) {
+    queue = JSON.parse(queue);
+
+    let promises = [];
+
+    queue.forEach(q => {
+      promises.push(request(q.method, q.action, {
+            json: q.data,
+            qs: q.qs
+        }).then((res) => {
+          if (res.statusCode !== 0) {
+            return true;
+          }
+          return false;
+        }, (err) => {
+          return false;
+        }));
+    });
+
+    Promise.all(promises).then(results => {
+      let index = 0;
+      results.forEach(result => {
+        if (result) {
+          queue.splice(index, 1);
+        }
+        index++;
+      });
+      localStorage.setItem('api-queue', JSON.stringify(queue));
+    });
+
+  }
+}
+
 
 let overlay = document.querySelector('.overlay');
 let overlayContent = overlay.querySelector('.overlay__content__body');
