@@ -12,6 +12,7 @@ var urlparse = require('url').parse;
 if ((!location.port || location.port === "80") && location.protocol !== "https:" && location.host !== "localhost") {
   location.protocol = "https:";
 }
+*/
 
 // Register our ServiceWorker
 if (navigator.serviceWorker) {
@@ -23,7 +24,7 @@ if (navigator.serviceWorker) {
     console.log("SW register fail", err);
   });
 }
-*/
+
 
 for (let key in App.templates) {
   if(App.templates.hasOwnProperty(key)) {

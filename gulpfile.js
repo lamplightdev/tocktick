@@ -38,7 +38,10 @@ var getBundleName = function () {
   return version + '.' + name + '.' + 'min';
 };
 
-var bundler = watchify(browserify('./public/js/app.js', watchify.args));
+var watchifyArgs = watchify.args;
+watchifyArgs.debug = true;
+
+var bundler = watchify(browserify('./public/js/app.js', watchifyArgs));
 bundler.ignore(require.resolve('./lib/redis-db'));
 bundler.ignore('crypto');
 bundler.transform(babelify);

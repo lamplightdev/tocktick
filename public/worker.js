@@ -12,9 +12,8 @@
   // Include SW cache polyfill
   importScripts("/js/serviceworker-cache-polyfill.js");
 
-
   // Cache name definitions
-  var cacheNameStatic = "tocktick-static-v1";
+  var cacheNameStatic = "tocktick-static-v4";
 
   var currentCacheNames = [
     cacheNameStatic,
@@ -29,8 +28,14 @@
           return cache.addAll([
             "/",
             "/js/dist/0.0.1.tocktick.min.js",
+            "/js/dist/0.0.1.tocktick.min.js.map",
             "/css/app.css",
             "/images/add.svg",
+            "/images/bin.svg",
+            "/images/checkmark.svg",
+            "/images/cog.svg",
+            "/images/cross.svg",
+            "/images/stop.svg",
             "/images/timer.svg",
           ]);
         })
@@ -46,7 +51,6 @@
           return Promise.all(
             cacheNames.map(function (cacheName) {
               if (currentCacheNames.indexOf(cacheName) === -1) {
-                // TODO: if wikipedia cache changed, remove localStorage history
                 return caches.delete(cacheName);
               }
             })
@@ -56,6 +60,7 @@
   });
 
 
+    /*
   self.addEventListener('fetch', function(event) {
     console.log('Handling fetch event for', event.request.url);
     var requestUrl = new URL(event.request.url);
@@ -96,8 +101,8 @@
     // If event.respondWith() isn't called because this wasn't a request that we want to mock,
     // then the default request/response behavior will automatically be used.
   });
+    */
 
-  /*
   // The page has made a request
   self.addEventListener("fetch", function (event) {
     var requestURL = new URL(event.request.url);
@@ -146,6 +151,5 @@
         })
     );
   });
-  */
 
 })();
