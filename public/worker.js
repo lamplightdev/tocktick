@@ -13,7 +13,7 @@
   importScripts("/js/serviceworker-cache-polyfill.js");
 
   // Cache name definitions
-  var cacheNameStatic = "tocktick-static-v4";
+  var cacheNameStatic = "tocktick-static-v2";
 
   var currentCacheNames = [
     cacheNameStatic,

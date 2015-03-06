@@ -44,7 +44,7 @@ var router = new RouterMain(Object.assign(
   }));
 
 if (!App.Data.status404) {
-  router.router.check(true);
+  router.router.check(false);
 }
 
 let overlay = document.querySelector('.overlay');

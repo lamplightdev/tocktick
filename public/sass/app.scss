@@ -341,6 +341,14 @@ main {
       display: block;
     }
 
+    .timer-list-item__edit {
+      display: inline-block;
+    }
+
+    .timer-list-item__delete {
+      display: inline-block;
+    }
+
 .overlay {
   position: fixed;
   z-index: 20;
