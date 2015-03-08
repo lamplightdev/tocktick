@@ -1,3 +1,5 @@
+var noCache = require('../middleware/nocache');
+
 var RouterSharedFront = require('../lib/routers/shared-front');
 
 
@@ -65,6 +67,11 @@ module.exports = (function() {
         res.statusCode = 200;
         res.json(timer);
       });
+    });
+
+    router.get('/group', noCache(), function (req, res) {
+      res.statusCode = 200;
+      res.json(res.locals.grouped);
     });
 
     return router;

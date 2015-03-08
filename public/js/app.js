@@ -38,16 +38,13 @@ for (let helper in helpers) {
   Handlebars.registerHelper(helper, helpers[helper]);
 }
 
-var router = new RouterMain(Object.assign(
-  App.Data,
-  {
-    templates: App.templates,
-    //container: document.getElementById('view')
-  }));
+var router = new RouterMain(App.templates);
+router.init().then(() => {
+  if (!App.Data.status404) {
+    router.router.check(false);
+  }
+});
 
-if (!App.Data.status404) {
-  router.router.check(false);
-}
 
 if (Offline.isOnline()) {
   let queue = localStorage.getItem('api-queue');

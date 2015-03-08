@@ -14,8 +14,8 @@ var express  = require('express'),
     middleware   = require('./middleware'),
     config       = require('./config'),
 
-    routesStandard = require('./routes/standard'),
     routesApi = require('./routes/api'),
+    routesStandard = require('./routes/standard'),
 
     port         = (process.env.PORT || 8000);
 
@@ -81,8 +81,8 @@ function setupServer () {
 
     app.use(express.Router());
 
-    app.use('/', routesStandard);
     app.use('/api', routesApi);
+    app.use('/', routesStandard);
 
     // Error handling middleware
     app.use(function (req, res) {

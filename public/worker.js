@@ -13,7 +13,7 @@
   importScripts("/js/serviceworker-cache-polyfill.js");
 
   // Cache name definitions
-  var cacheNameStatic = "tocktick-static-v2";
+  var cacheNameStatic = "tocktick-static-v3";
 
   var currentCacheNames = [
     cacheNameStatic,
@@ -123,12 +123,14 @@
               var shouldCache = false;
 
               if (response.type === "basic" && response.status === 200) {
-                shouldCache = cacheNameStatic;
+                if (requestURL.pathname.indexOf('/api/') !== 0) {
+                  shouldCache = cacheNameStatic;
+                }
               } else if (response.type === "opaque") { // if response isn"t from our origin / doesn"t support CORS
                 if (requestURL.hostname.indexOf(".wikipedia.org") > -1) {
-                  shouldCache = cacheNameWikipedia;
+                  //shouldCache = cacheNameWikipedia;
                 } else if (requestURL.hostname.indexOf(".typekit.net") > -1) {
-                  shouldCache = cacheNameTypekit;
+                  //shouldCache = cacheNameTypekit;
                 } else {
                   // just let response pass through, don"t cache
                 }

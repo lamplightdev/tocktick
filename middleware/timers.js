@@ -8,8 +8,8 @@ module.exports = function exposeTimers() {
 
     Group.fromDB().then((grouped) => {
         res.locals.grouped = grouped;
-        res.expose(grouped.getJobs(), 'Data.jobs');
-        res.expose(grouped.getTimers(), 'Data.timers');
+        //res.expose(grouped.getJobs(), 'Data.jobs');
+        //res.expose(grouped.getTimers(), 'Data.timers');
 
         next();
     }, next)
