@@ -16,6 +16,7 @@ if ((!location.port || location.port === "80") && location.protocol !== "https:"
 }
 */
 
+/*
 // Register our ServiceWorker
 if (navigator.serviceWorker) {
   navigator.serviceWorker.register("/worker.js", {
@@ -26,7 +27,7 @@ if (navigator.serviceWorker) {
     console.log("SW register fail", err);
   });
 }
-
+*/
 
 for (let key in App.templates) {
   if(App.templates.hasOwnProperty(key)) {

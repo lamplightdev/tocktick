@@ -18,7 +18,9 @@
         <input name='actiontime' type='hidden' value=''>
         <button type='submit'><img src='/images/stop.svg' alt='stop'></button>
       </form>
-      <button type='button' class='timer-list-item__actions__edit {{#ifequal @root.timerEdit _id}}timer-list-item__actions__edit--active{{/ifequal}}' data-timer-id='{{_id}}'><img src='/images/cog.svg' alt='edit'></button>
+      <form action='/timers/edit/{{_id}}' method='get'>
+      <button type='submit' class='timer-list-item__actions__edit {{#ifequal @root.timerEdit _id}}timer-list-item__actions__edit--active{{/ifequal}}' data-timer-id='{{_id}}'><img src='/images/cog.svg' alt='edit'></button>
+      </form>
     </div>
     <div class='timer-list-item__timings'>
       <div class='timer-list-item__timings__duration'>
@@ -34,7 +36,9 @@
 
     <div class='timer-list-item__status timer-list-item__status--complete'><img src='/images/checkmark.svg' alt='complete'></div>
     <div class='timer-list-item__actions'>
-      <button type='button' class='timer-list-item__actions__edit {{#ifequal @root.timerEdit _id}}timer-list-item__actions__edit--active{{/ifequal}}' data-timer-id='{{_id}}'><img src='/images/cog.svg' alt='edit'></button>
+      <form action='/timers/edit/{{_id}}' method='get'>
+      <button type='submit' class='timer-list-item__actions__edit {{#ifequal @root.timerEdit _id}}timer-list-item__actions__edit--active{{/ifequal}}' data-timer-id='{{_id}}'><img src='/images/cog.svg' alt='edit'></button>
+      </form>
     </div>
     <div class='timer-list-item__timings'>
       <div class='timer-list-item__timings__duration'>

@@ -121,5 +121,33 @@ module.exports = (function() {
         });
     });
 
+    router.post('/timer/update/:id', function (req, res, next) {
+      var sharedRouter = new RouterSharedFront({
+          user: req.user,
+          grouped: res.locals.grouped,
+      });
+
+      sharedRouter.getController().updateTimer(
+          req.params.id,
+          {
+            description: req.body.description,
+            jobID: req.body.jobid
+          }
+      ).then(timer => {
+        res.redirect('/timers/' + timer.getID());
+      }).then(null, next);
+    });
+
+    router.post('/timer/delete/:id', function (req, res, next) {
+      var sharedRouter = new RouterSharedFront({
+          user: req.user,
+          grouped: res.locals.grouped,
+      });
+
+      sharedRouter.getController().deleteTimer(req.params.id).then(() => {
+        res.redirect('/timers');
+      }).then(null, next);
+    });
+
     return router;
 })();

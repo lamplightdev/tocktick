@@ -27,6 +27,8 @@
         .then(function (cache) {
           return cache.addAll([
             "/",
+            "/timers",
+            "/account",
             "/js/dist/0.0.1.tocktick.min.js",
             "/js/dist/0.0.1.tocktick.min.js.map",
             "/css/app.css",
@@ -107,6 +109,22 @@
   self.addEventListener("fetch", function (event) {
     var requestURL = new URL(event.request.url);
 
+    /*
+    self.addEventListener('fetch', function(event) {
+      event.respondWith(
+        caches.open('mysite-dynamic').then(function(cache) {
+          return cache.match(event.request).then(function(response) {
+            var fetchPromise = fetch(event.request.clone()).then(function(networkResponse) {
+              cache.put(event.request, networkResponse.clone());
+              return networkResponse;
+            })
+            return response || fetchPromise;
+          })
+        })
+      );
+    });
+  */
+
     event.respondWith(
       caches.match(event.request)
         .then(function (response) {
@@ -121,7 +139,7 @@
             function (response) {
 
               var shouldCache = false;
-
+              console.log(requestURL.pathname);
               if (response.type === "basic" && response.status === 200) {
                 if (requestURL.pathname.indexOf('/api/') !== 0) {
                   shouldCache = cacheNameStatic;
