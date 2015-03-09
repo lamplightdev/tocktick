@@ -5,6 +5,7 @@ var exec = require('child_process').exec;
 
 var Job = require('../lib/models/job');
 var Timer = require('../lib/models/timer');
+var User = require('../lib/models/user');
 
 var db = require('../lib/redis-db');
 db.select(10);  //our test db
@@ -13,36 +14,45 @@ db.select(10);  //our test db
 
 describe('Job Model', function () {
 
-  var ts, j;
+  var ts, j, u;
 
   beforeEach(function (done) {
     db.flushdb();
 
-    exec('cat test/redis-fixture.txt | redis-cli', function(err, data) {
-      j = new Job({
-        name: 'fixsite'
-      });
+    exec('cat test/redis-fixture-db10.txt | redis-cli', function() {
 
-      ts = [];
+      var userPromise = User.findByProvider('google', '102963707462051819067').then(function (user) {
+        u = user;
+        return user;
+      }).then(function () {
 
-      for (var i=0; i<10; i++) {
-        ts.push(new Timer({
-          description: 'readdocs-' + i
-        }));
-      }
+        j = new Job({
+          name: 'fixsite'
+        });
 
-      j.save()
-        .then(function () {
-          var promises = [];
-          ts.forEach(function (t) {
-            promises.push(t.save(j.getID()));
+        ts = [];
+
+        for (var i=0; i<10; i++) {
+          ts.push(new Timer({
+            description: 'readdocs-' + i
+          }));
+        }
+
+        return j.save(u.getID())
+          .then(function () {
+            var promises = [];
+            ts.forEach(function (t) {
+              promises.push(t.save(u.getID(), j.getID()));
+            });
+            return Promise.all(promises);
           });
 
-          return Promise.all(promises);
-        })
-        .then(function () {
-          done();
-        }).then(null, done);
+      });
+
+      userPromise.then(function () {
+        done();
+      }, done);
+
     });
 
   });
@@ -58,33 +68,42 @@ describe('Job Model', function () {
 
 
   it('can find running Timers', function (done) {
-    ts[0].start(0).stop(100).save();
-    ts[1].start(0).stop(100).save();
-    ts[2].start(0).save();
-    ts[3].start(0).save();
-    ts[4].start(0).save();
-    ts[5].start(0).save();
+    var promises = [
+      ts[0].start(0).stop(100).save(),
+      ts[1].start(0).stop(100).save(),
+      ts[2].start(0).save(),
+      ts[3].start(0).save(),
+      ts[4].start(0).save(),
+      ts[5].start(0).save(),
+    ];
 
-    j.findRunningTimers()
-      .then(function(timers) {
-        assert.equal(timers.length, 4);
-        done();
-      });
+    Promise.all(promises).then(function () {
+      j.findRunningTimers()
+        .then(function(timers) {
+          assert.equal(timers.length, 4);
+          done();
+        });
+      }, done);
+
   });
 
   it('can find stopped Timers', function (done) {
-    ts[0].start(0).stop(100).save();
-    ts[1].start(0).stop(100).save();
-    ts[2].start(0).save();
-    ts[3].start(0).save();
-    ts[4].start(0).save();
-    ts[5].start(0).save();
+    var promises = [
+      ts[0].start(0).stop(100).save(),
+      ts[1].start(0).stop(100).save(),
+      ts[2].start(0).save(),
+      ts[3].start(0).save(),
+      ts[4].start(0).save(),
+      ts[5].start(0).save(),
+    ];
 
-    j.findStoppedTimers()
-      .then(function(timers) {
-        assert.equal(timers.length, 2);
-        done();
-      });
+    Promise.all(promises).then(function () {
+      j.findStoppedTimers()
+        .then(function(timers) {
+          assert.equal(timers.length, 2);
+          done();
+        });
+      }, done);
   });
 
   it('can remove a job with associated timers', function (done) {

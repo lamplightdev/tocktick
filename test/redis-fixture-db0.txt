@@ -1,41 +1,51 @@
-SELECT 0
-DEL     job:710-Xwtu
-HMSET   job:710-Xwtu name Hive dateAdded 1425484499931
-DEL     job:710-Xwtu:timers
-SADD    job:710-Xwtu:timers 7kWDmwK_
-DEL     job:Q1ifXvF_
-HMSET   job:Q1ifXvF_ name Personal dateAdded 1425484512773
-DEL     job:Q1ifXvF_:timers
-SADD    job:Q1ifXvF_:timers X1wvQPt_ XkrO7PKO
-DEL     job:XymM7DKu
-HMSET   job:XymM7DKu name Redline dateAdded 1425484505233
-DEL     job:XymM7DKu:timers
-SADD    job:XymM7DKu:timers X1QrQDY_ Qywr7Ptd 71Lr7vtu
-DEL     job:Xywfmvtu
-HMSET   job:Xywfmvtu name 'Lemos&Crane' dateAdded 1425484509056
-DEL     job:Xywfmvtu:timers
-SADD    job:Xywfmvtu:timers myuLXDFO
-DEL     job:my0M7wKO
-HMSET   job:my0M7wKO name 'Contact Lens' dateAdded 1425484516698
-DEL     job:my0M7wKO:timers
-SADD    job:my0M7wKO:timers X1ydQDFd
+SELECT  0
+DEL     job:71keNmgF
+HMSET   job:71keNmgF name ratio7 dateAdded 1425927093680
+DEL     job:71keNmgF:timers
+SADD    job:71keNmgF:timers QJy1UQeF mkTyrQxt
+DEL     job:7yCd4QxY
+HMSET   job:7yCd4QxY name 'Phase II' dateAdded 1425927236638
+DEL     job:7yCd4QxY:timers
+SADD    job:7yCd4QxY:timers m1BSrQgY
+DEL     job:Qk98E7et
+HMSET   job:Qk98E7et name 'Plan UK' dateAdded 1425927199833
+DEL     job:Qk98E7et:timers
+SADD    job:Qk98E7et:timers X1-REQgK
+DEL     job:QkUGVXgF
+HMSET   job:QkUGVXgF name 'Lemos&Crane' dateAdded 1425927132720
+DEL     job:QkUGVXgF:timers
+SADD    job:QkUGVXgF:timers XkaRN7xY myJwH7gY QJATB7lt
+DEL     job:XkTb4XgF
+HMSET   job:XkTb4XgF name hive dateAdded 1425927123239
+DEL     job:XkTb4XgF:timers
+SADD    job:XkTb4XgF:timers mJpVBQgK
 DEL     jobs:ids
-SADD    jobs:ids XymM7DKu 710-Xwtu Xywfmvtu Q1ifXvF_ my0M7wKO
-DEL     timer:71Lr7vtu
-HMSET   timer:71Lr7vtu jobID XymM7DKu description refactor dateAdded 1425484556598 start 1025484556551 stop 1425484657474
-DEL     timer:7kWDmwK_
-HMSET   timer:7kWDmwK_ jobID 710-Xwtu description 'Manage the bees' dateAdded 1425484583384 start 1423484583311 stop 1425481653820
-DEL     timer:Qywr7Ptd
-HMSET   timer:Qywr7Ptd jobID XymM7DKu description 'ready production' dateAdded 1425484557129 start 1425480557078 stop 1425484655360
-DEL     timer:X1QrQDY_
-HMSET   timer:X1QrQDY_ jobID XymM7DKu description 'init setup' dateAdded 1425484553823 start 142248453744
-DEL     timer:X1wvQPt_
-HMSET   timer:X1wvQPt_ jobID Q1ifXvF_ description 'Driving lesson' dateAdded 1425484589720 start 1425484509677 stop 1425484650231
-DEL     timer:X1ydQDFd
-HMSET   timer:X1ydQDFd jobID my0M7wKO description 'User management' dateAdded 1425484597669 start 1422484597621
-DEL     timer:XkrO7PKO
-HMSET   timer:XkrO7PKO jobID Q1ifXvF_ description Clean dateAdded 1425484603278 start 1425484603235 stop 1425484660358
-DEL     timer:myuLXDFO
-HMSET   timer:myuLXDFO jobID Xywfmvtu description 'Plant Life' dateAdded 1425484574208 start 1425484574157
+SADD    jobs:ids Qk98E7et QkUGVXgF 71keNmgF XkTb4XgF 7yCd4QxY
+DEL     timer:QJATB7lt
+HMSET   timer:QJATB7lt jobID QkUGVXgF description ActionNet dateAdded 1425927572493 start 1425927572446 stop 1425927602449
+DEL     timer:QJy1UQeF
+HMSET   timer:QJy1UQeF jobID 71keNmgF description Maintenance dateAdded 1425927589279 start 1425927589239 stop 1425927601370
+DEL     timer:X1-REQgK
+HMSET   timer:X1-REQgK jobID Qk98E7et description 'Ring sizes' dateAdded 1425927319419 start 1425927319369
+DEL     timer:XkaRN7xY
+HMSET   timer:XkaRN7xY jobID QkUGVXgF description ParkLife dateAdded 1425927331468 start 1425927331427 stop 1425927616195
+DEL     timer:m1BSrQgY
+HMSET   timer:m1BSrQgY jobID 7yCd4QxY description PMAPP dateAdded 1425927434949 start 1425927434909 stop 1425927613392
+DEL     timer:mJpVBQgK
+HMSET   timer:mJpVBQgK jobID XkTb4XgF description '#TweetToHeat' dateAdded 1425927427140 start 1425927427098
+DEL     timer:mkTyrQxt
+HMSET   timer:mkTyrQxt jobID 71keNmgF description 'New sie build' dateAdded 1425927346961 start 1425927346923 stop 1425927614889
+DEL     timer:myJwH7gY
+HMSET   timer:myJwH7gY jobID QkUGVXgF description 'Server update' dateAdded 1425927461674 start 1425927461631
 DEL     timers:ids
-SADD    timers:ids 7kWDmwK_ 71Lr7vtu XkrO7PKO X1QrQDY_ myuLXDFO X1wvQPt_ Qywr7Ptd X1ydQDFd
+SADD    timers:ids mkTyrQxt m1BSrQgY QJy1UQeF mJpVBQgK X1-REQgK XkaRN7xY myJwH7gY QJATB7lt
+DEL     user:m1lOMmlF
+HMSET   user:m1lOMmlF name 'Chris Haynes' email 'chris.haynes@gmail.com' provider google providerID 102963707462051819067 dateAdded 1425926710271
+DEL     user:m1lOMmlF:jobs
+SADD    user:m1lOMmlF:jobs Qk98E7et QkUGVXgF 71keNmgF XkTb4XgF 7yCd4QxY
+DEL     user:m1lOMmlF:timers
+SADD    user:m1lOMmlF:timers QJy1UQeF mJpVBQgK X1-REQgK XkaRN7xY myJwH7gY QJATB7lt m1BSrQgY mkTyrQxt
+DEL     users:google:providerids
+HMSET   users:google:providerids 102963707462051819067 m1lOMmlF
+DEL     users:ids
+SADD    users:ids m1lOMmlF

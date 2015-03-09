@@ -6,6 +6,7 @@ var exec = require('child_process').exec;
 
 var Job = require('../lib/models/job');
 var Timer = rewire('../lib/models/timer');
+var User = require('../lib/models/user');
 
 Timer.__set__("Timer.getCurrentTime", function() {
   return 1000;
@@ -19,12 +20,13 @@ db.select(10);  //our test db
 
 describe('Timer Model', function () {
 
-  var t, j;
+  var t, j, u;
 
   beforeEach(function (done) {
     db.flushdb();
 
-    exec('cat test/redis-fixture.txt | redis-cli', function(err, data) {
+    exec('cat test/redis-fixture-db10.txt | redis-cli', function() {
+
       j = new Job({
         name: 'fixsite'
       });
@@ -33,9 +35,16 @@ describe('Timer Model', function () {
         description: 'readdocs'
       });
 
-      Promise.all([j.save(), t.save()]).then(function () {
+      User.findByProvider('google', '102963707462051819067').then(function (user) {
+        u = user;
+      }).then(function () {
+        return j.save(u.getID());
+      }).then(function () {
+        return t.save(u.getID(), j.getID());
+      }).then(function () {
         done();
-      });
+      }, done);
+
     });
   });
 
@@ -139,7 +148,7 @@ describe('Timer Model', function () {
   });
 
   it('can save with a parent Job', function (done) {
-    t.save(j.getID())
+    t.save(u.getID(), j.getID())
       .then(function () {
         return t.getJob();
       }).then(function(job) {
@@ -151,12 +160,12 @@ describe('Timer Model', function () {
   it('can only save a timer once to a job');
 
   it('remove a timer from Job', function (done) {
-    t.save(j.getID())
+    t.save(u.getID(), j.getID())
       .then(function () {
         return j.findTimers();
       }).then(function (timers) {
         assert.equal(timers.length, 1);
-        return t.save(false);
+        return t.save(u.getID(), false);
       }).then(function() {
         return t.getJob();
       }).then(function(job) {
@@ -169,7 +178,7 @@ describe('Timer Model', function () {
   });
 
   it("removes itself from job's timer list when removed", function (done) {
-    t.save(j.getID())
+    t.save(u.getID(), j.getID())
       .then(function () {
         return j.findTimers();
       }).then(function (timers) {
@@ -184,7 +193,7 @@ describe('Timer Model', function () {
   });
 
   it("can get the most recent timer", function (done) {
-    Timer.getMostRecent().then(function (timer) {
+    Timer.getMostRecent(u.getID()).then(function (timer) {
       assert.equal(timer.getID(), t.getID());
       done();
     });

@@ -20,22 +20,6 @@ module.exports = (function() {
         }).then(null, next);
     });
 
-    router.post('/account/timer/add', (req, res, next) => {
-        var sharedRouter = new RouterSharedAccount({
-            user: req.user,
-            grouped: res.locals.grouped,
-        });
-
-        console.log(req.body);
-
-        sharedRouter.getController().addTimer({
-            jobID: req.body.jobid,
-            description: req.body.description
-        }).then(timer => {
-            res.redirect('/account');
-        }).then(null, next);
-    });
-
     // catch all for /account/...
     router.get(/account(?:$|\/(.*))/i, (req, res, next) => {
         var sharedRouter = new RouterSharedAccount({

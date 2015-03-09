@@ -21,6 +21,12 @@ module.exports = (function() {
       ).then(timer => {
         res.statusCode = 200;
         res.json(timer);
+      }, err => {
+        console.error(err);
+        res.statusCode = 500;
+        res.json({
+          error: err.message
+        });
       });
     });
 

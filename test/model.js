@@ -18,7 +18,7 @@ describe('Base Model', function () {
     beforeEach(function (done) {
       db.flushdb();
 
-      exec('cat test/redis-fixture.txt | redis-cli', function(err, data) {
+      exec('cat test/redis-fixture-db10.txt | redis-cli', function(err, data) {
         m = new Model({
           name: 'test',
           title: 'titletest'
@@ -97,31 +97,6 @@ describe('Base Model', function () {
         });
       });
 
-    });
-
-    it('can get all models for a user', function (done) {
-      var ms = [];
-      var promises = [];
-
-      for (var i=0; i<20; i++) {
-        ms.push(new Model({
-          name: 'newmodel-' + i
-        }));
-      }
-
-      ms.forEach(function (m) {
-        promises.push(m.save());
-      });
-
-      Promise.all(promises)
-        .then(function () {
-          return Model.getAllForUser();
-        })
-        .then(function (models) {
-          assert.equal(models.length, 21);
-          done();
-        })
-        .then(null, done);
     });
 
     it('can create a model with a specific id', function (done) {

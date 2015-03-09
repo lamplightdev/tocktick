@@ -6,6 +6,7 @@ var exec = require('child_process').exec;
 var Job = require('../lib/models/job');
 var Timer = require('../lib/models/timer');
 var Group = require('../lib/models/group');
+var User = require('../lib/models/user');
 
 var db = require('../lib/redis-db');
 db.select(10);  //our test db
@@ -14,22 +15,25 @@ db.select(10);  //our test db
 
 
 describe('Group Model', function () {
-  var g;
+  var g, u;
 
   beforeEach(function (done) {
     db.flushdb();
 
-    exec('cat test/redis-fixture.txt | redis-cli', function(err) {
-      if (err) {
-        done(err);
-      }
+    exec('cat test/redis-fixture-db10.txt | redis-cli', function() {
+      var userPromise = User.findByProvider('google', '102963707462051819067').then(function (user) {
+        u = user;
+        return u;
+      }).then(function (user) {
+        return Group.fromDB(user.getID()).then(function (group) {
+          g = group;
+        });
+      });
 
-      Group.fromDB().then(function (group) {
-        g = group;
+      Promise.all([userPromise]).then(function () {
         done();
       }, done);
     });
-
   });
 
   it("can load jobs and timers from JSON", function () {
@@ -89,7 +93,7 @@ describe('Group Model', function () {
   });
 
   it("can get all timers for a specific job in descending start timer order", function () {
-    var jobID = 'XymM7DKu';
+    var jobID = 'QkUGVXgF';
     var timers = g.getOrderedJobTimers(jobID);
     assert.equal(timers.length, 3);
 
@@ -111,14 +115,14 @@ describe('Group Model', function () {
   });
 
   it("can check for an existing timer", function () {
-    var timerID = 'XkrO7PKO';
+    var timerID = 'X1-REQgK';
 
     assert.equal(g.timerExists(timerID), true);
     assert.equal(g.timerExists('blah'), false);
   });
 
   it("can find an existing timer", function () {
-    var timerID = 'XkrO7PKO';
+    var timerID = 'X1-REQgK';
     var timer = g.findTimer(timerID);
 
     assert(timer instanceof Timer);
@@ -129,14 +133,14 @@ describe('Group Model', function () {
   });
 
   it("can check for an existing job", function () {
-    var jobID = 'XymM7DKu';
+    var jobID = 'QkUGVXgF';
 
     assert.equal(g.jobExists(jobID), true);
     assert.equal(g.jobExists('blah'), false);
   });
 
   it("can find an existing job", function () {
-    var jobID = 'XymM7DKu';
+    var jobID = 'QkUGVXgF';
     var job = g.findJob(jobID);
 
     assert(job instanceof Job);
@@ -151,7 +155,7 @@ describe('Group Model', function () {
     assert.equal(g.getTimerIDs().length, 8);
 
     var t = new Timer({
-      jobID: 'XymM7DKu'
+      jobID: 'QkUGVXgF'
     });
 
     g.addTimer(t);
