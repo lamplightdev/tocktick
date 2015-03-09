@@ -1,20 +1,8 @@
 <div id='view-account'>
 
-  {{#eachobjcall grouped 'getOrderedJobs'}}
-  <div>
-    Job: {{this._members.name}}
-    <h4>Timers</h4>
-    {{#eachobjcall @root.grouped 'getOrderedJobTimers' 0=this._id}}
-    <div>
-    Timer: {{this._members.description}} ({{#if this.isRunning}}Running, {{/if}}{{this.getFormattedDuration}})
-    </div>
-    {{/eachobjcall}}
-  </div>
-  {{/eachobjcall}}
-
-  <form action='/account/job/add' method='post'>
-    <input type='text' name='name'>
-    <button type='submit' class='btn'>Add Job</button>
-  </form>
-
+{{#unless user}}
+<a href='/signin/google'>Sign in with Google</a>
+{{else}}
+{{user._members.name}} - <a href='/signin/signout'>Sign out</a>
+{{/unless}}
 </div>

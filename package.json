@@ -20,6 +20,8 @@
     "handlebars": "^3.0.0",
     "moment": "^2.9.0",
     "morgan": "*",
+    "passport": "^0.2.1",
+    "passport-google-oauth": "^0.2.0",
     "qs": "^2.3.3",
     "redis": "*",
     "shortid": "git://github.com/EgoAleSum/shortid.git#browser-support",

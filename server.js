@@ -14,7 +14,11 @@ var express  = require('express'),
     middleware   = require('./middleware'),
     config       = require('./config'),
 
+    passport     = require('passport'),
+    auth         = require('./lib/auth'),
+
     routesApi = require('./routes/api'),
+    routesAuth = require('./routes/auth'),
     routesStandard = require('./routes/standard'),
 
     port         = (process.env.PORT || 8000);
@@ -66,6 +70,11 @@ function setupServer () {
         }
     }));
 
+    app.use(passport.initialize());
+    app.use(passport.session());
+    auth.serialization();
+    auth.Google();
+
     //app.use(csrf());
     app.use(function (req, res, next) {
         //var token = req.csrfToken();
@@ -82,6 +91,7 @@ function setupServer () {
     app.use(express.Router());
 
     app.use('/api', routesApi);
+    app.use('/signin', routesAuth);
     app.use('/', routesStandard);
 
     // Error handling middleware
