@@ -319,6 +319,7 @@ main {
     }
 
     .timer-list-item__actions__edit {
+      display: inline-block;
       button img {
         transition: transform 0.2s linear 0s;
       }
