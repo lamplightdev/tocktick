@@ -319,13 +319,13 @@ main {
     }
 
     .timer-list-item__actions__edit {
-      img {
+      button img {
         transition: transform 0.2s linear 0s;
       }
     }
 
       .timer-list-item__actions__edit--active {
-        img {
+        button img {
           -webkit-transform: rotate(90deg);
           transform: rotate(90deg);
         }

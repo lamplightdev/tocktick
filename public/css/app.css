@@ -237,10 +237,10 @@ main {
 .timer-list-item__actions__stop {
   display: inline-block; }
 
-.timer-list-item__actions__edit img {
+.timer-list-item__actions__edit button img {
   transition: transform 0.2s linear 0s; }
 
-.timer-list-item__actions__edit--active img {
+.timer-list-item__actions__edit--active button img {
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg); }
 
