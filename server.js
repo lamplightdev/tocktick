@@ -16,6 +16,7 @@ var express  = require('express'),
 
     passport     = require('passport'),
     auth         = require('./lib/auth'),
+    connectRedis = require('connect-redis'),
 
     routesApi = require('./routes/api'),
     routesAuth = require('./routes/auth'),
@@ -61,13 +62,21 @@ function setupServer () {
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
     app.use(cookieParser());
+
+    var RedisStore = connectRedis(session);
     app.use(session({
         secret: 'keyboard cat',
         resave: false,
         saveUninitialized: false,
         cookie: {
-            maxAge: 60000,
-        }
+            maxAge: 1209600,    //wo weeks
+        },
+        store: new RedisStore({
+            host: process.env.TOCKTICK_REDIS_HOST,
+            port: process.env.TOCKTICK_REDIS_PORT,
+            pass: process.env.TOCKTICK_REDIS_PASSWORD,
+            db: 5,
+        })
     }));
 
     app.use(passport.initialize());

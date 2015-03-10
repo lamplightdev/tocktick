@@ -11,6 +11,7 @@
     "babel": "*",
     "body-parser": "*",
     "compression": "*",
+    "connect-redis": "^2.2.0",
     "cookie-parser": "*",
     "csurf": "*",
     "express": "^5.0.0-alpha.1",

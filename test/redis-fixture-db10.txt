@@ -1,0 +1,51 @@
+SELECT  10
+DEL     job:71keNmgF
+HMSET   job:71keNmgF name ratio7 dateAdded 1425927093680
+DEL     job:71keNmgF:timers
+SADD    job:71keNmgF:timers QJy1UQeF mkTyrQxt
+DEL     job:7yCd4QxY
+HMSET   job:7yCd4QxY name 'Phase II' dateAdded 1425927236638
+DEL     job:7yCd4QxY:timers
+SADD    job:7yCd4QxY:timers m1BSrQgY
+DEL     job:Qk98E7et
+HMSET   job:Qk98E7et name 'Plan UK' dateAdded 1425927199833
+DEL     job:Qk98E7et:timers
+SADD    job:Qk98E7et:timers X1-REQgK
+DEL     job:QkUGVXgF
+HMSET   job:QkUGVXgF name 'Lemos&Crane' dateAdded 1425927132720
+DEL     job:QkUGVXgF:timers
+SADD    job:QkUGVXgF:timers XkaRN7xY myJwH7gY QJATB7lt
+DEL     job:XkTb4XgF
+HMSET   job:XkTb4XgF name hive dateAdded 1425927123239
+DEL     job:XkTb4XgF:timers
+SADD    job:XkTb4XgF:timers mJpVBQgK
+DEL     jobs:ids
+SADD    jobs:ids Qk98E7et QkUGVXgF 71keNmgF XkTb4XgF 7yCd4QxY
+DEL     timer:QJATB7lt
+HMSET   timer:QJATB7lt jobID QkUGVXgF description ActionNet dateAdded 1425927572493 start 1425927572446 stop 1425927602449
+DEL     timer:QJy1UQeF
+HMSET   timer:QJy1UQeF jobID 71keNmgF description Maintenance dateAdded 1425927589279 start 1425927589239 stop 1425927601370
+DEL     timer:X1-REQgK
+HMSET   timer:X1-REQgK jobID Qk98E7et description 'Ring sizes' dateAdded 1425927319419 start 1425927319369
+DEL     timer:XkaRN7xY
+HMSET   timer:XkaRN7xY jobID QkUGVXgF description ParkLife dateAdded 1425927331468 start 1425927331427 stop 1425927616195
+DEL     timer:m1BSrQgY
+HMSET   timer:m1BSrQgY jobID 7yCd4QxY description PMAPP dateAdded 1425927434949 start 1425927434909 stop 1425927613392
+DEL     timer:mJpVBQgK
+HMSET   timer:mJpVBQgK jobID XkTb4XgF description '#TweetToHeat' dateAdded 1425927427140 start 1425927427098
+DEL     timer:mkTyrQxt
+HMSET   timer:mkTyrQxt jobID 71keNmgF description 'New sie build' dateAdded 1425927346961 start 1425927346923 stop 1425927614889
+DEL     timer:myJwH7gY
+HMSET   timer:myJwH7gY jobID QkUGVXgF description 'Server update' dateAdded 1425927461674 start 1425927461631
+DEL     timers:ids
+SADD    timers:ids mkTyrQxt m1BSrQgY QJy1UQeF mJpVBQgK X1-REQgK XkaRN7xY myJwH7gY QJATB7lt
+DEL     user:m1lOMmlF
+HMSET   user:m1lOMmlF name 'Chris Haynes' email 'chris.haynes@gmail.com' provider google providerID 102963707462051819067 dateAdded 1425926710271
+DEL     user:m1lOMmlF:jobs
+SADD    user:m1lOMmlF:jobs Qk98E7et QkUGVXgF 71keNmgF XkTb4XgF 7yCd4QxY
+DEL     user:m1lOMmlF:timers
+SADD    user:m1lOMmlF:timers QJy1UQeF mJpVBQgK X1-REQgK XkaRN7xY myJwH7gY QJATB7lt m1BSrQgY mkTyrQxt
+DEL     users:google:providerids
+HMSET   users:google:providerids 102963707462051819067 m1lOMmlF
+DEL     users:ids
+SADD    users:ids m1lOMmlF
