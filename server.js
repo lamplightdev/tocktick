@@ -75,7 +75,7 @@ function setupServer () {
             host: process.env.TOCKTICK_REDIS_HOST,
             port: process.env.TOCKTICK_REDIS_PORT,
             pass: process.env.TOCKTICK_REDIS_PASSWORD,
-            db: 5,
+            db: process.env.TOCKTICK_REDIS_DB,
         })
     }));
 
