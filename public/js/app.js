@@ -9,6 +9,8 @@ var urlparse = require('url').parse;
 var Offline = require('../../lib/offline');
 var request = require('then-request');
 
+
+
 /*
 // Make sure we are accessing over https, if not redirect
 if ((!location.port || location.port === "80") && location.protocol !== "https:" && location.host !== "localhost") {
@@ -46,6 +48,15 @@ var router = new RouterMain(
 router.init().then(() => {
   if (!App.Data.status404) {
     router.router.check(false);
+  }
+
+  if(App.Data.user) {
+    var port = location.port ? ':' + location.port : '';
+    var socket = io(port + '/user');
+    socket.emit('userID', App.Data.user._id);
+    socket.on('timerAdded', function (data) {
+      console.log('received', data);
+    });
   }
 });
 

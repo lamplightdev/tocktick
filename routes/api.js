@@ -19,6 +19,11 @@ module.exports = (function() {
           req.body.description,
           req.body.actiontime
       ).then(timer => {
+        let socket = req.app.get('socket');
+        if (socket) {
+          console.log(socket);
+          socket.to(req.user.getID()).emit('timerAdded', timer);
+        }
         res.statusCode = 200;
         res.json(timer);
       }, err => {

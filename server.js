@@ -10,6 +10,9 @@ var express  = require('express'),
     state        = require('express-state'),
     compression  = require('compression'),
 
+    httpServer   = require('http').Server,
+    socketio     = require('socket.io'),
+
     hbs          = require('./lib/exphbs'),
     middleware   = require('./middleware'),
     config       = require('./config'),
@@ -36,11 +39,8 @@ db.on('connect', function() {
 });
 
 function setupServer () {
-    var app = express(),
-        server = app.listen(port, function () {
-            console.log("TockTick is now listening on port " + server.address().port);
-        });
-
+    var app = express();
+    var server = httpServer(app);
 
     state.extend(app);
     app.set('state namespace', 'App');
@@ -69,7 +69,7 @@ function setupServer () {
         resave: false,
         saveUninitialized: false,
         cookie: {
-            maxAge: 1209600,    //wo weeks
+            maxAge: 1209600,    //two weeks
         },
         store: new RedisStore({
             host: process.env.TOCKTICK_REDIS_HOST,
@@ -81,7 +81,7 @@ function setupServer () {
 
     app.use(passport.initialize());
     app.use(passport.session());
-    auth.serialization();
+    auth.serialization(app);
     auth.Google();
 
     //app.use(csrf());
@@ -116,6 +116,27 @@ function setupServer () {
         } else {
           res.type('txt').send('Not found');
         }
+    });
+
+    var io = socketio(server);
+    var userSocket = io.of('/user');
+    app.set('socket', userSocket);
+
+    userSocket.on('connection', function (socket) {
+      console.log('a user connected', socket.id);
+      socket.on('userID', function (userID) {
+        console.log(socket.id, 'joined', userID);
+        socket.join(userID);
+      });
+
+      socket.on('disconnect', function () {
+        console.log('user disconnected', socket.id);
+      });
+    });
+
+
+    server.listen(port, function () {
+        console.log("TockTick is now listening on port " + server.address().port);
     });
 
     return server;

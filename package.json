@@ -26,6 +26,7 @@
     "qs": "^2.3.3",
     "redis": "*",
     "shortid": "git://github.com/EgoAleSum/shortid.git#browser-support",
+    "socket.io": "^1.3.5",
     "then-redis": "*",
     "then-request": "*"
   },
