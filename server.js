@@ -64,6 +64,7 @@ function setupServer () {
     app.use(cookieParser());
 
     var RedisStore = connectRedis(session);
+    console.log(require('./lib/redis-db'));
     app.use(session({
         secret: 'keyboard cat',
         resave: false,
@@ -72,10 +73,8 @@ function setupServer () {
             maxAge: 1209600,    //two weeks
         },
         store: new RedisStore({
-            host: process.env.TOCKTICK_REDIS_HOST,
-            port: process.env.TOCKTICK_REDIS_PORT,
+            client: require('./lib/redis-db')._redisClient,
             pass: process.env.TOCKTICK_REDIS_PASSWORD,
-            db: process.env.TOCKTICK_REDIS_DB,
         })
     }));
 
