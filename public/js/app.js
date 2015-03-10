@@ -49,15 +49,6 @@ router.init().then(() => {
   if (!App.Data.status404) {
     router.router.check(false);
   }
-
-  if(App.Data.user) {
-    var port = location.port ? ':' + location.port : '';
-    var socket = io(port + '/user');
-    socket.emit('userID', App.Data.user._id);
-    socket.on('timerAdded', function (data) {
-      console.log('received', data);
-    });
-  }
 });
 
 

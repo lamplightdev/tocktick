@@ -21,8 +21,7 @@ module.exports = (function() {
       ).then(timer => {
         let socket = req.app.get('socket');
         if (socket) {
-          console.log(socket);
-          socket.to(req.user.getID()).emit('timerAdded', timer);
+          socket.to(req.user.getID()).emit('timerUpdated', timer);
         }
         res.statusCode = 200;
         res.json(timer);
@@ -45,6 +44,10 @@ module.exports = (function() {
           req.params.id,
           req.body.actiontime
       ).then(timer => {
+        let socket = req.app.get('socket');
+        if (socket) {
+          socket.to(req.user.getID()).emit('timerUpdated', timer);
+        }
         res.statusCode = 200;
         res.json(timer);
       });
@@ -63,6 +66,10 @@ module.exports = (function() {
             jobID: req.body.jobid
           }
       ).then(timer => {
+        let socket = req.app.get('socket');
+        if (socket) {
+          socket.to(req.user.getID()).emit('timerUpdated', timer);
+        }
         res.statusCode = 200;
         res.json(timer);
       });
@@ -75,6 +82,10 @@ module.exports = (function() {
       });
 
       sharedRouter.getController().deleteTimer(req.params.id).then(timer => {
+        let socket = req.app.get('socket');
+        if (socket) {
+          socket.to(req.user.getID()).emit('timerDeleted', timer);
+        }
         res.statusCode = 200;
         res.json(timer);
       });

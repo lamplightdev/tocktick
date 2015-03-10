@@ -123,14 +123,11 @@ function setupServer () {
     app.set('socket', userSocket);
 
     userSocket.on('connection', function (socket) {
-      console.log('a user connected', socket.id);
       socket.on('userID', function (userID) {
-        console.log(socket.id, 'joined', userID);
         socket.join(userID);
       });
 
       socket.on('disconnect', function () {
-        console.log('user disconnected', socket.id);
       });
     });
 
