@@ -3,9 +3,9 @@ require("babel/register");
 var assert = require("assert");
 var exec = require('child_process').exec;
 
-var Model = require('../lib/models/model');
+var Model = require('../../lib/models/model');
 
-var db = require('../lib/redis-db');
+var db = require('../../lib/redis-db');
 db.select(10);  //our test db
 
 /*global describe, it, before, beforeEach, after, afterEach */

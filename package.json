@@ -39,6 +39,7 @@
     "gulp-sourcemaps": "*",
     "gulp-uglify": "*",
     "gulp-usemin": "*",
+    "jsdom": "^3.1.2",
     "mocha": "*",
     "rewire": "*",
     "sinon": "*",

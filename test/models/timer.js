@@ -4,16 +4,16 @@ var assert = require("assert");
 var rewire = require('rewire');
 var exec = require('child_process').exec;
 
-var Job = require('../lib/models/job');
-var Timer = rewire('../lib/models/timer');
-var User = require('../lib/models/user');
+var Job = require('../../lib/models/job');
+var Timer = rewire('../../lib/models/timer');
+var User = require('../../lib/models/user');
 
 Timer.__set__("Timer.getCurrentTime", function() {
   return 1000;
 });
 
 
-var db = require('../lib/redis-db');
+var db = require('../../lib/redis-db');
 db.select(10);  //our test db
 
 /*global describe, it, before, beforeEach, after, afterEach */

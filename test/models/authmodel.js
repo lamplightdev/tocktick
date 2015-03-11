@@ -2,9 +2,9 @@ require("babel/register");
 
 var assert = require("assert");
 
-var AuthModel = require('../lib/models/authmodel');
+var AuthModel = require('../../lib/models/authmodel');
 
-var db = require('../lib/redis-db');
+var db = require('../../lib/redis-db');
 db.select(10);  //our test db
 
 /*global describe, it, before, beforeEach, after, afterEach */

@@ -2,9 +2,9 @@ require("babel/register");
 
 var assert = require("assert");
 
-var User = require('../lib/models/user');
+var User = require('../../lib/models/user');
 
-var db = require('../lib/redis-db');
+var db = require('../../lib/redis-db');
 db.select(10);  //our test db
 
 /*global describe, it, before, beforeEach, after, afterEach */
@@ -12,24 +12,32 @@ db.select(10);  //our test db
 
 describe('User Model', function () {
 
-  beforeEach(function () {
 
-    db.flushdb();
+  describe("user creation", function () {
 
+    beforeEach(function () {
+
+      db.flushdb();
+
+    });
+
+    it("should throw an error if no provider info given", function () {
+
+        var u = new User();
+        assert.throws(u.save, Error);
+
+    });
   });
 
-  it("should throw an error if no provider info given", function () {
 
-      var u = new User();
-      assert.throws(u.save, Error);
-
-  });
 
   describe("can create a user and provider info, then find it (or not)", function () {
 
     var u;
 
     before(function () {
+      db.flushdb();
+
       u = new User({
         name: 'test',
         provider: 'authprovider',
@@ -44,7 +52,7 @@ describe('User Model', function () {
         assert.equal(id, u.getID());
 
         done();
-      });
+      }).then(null, done);
     });
 
     it("can find the user by provider info", function (done) {
@@ -52,7 +60,7 @@ describe('User Model', function () {
         assert.equal(u.getID(), user.getID());
 
         done();
-      });
+      }).then(null, done);
     });
 
     it("can't find it with non-existent provider info", function (done) {
@@ -60,7 +68,7 @@ describe('User Model', function () {
         assert.equal(user, false);
 
         done();
-      });
+      }).then(null, done);
     });
 
   });

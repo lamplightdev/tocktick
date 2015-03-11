@@ -3,12 +3,12 @@ require("babel/register");
 var assert = require("assert");
 var exec = require('child_process').exec;
 
-var Job = require('../lib/models/job');
-var Timer = require('../lib/models/timer');
-var Group = require('../lib/models/group');
-var User = require('../lib/models/user');
+var Job = require('../../lib/models/job');
+var Timer = require('../../lib/models/timer');
+var Group = require('../../lib/models/group');
+var User = require('../../lib/models/user');
 
-var db = require('../lib/redis-db');
+var db = require('../../lib/redis-db');
 db.select(10);  //our test db
 
 /*global describe, it, before, beforeEach, after, afterEach */
