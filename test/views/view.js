@@ -1,13 +1,14 @@
 require("babel/register");
 
-var View = require('../../lib/views/view');
+var rewire = require('rewire');
+
+var View = rewire('../../lib/views/view');
 
 var Handlebars = require("handlebars");
 
 var assert = require("assert");
 var sinon = require("sinon");
 var jsdom = require("jsdom");
-
 
 /*global describe, it, before, beforeEach, after, afterEach */
 
@@ -119,6 +120,127 @@ describe('Base View', function () {
 
     v.render(data, false);
     assert.equal(v.getContainer().innerHTML, allHTML);
+  });
+
+  describe("form submission", function () {
+    var doc = jsdom.jsdom(
+      '<form id="test-form" action="http://testaction" method="post">' +
+      '<input type="text" name="name" value="testname">' +
+      '<input type="hidden" name="id" value="testid">' +
+      '<form>'
+    ).defaultView.document;
+    var form = doc.getElementById('test-form');
+    form.dataset = {};  //jsdom doesn't support dataset
+
+    var requestSpy = sinon.stub().returns(
+      Promise.resolve({
+        getBody: function () {
+          return JSON.stringify({});
+        }
+      })
+    );
+
+    it("should submit a form over ajax with method and action", function (done) {
+
+      View.__with__({
+        request: requestSpy
+      })(function () {
+
+        var v = new View(container, parts, callbacks);
+
+        v.submitForm(form).then(function () {
+          assert(requestSpy.calledWith('post', 'http://testaction', {
+            json: {
+              name: 'testname',
+              id: 'testid'
+            },
+            qs: {}
+          }));
+          done();
+        }).then(null, done);
+
+      });
+
+    });
+
+    it("should submit a form over ajax with api method and api action", function (done) {
+
+      form.dataset = {
+        apiMethod: 'put',
+        apiAction: 'http://apiaction'
+      };
+
+      View.__with__({
+        request: requestSpy
+      })(function () {
+
+        var v = new View(container, parts, callbacks);
+
+        v.submitForm(form).then(function () {
+          assert(requestSpy.calledWith('put', 'http://apiaction', {
+            json: {
+              name: 'testname',
+              id: 'testid'
+            },
+            qs: {}
+          }));
+          done();
+        }).then(null, done);
+
+      });
+
+    });
+
+    it("should submit a form with query string with get method", function (done) {
+
+      form.dataset = {
+        apiMethod: 'get',
+      };
+
+      View.__with__({
+        request: requestSpy
+      })(function () {
+
+        var v = new View(container, parts, callbacks);
+
+        v.submitForm(form).then(function () {
+          assert(requestSpy.calledWith('get', 'http://testaction', {
+            json: {},
+            qs: {
+              name: 'testname',
+              id: 'testid'
+            }
+          }));
+          done();
+        }).then(null, done);
+
+      });
+
+    });
+
+    it("should submit a form with json with anything but get method", function (done) {
+
+      View.__with__({
+        request: requestSpy
+      })(function () {
+
+        var v = new View(container, parts, callbacks);
+
+        v.submitForm(form).then(function () {
+          assert(requestSpy.calledWith('post', 'http://testaction', {
+            json: {
+              name: 'testname',
+              id: 'testid'
+            },
+            qs: {}
+          }));
+          done();
+        }).then(null, done);
+
+      });
+
+    });
+
   });
 
 });
