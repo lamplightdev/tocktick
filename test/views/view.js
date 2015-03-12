@@ -122,6 +122,7 @@ describe('Base View', function () {
     assert.equal(v.getContainer().innerHTML, allHTML);
   });
 
+
   describe("form submission", function () {
     var doc = jsdom.jsdom(
       '<form id="test-form" action="http://testaction" method="post">' +
@@ -140,7 +141,23 @@ describe('Base View', function () {
       })
     );
 
-    it("should submit a form over ajax with method and action", function (done) {
+    var localStorageFill = {
+      vals: {},
+      setItem: function (key, value) {
+        this.vals[key] = value;
+        return this;
+      },
+      getItem: function (key) {
+        return this.vals[key];
+      },
+      clear: function () {
+        this.vals = {};
+      }
+    };
+
+    it("should submit a form over ajax with form method and action", function (done) {
+      form.dataset = {};
+      requestSpy.reset();
 
       View.__with__({
         request: requestSpy
@@ -169,6 +186,7 @@ describe('Base View', function () {
         apiMethod: 'put',
         apiAction: 'http://apiaction'
       };
+      requestSpy.reset();
 
       View.__with__({
         request: requestSpy
@@ -191,11 +209,39 @@ describe('Base View', function () {
 
     });
 
+    it("should submit a form over ajax with given method and action", function (done) {
+
+      form.dataset = {
+      };
+      requestSpy.reset();
+
+      View.__with__({
+        request: requestSpy
+      })(function () {
+
+        var v = new View(container, parts, callbacks);
+
+        v.submitForm(form, 'get', 'http://givenaction').then(function () {
+          assert(requestSpy.calledWith('get', 'http://givenaction', {
+            json: {},
+            qs: {
+              name: 'testname',
+              id: 'testid'
+            }
+          }));
+          done();
+        }).then(null, done);
+
+      });
+
+    });
+
     it("should submit a form with query string with get method", function (done) {
 
       form.dataset = {
         apiMethod: 'get',
       };
+      requestSpy.reset();
 
       View.__with__({
         request: requestSpy
@@ -219,6 +265,8 @@ describe('Base View', function () {
     });
 
     it("should submit a form with json with anything but get method", function (done) {
+      form.dataset = {};
+      requestSpy.reset();
 
       View.__with__({
         request: requestSpy
@@ -238,6 +286,66 @@ describe('Base View', function () {
         }).then(null, done);
 
       });
+
+    });
+
+    it("should queue unfulfilled requests", function (done) {
+      form.dataset = {
+      };
+      requestSpy.reset();
+
+      requestSpy = sinon.stub().returns(
+        Promise.resolve({
+          statusCode: 200,
+          getBody: function () {
+            return JSON.stringify({});
+          }
+        })
+      );
+
+
+      View.__with__({
+        request: requestSpy,
+        localStorage: localStorageFill
+      })(function () {
+
+        var v = new View(container, parts, callbacks);
+        localStorageFill.clear();
+
+        assert(typeof localStorageFill.getItem('api-queue') === 'undefined');
+
+        return v.submitForm(form).then(function () {
+          assert(typeof localStorageFill.getItem('api-queue') === 'undefined');
+          View.__set__('request', sinon.stub().returns(
+            Promise.resolve({
+              statusCode: 0,
+              getBody: function () {
+                return JSON.stringify({});
+              }
+            })
+          ));
+          return v.submitForm(form);
+        }).then(function () {
+          var q = JSON.parse(localStorageFill.getItem('api-queue'));
+          assert.equal(q.length, 1);
+          assert.deepEqual(q[0], {
+            method: 'post',
+            action: 'http://testaction',
+            data: {
+              name: 'testname',
+              id: 'testid'
+            },
+            qs: {},
+          });
+          return v.submitForm(form);
+        }).then(function () {
+          assert.equal(JSON.parse(localStorageFill.getItem('api-queue')).length, 2);
+        });
+
+
+      }).then(function() {
+        done();
+      }).then(null, done);
 
     });
 

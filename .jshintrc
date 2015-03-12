@@ -11,5 +11,5 @@
     "undef": true,
     "unused": true,
     "esnext": true,
-    "predef": ["navigator", "window", "document", "location", "localStorage", "App"]
+    "predef": ["navigator", "window", "document", "location", "App"]
 }
