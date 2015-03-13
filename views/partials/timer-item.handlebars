@@ -82,7 +82,7 @@
             >{{this._members.name}}</option>
         {{/each}}
       </select>
-      <button type='button' class='selectme btn' data-connect='jobid'>{{arrindexprop @root.grouped._jobs.all _members.jobID '_members.name'}}</button>
+      <button type='button' class='selectme btn' data-timer-id='{{_id}}'>{{arrindexprop @root.grouped._jobs.all _members.jobID '_members.name'}}</button>
       <input type='text' id='timer-list-item__edit__description__input' name='description' value='{{_members.description}}' placeholder='Description'>
       <button type='submit'><img class='icon-small' src='/images/checkmark.svg' alt='Save' title='Save'></button>
     </form>

@@ -87,7 +87,7 @@ if (Offline.isOnline()) {
   }
 }
 
-
+/*
 let overlay = document.querySelector('.overlay');
 let overlayContent = overlay.querySelector('.overlay__content__body');
 let overlayTitle = overlay.querySelector('.overlay__title');
@@ -147,6 +147,7 @@ function openSelectMe(el) {
 
   overlayOpen('Select job');
 }
+*/
 
 document.body.addEventListener('click', (event) => {
   if (typeof event.target.dataset.nav !== 'undefined') {
@@ -157,7 +158,5 @@ document.body.addEventListener('click', (event) => {
     event.preventDefault();
     event.stopPropagation();
     router.router.navigate(urlparse(event.target.parentNode.href).pathname);
-  } else if (event.target.classList.contains('selectme')) {
-    openSelectMe(event.target);
   }
 });

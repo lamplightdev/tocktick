@@ -1,15 +1,32 @@
-<div class='timer-edit'>
+<div class='overlay'>
 
-  <input type='text' name='description' value=''>
+  <div class='overlay__content'>
 
-  <div class='timer-edit--job selectmebox'>
-    <ul class='selectmebox__inner'>
-      <li
-        class='selectmebox__inner__option selectmebox__inner__option--selected btn'
-        data-value=''
-        data-name=''>
-      </li>
-    </ul>
+    <h2 class='overlay__title'>Edit details</h2>
+
+    <button class='overlay__close'><img src='/images/cross.svg' class='icon-small' alt='Close' title='Close'></button>
+
+    <div class='overlay__content__body'>
+
+      <div class='timer-edit'>
+
+        <input type='text' name='description' value=''>
+
+        <div class='timer-edit--job selectmebox'>
+          <ul class='selectmebox__inner'>
+            <li
+              class='selectmebox__inner__option selectmebox__inner__option--selected btn'
+              data-value=''
+              data-name=''>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+
   </div>
 
 </div>
+
