@@ -1,6 +1,6 @@
 var noCache = require('../middleware/nocache');
 
-var RouterSharedFront = require('../lib/routers/shared-front');
+var ControllerFront = require('../lib/controllers/front');
 
 
 module.exports = (function() {
@@ -8,12 +8,12 @@ module.exports = (function() {
     var router = require('express').Router();
 
     router.post('/timer/start/:id?', function (req, res) {
-      var sharedRouter = new RouterSharedFront({
+      var controller = new ControllerFront({
           user: req.user,
           grouped: res.locals.grouped,
       });
 
-      sharedRouter.getController().startTimer(
+      controller.startTimer(
           req.params.id,
           req.body.jobid,
           req.body.description,
@@ -35,12 +35,12 @@ module.exports = (function() {
     });
 
     router.put('/timer/stop/:id', function (req, res) {
-      var sharedRouter = new RouterSharedFront({
+      var controller = new ControllerFront({
           user: req.user,
           grouped: res.locals.grouped,
       });
 
-      sharedRouter.getController().stopTimer(
+      controller.stopTimer(
           req.params.id,
           req.body.actiontime
       ).then(timer => {
@@ -54,12 +54,12 @@ module.exports = (function() {
     });
 
     router.put('/timer/update/:id', function (req, res) {
-      var sharedRouter = new RouterSharedFront({
+      var controller = new ControllerFront({
           user: req.user,
           grouped: res.locals.grouped,
       });
 
-      sharedRouter.getController().updateTimer(
+      controller.updateTimer(
           req.params.id,
           {
             description: req.body.description,
@@ -76,12 +76,12 @@ module.exports = (function() {
     });
 
     router.delete('/timer/delete/:id', function (req, res) {
-      var sharedRouter = new RouterSharedFront({
+      var controller = new ControllerFront({
           user: req.user,
           grouped: res.locals.grouped,
       });
 
-      sharedRouter.getController().deleteTimer(req.params.id).then(timer => {
+      controller.deleteTimer(req.params.id).then(timer => {
         let socket = req.app.get('socket');
         if (socket) {
           socket.to(req.user.getID()).emit('timerDeleted', timer);

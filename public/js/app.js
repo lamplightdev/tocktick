@@ -47,7 +47,7 @@ var router = new RouterMain(
 );
 router.init().then(() => {
   if (!App.Data.status404) {
-    router.router.check(false);
+    router.router.check(true);
   }
 });
 
@@ -119,21 +119,26 @@ function openSelectMe(el) {
   let form = el.form;
   let connect = el.dataset.connect;
   let select = form.querySelector('select[name=' + connect + ']');
+  let currentValue = select.value;
   let numOptions = select.options.length;
 
   let optionText = '';
 
-  optionText += `<div class='selectmebox'>`;
+  optionText += `<div class='selectmebox'><ul class='selectmebox__inner'>`;
   for(let i=0; i<numOptions; i++) {
+    let selected = '';
+    if (select.options[i].value === currentValue) {
+      selected = 'selectmebox__inner__option--selected';
+    }
     optionText += `
-      <button class='selectmebox__option btn' data-value='${select.options[i].value}' data-name='${select.options[i].text}'>${select.options[i].text}</button>
+      <li class='selectmebox__inner__option ${selected} btn' data-value='${select.options[i].value}' data-name='${select.options[i].text}'>${select.options[i].text}</li>
     `;
   }
-  optionText += `</div>`;
+  optionText += `</ul></div>`;
 
   overlayContent.innerHTML = optionText;
 
-  let options = overlayContent.querySelectorAll('.selectmebox__option');
+  let options = overlayContent.querySelectorAll('.selectmebox__inner__option');
   for (let i=0; i<options.length; i++) {
     options[i].addEventListener('click', event => {
       chooseSelectMe(el, select, event.target.dataset.value, event.target.dataset.name);

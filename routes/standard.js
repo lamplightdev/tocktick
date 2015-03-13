@@ -1,6 +1,12 @@
-var RouterSharedAccount = require('../lib/routers/shared-account');
-var RouterSharedFront = require('../lib/routers/shared-front');
-var RouterSharedTimers = require('../lib/routers/shared-timers');
+var RouterAccount = require('../lib/routers/account');
+var RouterFront = require('../lib/routers/front');
+var RouterTimers = require('../lib/routers/timers');
+
+var AppController = require('../lib/controllers/app');
+var FrontController = require('../lib/controllers/front');
+var AccountController = require('../lib/controllers/account');
+var TimersController = require('../lib/controllers/timers');
+var NavController = require('../lib/controllers/nav');
 
 
 module.exports = (function() {
@@ -8,29 +14,43 @@ module.exports = (function() {
     var router = require('express').Router();
 
     router.post('/account/job/add', (req, res, next) => {
-        var sharedRouter = new RouterSharedAccount({
+        var accountController = new AccountController({
             user: req.user,
-            grouped: res.locals.grouped,
+            grouped: res.locals.grouped
         });
 
-        sharedRouter.getController().addJob({
+        accountController.addJob({
             name: req.body.name
-        }).then(job => {
+        }).then(() => {
             res.redirect('/account');
         }).then(null, next);
     });
 
     // catch all for /account/...
     router.get(/account(?:$|\/(.*))/i, (req, res, next) => {
-        var sharedRouter = new RouterSharedAccount({
-            user: req.user,
-            grouped: res.locals.grouped,
-            currentPage: 'account',
-        });
 
-        sharedRouter.match(req.params[0], req.query, (matched) => {
+        RouterAccount.match(req.params[0], req.query, (matched) => {
 
-            res.render("view-account", sharedRouter.getController()._getViewData());
+            var accountController = new AccountController({
+                user: req.user,
+                grouped: res.locals.grouped
+            });
+            var navController = new NavController({
+                user: req.user,
+                grouped: res.locals.grouped,
+                current: 'account'
+            });
+            var appController = new AppController({
+                user: req.user,
+                grouped: res.locals.grouped
+            });
+
+            appController.addExtraData({
+                view: accountController.getViewData(),
+                nav: navController.getViewData()
+            });
+
+            res.render("app", appController.getViewData());
 
         }, (err) => {
             console.log('account route error: ', err);
@@ -39,47 +59,68 @@ module.exports = (function() {
     });
 
     router.post('/timer/start/:id?', (req, res, next) => {
-        var sharedRouter = new RouterSharedFront({
+        var frontController = new FrontController({
             user: req.user,
             grouped: res.locals.grouped,
         });
 
-        sharedRouter.getController().startTimer(
+        frontController.startTimer(
             req.params.id,
             req.body.jobid,
             req.body.description
-        ).then(timer => {
+        ).then(() => {
             res.redirect('/');
         }).then(null, next);
     });
 
     router.post('/timer/stop/:id', (req, res, next) => {
-        var sharedRouter = new RouterSharedFront({
+        var frontController = new FrontController({
             user: req.user,
             grouped: res.locals.grouped,
         });
 
-        sharedRouter.getController().stopTimer(req.params.id).then(timer => {
+        frontController.stopTimer(
+            req.params.id
+        ).then(() => {
             res.redirect('/');
         }).then(null, next);
     });
 
     // catch all for /timers...
     router.get(/timers(?:$|\/(.*))/i, (req, res, next) => {
-        var sharedRouter = new RouterSharedTimers({
-            user: req.user,
-            grouped: res.locals.grouped,
-            currentPage: 'timers',
-        });
+        RouterTimers.match(req.params[0], req.query, (matched) => {
+            var timersController = new TimersController({
+                user: req.user,
+                grouped: res.locals.grouped
+            });
+            var navController = new NavController({
+                user: req.user,
+                grouped: res.locals.grouped,
+                current: 'timers'
+            });
+            var appController = new AppController({
+                user: req.user,
+                grouped: res.locals.grouped
+            });
 
-        sharedRouter.match(req.params[0], req.query, (matched) => {
+            if (matched.name === 'timer' || matched.name === 'timer-edit') {
+                if (!res.locals.grouped.timerExists(matched.id)) {
+                    console.log('timer non-existent');
+                    return next();
+                }
+            }
 
             if (matched.name === 'timer-edit') {
-                sharedRouter.getController().setExtraData({
+                timersController.setExtraData({
                     timerEdit: matched.id
                 });
             }
-            res.render("view-timers", sharedRouter.getController()._getViewData());
+
+            appController.addExtraData({
+                view: timersController.getViewData(),
+                nav: navController.getViewData()
+            });
+            res.render("app", appController.getViewData());
 
         }, (err) => {
             console.log('timers route error: ', err);
@@ -89,15 +130,27 @@ module.exports = (function() {
 
     // catch all for /...
     router.get(/(?:$|\/(.*))/i, (req, res, next) => {
-        var sharedRouter = new RouterSharedFront({
-            user: req.user,
-            grouped: res.locals.grouped,
-            currentPage: 'front',
-        });
+        RouterFront.match(req.params[0], req.query, (matched) => {
+            var frontController = new FrontController({
+                user: req.user,
+                grouped: res.locals.grouped
+            });
+            var navController = new NavController({
+                user: req.user,
+                grouped: res.locals.grouped,
+                current: 'front'
+            });
+            var appController = new AppController({
+                user: req.user,
+                grouped: res.locals.grouped
+            });
 
-        sharedRouter.match(req.params[0], req.query, (matched) => {
+            appController.addExtraData({
+                view: frontController.getViewData(),
+                nav: navController.getViewData()
+            });
 
-            res.render("view-front", sharedRouter.getController()._getViewData());
+            res.render("app", appController.getViewData());
 
         }, (err) => {
             console.log('front route error: ', err);
@@ -106,31 +159,30 @@ module.exports = (function() {
     });
 
     router.post('/timer/update/:id', function (req, res, next) {
-      var sharedRouter = new RouterSharedFront({
-          user: req.user,
-          grouped: res.locals.grouped,
-      });
+        var frontController = new FrontController({
+            user: req.user,
+            grouped: res.locals.grouped,
+        });
 
-      sharedRouter.getController().updateTimer(
-          req.params.id,
-          {
-            description: req.body.description,
-            jobID: req.body.jobid
-          }
-      ).then(timer => {
-        res.redirect('/timers/' + timer.getID());
-      }).then(null, next);
+        frontController.updateTimer(
+            req.params.id, {
+                description: req.body.description,
+                jobID: req.body.jobid
+            }
+        ).then(timer => {
+            res.redirect('/timers/' + timer.getID());
+        }).then(null, next);
     });
 
     router.post('/timer/delete/:id', function (req, res, next) {
-      var sharedRouter = new RouterSharedFront({
-          user: req.user,
-          grouped: res.locals.grouped,
-      });
+        var frontController = new FrontController({
+            user: req.user,
+            grouped: res.locals.grouped,
+        });
 
-      sharedRouter.getController().deleteTimer(req.params.id).then(() => {
-        res.redirect('/timers');
-      }).then(null, next);
+        frontController.deleteTimer(req.params.id).then(() => {
+            res.redirect('/timers');
+        }).then(null, next);
     });
 
     return router;

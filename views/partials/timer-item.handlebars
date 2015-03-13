@@ -2,7 +2,6 @@
 
   <div class='timer-list-item__name'>{{arrindexprop @root.grouped._jobs.all _members.jobID '_members.name'}}{{#if _members.description}}<span>{{_members.description}}{{/if}}</spam></div>
 
-
   {{#if isRunning}}
 
     <div class='timer-list-item__status timer-list-item__status--running'><img src='/images/timer.svg' alt='running'></div>
@@ -19,7 +18,7 @@
         <button type='submit'><img src='/images/stop.svg' alt='stop'></button>
       </form>
       <form
-        class='timer-list-item__actions__edit {{#ifequal @root.timerEdit _id}}timer-list-item__actions__edit--active{{/ifequal}}'
+        class='timer-list-item__actions__edit {{#ifequal @root.view.timerEdit _id}}timer-list-item__actions__edit--active{{/ifequal}}'
         action='/timers/edit/{{_id}}'
         method='get'
         data-timer-id='{{_id}}'
@@ -42,7 +41,7 @@
     <div class='timer-list-item__status timer-list-item__status--complete'><img src='/images/checkmark.svg' alt='complete'></div>
     <div class='timer-list-item__actions'>
       <form
-        class='timer-list-item__actions__edit {{#ifequal @root.timerEdit _id}}timer-list-item__actions__edit--active{{/ifequal}}'
+        class='timer-list-item__actions__edit {{#ifequal @root.view.timerEdit _id}}timer-list-item__actions__edit--active{{/ifequal}}'
         action='/timers/edit/{{_id}}'
         method='get'
         data-timer-id='{{_id}}'
@@ -65,7 +64,7 @@
 
   {{/if}}
 
-  <div class='timer-list-item__subactions {{#ifequal @root.timerEdit _id}}timer-list-item__subactions--show{{/ifequal}}'>
+  <div class='timer-list-item__subactions {{#ifequal @root.view.timerEdit _id}}timer-list-item__subactions--show{{/ifequal}}'>
     <form
       class='timer-list-item__edit'
       data-timer-id='{{_id}}'

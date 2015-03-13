@@ -52,6 +52,30 @@ button {
 select {
   border: 0; }
 
+.selectmebox {
+  overflow-x: scroll;
+  -ms-overflow-style: none; }
+  .selectmebox::-webkit-scrollbar {
+    display: none; }
+
+.selectmebox__inner {
+  display: table;
+  border-collapse: separate;
+  border-spacing: 5px 0;
+  overflow: hidden;
+  font-size: 1em;
+  padding: 0;
+  margin: 0;
+  list-style-type: none; }
+
+.selectmebox__inner__option {
+  display: table-cell;
+  overflow: hidden;
+  white-space: nowrap; }
+
+.selectmebox__inner__option--selected {
+  border: 2px solid black; }
+
 header {
   position: fixed;
   z-index: 10;
@@ -287,5 +311,3 @@ main {
   right: 0.5em;
   font-size: 1.1em; }
 
-.overlay__content__body {
-  padding: 1em; }

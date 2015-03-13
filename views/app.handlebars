@@ -1,0 +1,28 @@
+<header>
+  <a href='/' data-nav>TockTick</a>
+</header>
+
+<main>
+  <div id='view-nav'>
+    {{> nav-outer nav}}
+  </div>
+
+  <div id='view'>
+    {{#ifequal nav.current 'front'}}
+    {{>front view}}
+    {{/ifequal}}
+    {{#ifequal nav.current 'timers'}}
+    {{>timers view}}
+    {{/ifequal}}
+    {{#ifequal nav.current 'account'}}
+    {{>account view}}
+    {{/ifequal}}
+  </div>
+</main>
+
+<footer>
+</footer>
+
+{{>timer-edit}}
+
+{{>overlay}}

@@ -64,7 +64,6 @@ function setupServer () {
     app.use(cookieParser());
 
     var RedisStore = connectRedis(session);
-    console.log(require('./lib/redis-db'));
     app.use(session({
         secret: 'keyboard cat',
         resave: false,
