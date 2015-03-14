@@ -9,16 +9,18 @@
     <div class='overlay__content__body'>
 
       <div class='timer-edit'>
-
         <input type='text' name='description' value=''>
 
         <div class='timer-edit--job selectmebox'>
           <ul class='selectmebox__inner'>
+            {{#each jobs}}
             <li
-              class='selectmebox__inner__option selectmebox__inner__option--selected btn'
-              data-value=''
-              data-name=''>
+              class='selectmebox__inner__option {{#ifequal this._id ../timer._members.jobID}}selectmebox__inner__option--selected{{/ifequal}} btn'
+              data-value='{{this._id}}'
+              data-name='{{this._members.name}}'>
+              {{this._members.name}}
             </li>
+            {{/each}}
           </ul>
         </div>
 

@@ -65,27 +65,7 @@
   {{/if}}
 
   <div class='timer-list-item__subactions {{#ifequal @root.view.timerEdit _id}}timer-list-item__subactions--show{{/ifequal}}'>
-    <form
-      class='timer-list-item__edit'
-      data-timer-id='{{_id}}'
-      action='/timer/update/{{_id}}'
-      method='post'
-      data-api-action='/api/timer/update/{{_id}}'
-      data-api-method='put'
-      >
-
-      <select name='jobid' class='hide-for-js-version'>
-        {{#each @root.grouped._jobs.all}}
-          <option
-            value='{{this._id}}'
-            {{#ifequal this._id ../_members.jobID}}selected='selected'{{/ifequal}}
-            >{{this._members.name}}</option>
-        {{/each}}
-      </select>
-      <button type='button' class='selectme btn' data-timer-id='{{_id}}'>{{arrindexprop @root.grouped._jobs.all _members.jobID '_members.name'}}</button>
-      <input type='text' id='timer-list-item__edit__description__input' name='description' value='{{_members.description}}' placeholder='Description'>
-      <button type='submit'><img class='icon-small' src='/images/checkmark.svg' alt='Save' title='Save'></button>
-    </form>
+    {{>timer-item-edit}}
 
     <form
       class='timer-list-item__delete'

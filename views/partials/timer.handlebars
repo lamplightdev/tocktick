@@ -14,13 +14,20 @@
     {{#each grouped._jobs.all}}
       <option
         value='{{this._id}}'
-        {{#ifequal this._id ../recentJob._id}}selected='selected'{{/ifequal}}
+        {{#if @root.timer._members.jobID}}
+        {{#ifequal this._id @root.timer._members.jobID}}selected='selected'{{/ifequal}}
+        {{else}}
+        {{#ifequal this._id @root.recentJob._id}}selected='selected'{{/ifequal}}
+        {{/if}}
         >{{this._members.name}}</option>
     {{/each}}
   </select>
   <input type='text' id='front-form-start__description' name='description' value='{{this._members.description}}' placeholder='Description'>
+  {{#if timer._members.jobID}}
+  <button type='button' class='selectme btn'>{{arrindexprop grouped._jobs.all timer._members.jobID '_members.name'}}</button>
+  {{else}}
   <button type='button' class='selectme btn'>{{recentJob._members.name}}</button>
-
+  {{/if}}
   <div class='timer'>
     <button class='timer__add' type='submit'><img src='/images/add.svg' alt='add'></button>
   </div>

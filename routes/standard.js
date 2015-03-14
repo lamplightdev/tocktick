@@ -8,6 +8,8 @@ var AccountController = require('../lib/controllers/account');
 var TimersController = require('../lib/controllers/timers');
 var NavController = require('../lib/controllers/nav');
 
+var Timer = require('../lib/models/timer');
+
 
 module.exports = (function() {
     'use strict';
@@ -133,7 +135,8 @@ module.exports = (function() {
         RouterFront.match(req.params[0], req.query, (matched) => {
             var frontController = new FrontController({
                 user: req.user,
-                grouped: res.locals.grouped
+                grouped: res.locals.grouped,
+                timer: new Timer()
             });
             var navController = new NavController({
                 user: req.user,
