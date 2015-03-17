@@ -4,7 +4,6 @@ var RouterMain = require("../../lib/router-main");
 
 var Handlebars = require("../../node_modules/handlebars/dist/handlebars.runtime");
 var helpers = require("../../lib/helpers");
-var urlparse = require('url').parse;
 
 var Offline = require('../../lib/offline');
 var request = require('then-request');
@@ -83,18 +82,15 @@ if (Offline.isOnline()) {
       });
       localStorage.setItem('api-queue', JSON.stringify(queue));
     });
-
   }
 }
 
-document.body.addEventListener('click', (event) => {
-  if (typeof event.target.dataset.nav !== 'undefined') {
-    event.preventDefault();
-    event.stopPropagation();
-    router.router.navigate(urlparse(event.target.href).pathname);
-  } else if (typeof event.target.parentNode.dataset.nav !== 'undefined') {
-    event.preventDefault();
-    event.stopPropagation();
-    router.router.navigate(urlparse(event.target.parentNode.href).pathname);
-  }
-});
+window.showLoading = function() {
+  let l = document.querySelector('.loading');
+  l.classList.add('show');
+}
+
+window.hideLoading = function() {
+  let l = document.querySelector('.loading');
+  l.classList.remove('show');
+}

@@ -164,6 +164,21 @@ header {
 main {
   margin-top: 5.7em; }
 
+.loading {
+  position: absolute;
+  z-index: 100;
+  background-color: red;
+  color: white;
+  font-size: 20px;
+  padding: 20px;
+  left: 0;
+  right: 0;
+  top: 0;
+  display: none; }
+
+.loading.show {
+  display: block; }
+
 #view-front {
   padding: 0.5em; }
 
