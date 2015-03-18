@@ -44,10 +44,13 @@ var router = new RouterMain(
   App.Data.user,
   App.templates
 );
+
 router.init().then(() => {
   if (!App.Data.status404) {
     router.router.check(true);
   }
+}).then(null, err => {
+  Promise.reject(new Error(err));
 });
 
 
@@ -83,14 +86,4 @@ if (Offline.isOnline()) {
       localStorage.setItem('api-queue', JSON.stringify(queue));
     });
   }
-}
-
-window.showLoading = function() {
-  let l = document.querySelector('.loading');
-  l.classList.add('show');
-}
-
-window.hideLoading = function() {
-  let l = document.querySelector('.loading');
-  l.classList.remove('show');
 }

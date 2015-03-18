@@ -28,6 +28,19 @@ module.exports = (function() {
         }).then(null, next);
     });
 
+    router.post('/account/tag/add', (req, res, next) => {
+        var accountController = new AccountController({
+            user: req.user,
+            grouped: res.locals.grouped
+        });
+
+        accountController.addTag({
+            name: req.body.name
+        }).then(() => {
+            res.redirect('/account');
+        }).then(null, next);
+    });
+
     // catch all for /account/...
     router.get(/account(?:$|\/(.*))/i, (req, res, next) => {
 
@@ -113,7 +126,7 @@ module.exports = (function() {
             }
 
             if (matched.name === 'timer-edit') {
-                timersController.setExtraData({
+                timersController.addExtraData({
                     timerEdit: matched.id
                 });
             }
@@ -170,8 +183,8 @@ module.exports = (function() {
         frontController.updateTimer(
             req.params.id, {
                 description: req.body.description,
-                jobID: req.body.jobid
-            }
+                jobID: req.body.jobid,
+            }, req.body['tags[]']
         ).then(timer => {
             res.redirect('/timers/' + timer.getID());
         }).then(null, next);

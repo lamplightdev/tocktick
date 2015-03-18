@@ -16,6 +16,18 @@
   <button type='submit' class='btn'>Add Job</button>
 </form>
 
+<hr>
+
+{{#eachobjcall grouped 'getOrderedTags'}}
+<div>
+  {{this._members.name}}
+</div>
+{{/eachobjcall}}
+
+<form action='/account/tag/add' method='post'>
+  <input type='text' name='name'>
+  <button type='submit' class='btn'>Add Tag</button>
+</form>
 
 {{/unless}}
 </div>
