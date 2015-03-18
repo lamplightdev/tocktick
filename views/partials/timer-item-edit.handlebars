@@ -23,6 +23,9 @@
         id='timer-list-item__edit__tags-{{this._id}}'
         name="tags[]"
         type='checkbox'
+        {{#ifIn this._id ../_tagIDs}}
+        checked='checked'
+        {{/ifIn}}
         value='{{this._id}}'
         ><label for='timer-list-item__edit__tags-{{this._id}}'>{{this._members.name}}</label>
     {{/each}}

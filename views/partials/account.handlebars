@@ -11,7 +11,7 @@
 </div>
 {{/eachobjcall}}
 
-<form action='/account/job/add' method='post'>
+<form action='/account/job/add' method='post' class='account__job-add' data-api-action='/api/job/add'>
   <input type='text' name='name'>
   <button type='submit' class='btn'>Add Job</button>
 </form>
@@ -24,7 +24,7 @@
 </div>
 {{/eachobjcall}}
 
-<form action='/account/tag/add' method='post'>
+<form action='/account/tag/add' method='post' class='account__tag-add' data-api-action='/api/tag/add'>
   <input type='text' name='name'>
   <button type='submit' class='btn'>Add Tag</button>
 </form>

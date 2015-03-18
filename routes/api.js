@@ -1,11 +1,51 @@
 var noCache = require('../middleware/nocache');
 
 var ControllerFront = require('../lib/controllers/front');
+var ControllerAccount = require('../lib/controllers/account');
 
 
 module.exports = (function() {
     'use strict';
     var router = require('express').Router();
+
+    router.post('/job/add/:id?', function (req, res) {
+      var accountController = new ControllerAccount({
+          user: req.user,
+          grouped: res.locals.grouped
+      });
+
+      accountController.addJob(req.params.id, {
+        name: req.body.name
+      }).then(job => {
+        res.statusCode = 200;
+        res.json(job);
+      }, err => {
+        res.statusCode = 500;
+        res.json({
+          error: err.message
+        });
+      });
+    });
+
+
+    router.post('/tag/add/:id?', function (req, res) {
+      var accountController = new ControllerAccount({
+          user: req.user,
+          grouped: res.locals.grouped
+      });
+
+      accountController.addTag(req.params.id, {
+        name: req.body.name
+      }).then(tag => {
+        res.statusCode = 200;
+        res.json(tag);
+      }, err => {
+        res.statusCode = 500;
+        res.json({
+          error: err.message
+        });
+      });
+    });
 
     router.post('/timer/start/:id?', function (req, res) {
       var controller = new ControllerFront({
@@ -26,7 +66,6 @@ module.exports = (function() {
         res.statusCode = 200;
         res.json(timer);
       }, err => {
-        console.error(err);
         res.statusCode = 500;
         res.json({
           error: err.message
@@ -64,7 +103,7 @@ module.exports = (function() {
           {
             description: req.body.description,
             jobID: req.body.jobid
-          }
+          }, req.body['tags[]']
       ).then(timer => {
         let socket = req.app.get('socket');
         if (socket) {
