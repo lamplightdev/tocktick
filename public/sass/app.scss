@@ -311,8 +311,12 @@ main {
     color: white;
     padding: 0.5em;
 
-    span {
+    .timer-list-item__name__description {
       margin-left: 1em;
+      font-size: 0.8em;
+    }
+
+    .timer-list-item__name__tag {
       font-size: 0.7em;
     }
   }

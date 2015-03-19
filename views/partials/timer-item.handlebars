@@ -1,6 +1,15 @@
 <div class='timer-list-item timer-list-item--{{_id}}'>
 
-  <div class='timer-list-item__name'>{{arrindexprop @root.grouped._jobs.all _members.jobID '_members.name'}}{{#if _members.description}}<span>{{_members.description}}{{/if}}</spam></div>
+  <div class='timer-list-item__name'>
+  {{arrindexprop @root.grouped._jobs.all _members.jobID '_members.name'}}
+  {{#if _members.description}}<span class='timer-list-item__name__description'>{{_members.description}}{{/if}}</span>
+  {{#if _tagIDs}}
+  -
+  {{#each _tagIDs}}
+    <span class='timer-list-item__name__tag'>{{arrindexprop @root.grouped._tags.all this '_members.name'}}</span>
+  {{/each}}
+  {{/if}}
+  </div>
 
   {{#if isRunning}}
 

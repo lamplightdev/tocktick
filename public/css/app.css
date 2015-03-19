@@ -242,8 +242,10 @@ main {
   background-color: rgba(35, 125, 172, 0.7);
   color: white;
   padding: 0.5em; }
-  .timer-list-item__name span {
+  .timer-list-item__name .timer-list-item__name__description {
     margin-left: 1em;
+    font-size: 0.8em; }
+  .timer-list-item__name .timer-list-item__name__tag {
     font-size: 0.7em; }
 
 .timer-list-item__status {

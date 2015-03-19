@@ -9,8 +9,6 @@ module.exports = function exposeTimers() {
     if (req.user) {
       Group.fromDB(req.user._id).then((grouped) => {
           res.locals.grouped = grouped;
-          //res.expose(grouped.getJobs(), 'Data.jobs');
-          //res.expose(grouped.getTimers(), 'Data.timers');
 
           next();
       }, next)

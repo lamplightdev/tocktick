@@ -40,14 +40,14 @@ for (let helper in helpers) {
   Handlebars.registerHelper(helper, helpers[helper]);
 }
 
-var router = new RouterMain(
+window.router = new RouterMain(
   App.Data.user,
   App.templates
 );
 
-router.init().then(() => {
+window.router.init().then(() => {
   if (!App.Data.status404) {
-    router.router.check(true);
+    window.router.router.check(true);
   }
 }).then(null, err => {
   Promise.reject(new Error(err));
