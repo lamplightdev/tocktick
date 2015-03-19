@@ -28,7 +28,9 @@
     "shortid": "git://github.com/EgoAleSum/shortid.git#browser-support",
     "socket.io": "^1.3.5",
     "then-redis": "*",
-    "then-request": "*"
+    "then-request": "*",
+    "virtual-dom": "^2.0.1",
+    "virtual-html": "^1.2.0"
   },
   "devDependencies": {
     "babelify": "*",
