@@ -10,24 +10,26 @@
   <select name='jobid' class='hide-for-js-version'>
     {{#each @root.grouped._jobs.all}}
       <option
-        value='{{this._id}}'
-        {{#ifequal this._id ../_members.jobID}}selected='selected'{{/ifequal}}
-        >{{this._members.name}}</option>
+        value='{{_id}}'
+        {{#ifequal _id ../_members.jobID}}selected='selected'{{/ifequal}}
+        >{{_members.name}}</option>
     {{/each}}
   </select>
   <button type='button' class='selectme btn' data-timer-id='{{_id}}'>{{arrindexprop @root.grouped._jobs.all _members.jobID '_members.name'}}</button>
 
   <div class='timer-list-item__edit__tags'>
     {{#each @root.grouped._tags.all}}
-      <input
-        id='timer-list-item__edit__tags-{{this._id}}'
-        name="tags[]"
-        type='checkbox'
-        {{#ifIn this._id ../_tagIDs}}
-        checked='checked'
-        {{/ifIn}}
-        value='{{this._id}}'
-        ><label for='timer-list-item__edit__tags-{{this._id}}'>{{this._members.name}}</label>
+      <label for='timer-list-item__edit__tags-{{../_id}}-{{_id}}'>
+        <input
+          id='timer-list-item__edit__tags-{{../_id}}-{{_id}}'
+          name="tags[]"
+          type='checkbox'
+          {{#ifIn _id ../_tagIDs}}
+          checked='checked'
+          {{/ifIn}}
+          value='{{_id}}'
+          >{{_members.name}}
+        </label>
     {{/each}}
   </div>
 

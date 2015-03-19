@@ -14,9 +14,9 @@ module.exports = (function() {
           grouped: res.locals.grouped
       });
 
-      accountController.addJob(req.params.id, {
+      accountController.addJob({
         name: req.body.name
-      }).then(job => {
+      }, req.params.id).then(job => {
         res.statusCode = 200;
         res.json(job);
       }, err => {
@@ -34,9 +34,9 @@ module.exports = (function() {
           grouped: res.locals.grouped
       });
 
-      accountController.addTag(req.params.id, {
+      accountController.addTag({
         name: req.body.name
-      }).then(tag => {
+      }, req.params.id).then(tag => {
         res.statusCode = 200;
         res.json(tag);
       }, err => {
