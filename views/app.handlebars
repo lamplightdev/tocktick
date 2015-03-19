@@ -10,15 +10,15 @@
   <div class='loading'>Loading...</div>
 
   <div id='view'>
-    {{#ifequal nav.current 'front'}}
-    {{>front view}}
-    {{/ifequal}}
-    {{#ifequal nav.current 'timers'}}
-    {{>timers view}}
-    {{/ifequal}}
-    {{#ifequal nav.current 'account'}}
-    {{>account view}}
-    {{/ifequal}}
+    <div id='view-front'>
+      {{>front view}}
+    </div>
+    <div id='view-timers'>
+      {{>timers view}}
+    </div>
+    <div id='view-account'>
+      {{>account view}}
+    </div>
   </div>
 </main>
 
