@@ -368,13 +368,13 @@ main {
 
     .timer-list-item__actions__edit {
       display: inline-block;
-      button img {
+      a img {
         transition: transform 0.2s linear 0s;
       }
     }
 
       .timer-list-item__actions__edit--active {
-        button img {
+        a img {
           -webkit-transform: rotate(90deg);
           transform: rotate(90deg);
         }

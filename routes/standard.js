@@ -28,6 +28,28 @@ module.exports = (function() {
         }).then(null, next);
     });
 
+    router.post('/account/job/delete/:id', function (req, res, next) {
+        var appController = new AppController({
+            user: req.user,
+            grouped: res.locals.grouped,
+        });
+
+        appController.deleteJob(req.params.id).then(() => {
+            res.redirect('/account');
+        }).then(null, next);
+    });
+
+    router.post('/account/tag/delete/:id', function (req, res, next) {
+        var appController = new AppController({
+            user: req.user,
+            grouped: res.locals.grouped,
+        });
+
+        appController.deleteTag(req.params.id).then(() => {
+            res.redirect('/account');
+        }).then(null, next);
+    });
+
     router.post('/account/tag/add', (req, res, next) => {
         var accountController = new AccountController({
             user: req.user,

@@ -26,14 +26,15 @@
         <input name='actiontime' type='hidden' value=''>
         <button type='submit'><img src='/images/stop.svg' alt='stop'></button>
       </form>
-      <form
-        class='timer-list-item__actions__edit {{#ifequal @root.view.timerEdit _id}}timer-list-item__actions__edit--active{{/ifequal}}'
-        action='/timers/edit/{{_id}}'
-        method='get'
-        data-timer-id='{{_id}}'
-        >
-        <button type='submit'><img src='/images/cog.svg' alt='edit'></button>
-      </form>
+      {{#ifequal @root.view.timerEdit _id}}
+      <div class='timer-list-item__actions__edit timer-list-item__actions__edit--active' data-timer-id='{{_id}}'>
+        <a href='/timers/'><img src='/images/cog.svg' alt='edit'></a>
+      </div>
+      {{else}}
+      <div class='timer-list-item__actions__edit' data-timer-id='{{_id}}'>
+        <a href='/timers/edit/{{_id}}/'><img src='/images/cog.svg' alt='edit'></a>
+      </div>
+      {{/ifequal}}
     </div>
     <div class='timer-list-item__timings'>
       <div class='timer-list-item__timings__duration'>
@@ -44,19 +45,20 @@
       </div>
     </div>
 
-
     {{else}}
 
     <div class='timer-list-item__status timer-list-item__status--complete'><img src='/images/checkmark.svg' alt='complete'></div>
     <div class='timer-list-item__actions'>
-      <form
-        class='timer-list-item__actions__edit {{#ifequal @root.view.timerEdit _id}}timer-list-item__actions__edit--active{{/ifequal}}'
-        action='/timers/edit/{{_id}}'
-        method='get'
-        data-timer-id='{{_id}}'
-        >
-        <button type='submit'><img src='/images/cog.svg' alt='edit'></button>
-      </form>
+      {{#ifequal @root.view.timerEdit _id}}
+      <div class='timer-list-item__actions__edit timer-list-item__actions__edit--active' data-timer-id='{{_id}}'>
+        <a href='/timers/'><img src='/images/cog.svg' alt='edit'></a>
+      </div>
+      {{else}}
+      <div class='timer-list-item__actions__edit' data-timer-id='{{_id}}'>
+        <a href='/timers/edit/{{_id}}/'><img src='/images/cog.svg' alt='edit'></a>
+      </div>
+      {{/ifequal}}
+      </div>
     </div>
     <div class='timer-list-item__timings'>
       <div class='timer-list-item__timings__duration'>

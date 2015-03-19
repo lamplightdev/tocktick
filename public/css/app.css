@@ -280,10 +280,10 @@ main {
 
 .timer-list-item__actions__edit {
   display: inline-block; }
-  .timer-list-item__actions__edit button img {
+  .timer-list-item__actions__edit a img {
     transition: transform 0.2s linear 0s; }
 
-.timer-list-item__actions__edit--active button img {
+.timer-list-item__actions__edit--active a img {
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg); }
 

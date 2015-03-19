@@ -7,7 +7,10 @@
 
 {{#eachobjcall grouped 'getOrderedJobs'}}
 <div>
-  {{this._members.name}}
+  {{_members.name}}
+  <form action='/account/job/delete/{{_id}}' method='post' class='account__job-delete' data-api-action='/api/job/delete/{{_id}}' data-api-method='delete' data-job-id='{{_id}}'>
+    <button type='submit' class='btn'>Delete</button>
+  </form>
 </div>
 {{/eachobjcall}}
 
@@ -20,7 +23,10 @@
 
 {{#eachobjcall grouped 'getOrderedTags'}}
 <div>
-  {{this._members.name}}
+  {{_members.name}}
+  <form action='/account/tag/delete/{{_id}}' method='post' class='account__tag-delete' data-api-action='/api/tag/delete/{{_id}}' data-api-method='delete' data-tag-id='{{_id}}'>
+    <button type='submit' class='btn'>Delete</button>
+  </form>
 </div>
 {{/eachobjcall}}
 

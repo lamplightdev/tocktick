@@ -1,7 +1,7 @@
 var noCache = require('../middleware/nocache');
 
 var ControllerFront = require('../lib/controllers/front');
-var ControllerAccount = require('../lib/controllers/account');
+var ControllerApp = require('../lib/controllers/app');
 
 
 module.exports = (function() {
@@ -9,12 +9,12 @@ module.exports = (function() {
     var router = require('express').Router();
 
     router.post('/job/add/:id?', function (req, res) {
-      var accountController = new ControllerAccount({
+      var appController = new ControllerApp({
           user: req.user,
           grouped: res.locals.grouped
       });
 
-      accountController.addJob({
+      appController.addJob({
         name: req.body.name
       }, req.params.id).then(job => {
         res.statusCode = 200;
@@ -27,14 +27,29 @@ module.exports = (function() {
       });
     });
 
+    router.delete('/job/delete/:id', function (req, res) {
+      var appController = new ControllerApp({
+          user: req.user,
+          grouped: res.locals.grouped,
+      });
+
+      appController.deleteJob(req.params.id).then(job => {
+        let socket = req.app.get('socket');
+        if (socket) {
+          socket.to(req.user.getID()).emit('jobDeleted', job);
+        }
+        res.statusCode = 200;
+        res.json(job);
+      });
+    });
 
     router.post('/tag/add/:id?', function (req, res) {
-      var accountController = new ControllerAccount({
+      var appController = new ControllerApp({
           user: req.user,
           grouped: res.locals.grouped
       });
 
-      accountController.addTag({
+      appController.addTag({
         name: req.body.name
       }, req.params.id).then(tag => {
         res.statusCode = 200;
@@ -44,6 +59,22 @@ module.exports = (function() {
         res.json({
           error: err.message
         });
+      });
+    });
+
+    router.delete('/tag/delete/:id', function (req, res) {
+      var appController = new ControllerApp({
+          user: req.user,
+          grouped: res.locals.grouped,
+      });
+
+      appController.deleteTag(req.params.id).then(tag => {
+        let socket = req.app.get('socket');
+        if (socket) {
+          socket.to(req.user.getID()).emit('tagDeleted', tag);
+        }
+        res.statusCode = 200;
+        res.json(tag);
       });
     });
 
