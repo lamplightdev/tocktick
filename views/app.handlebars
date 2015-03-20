@@ -3,6 +3,7 @@
 </header>
 
 <main>
+
   <div id='view-nav'>
     {{> nav-outer nav}}
   </div>
@@ -10,16 +11,17 @@
   <div class='loading'>Loading...</div>
 
   <div id='view'>
-    <div id='view-front'>
+    {{#ifequal nav.current 'front'}}
       {{>front view}}
-    </div>
-    <div id='view-timers'>
+    {{/ifequal}}
+    {{#ifequal nav.current 'timers'}}
       {{>timers view}}
-    </div>
-    <div id='view-account'>
+    {{/ifequal}}
+    {{#ifequal nav.current 'account'}}
       {{>account view}}
-    </div>
+    {{/ifequal}}
   </div>
+
 </main>
 
 <footer>
