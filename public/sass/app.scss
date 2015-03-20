@@ -80,6 +80,7 @@ select {
       }
 
 header {
+  position: absolute; // used for browsers without position: fixed support (opera mini )
   position: fixed;
   z-index: 10;
 
@@ -102,6 +103,7 @@ header {
 }
 
 .nav-outer {
+  position: absolute; // used for browsers without position: fixed support (opera mini )
   position: fixed;
   z-index: 10;
 
@@ -143,9 +145,6 @@ header {
   }
 
   .nav-form-start {
-    position: absolute;
-    left: 0;
-    top: 0;
     height: 57px;
     width: 57px;
     padding: 0.5rem;
@@ -180,8 +179,8 @@ header {
       color: white;
 
       position: absolute;
-      bottom: 0.8rem;
-      right: 0.8rem;
+      bottom: 0.2rem;
+      right: 0.2rem;
 
       width: 1.4rem;
       height: 1.4rem;
@@ -194,10 +193,10 @@ header {
 }
 
 main {
-  margin-top: 5.7rem;
 }
 
 #view {
+    padding-top: 5.7rem;
 }
 
 .loading {
