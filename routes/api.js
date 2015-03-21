@@ -85,14 +85,16 @@ module.exports = (function() {
       });
 
       controller.startTimer(
-          req.params.id,
-          req.body.jobid,
-          req.body.description,
-          req.body.actiontime
+        req.params.id,
+        {
+          description: req.body.description,
+          jobID: req.body.jobid,
+
+        }, req.body['tags[]']
       ).then(timer => {
         let socket = req.app.get('socket');
         if (socket) {
-          socket.to(req.user.getID()).emit('timerUpdated', timer);
+          socket.to(req.user.getID()).emit('timerStarted', timer);
         }
         res.statusCode = 200;
         res.json(timer);

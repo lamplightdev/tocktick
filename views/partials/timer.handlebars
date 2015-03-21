@@ -28,6 +28,23 @@
   {{else}}
   <button type='button' class='selectme btn'>{{recentJob._members.name}}</button>
   {{/if}}
+
+  <div class='front-form-start__tags'>
+    {{#each @root.grouped._tags.all}}
+      <label for='front-form-start__tags-{{_id}}'>
+        <input
+          id='front-form-start__tags-{{_id}}'
+          name="tags[]"
+          type='checkbox'
+          {{#ifIn _id ../timer._tagIDs}}
+          checked='checked'
+          {{/ifIn}}
+          value='{{_id}}'
+          >{{_members.name}}
+        </label>
+    {{/each}}
+  </div>
+
   <div class='timer'>
     <button class='timer__add' type='submit'><img src='/images/add.svg' alt='add'></button>
   </div>
