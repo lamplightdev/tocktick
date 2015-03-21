@@ -22,7 +22,6 @@
         >{{this._members.name}}</option>
     {{/each}}
   </select>
-  <input type='text' id='front-form-start__description' name='description' value='{{this._members.description}}' placeholder='Description'>
   {{#if timer._members.jobID}}
   <button type='button' class='selectme btn'>{{arrindexprop grouped._jobs.all timer._members.jobID '_members.name'}}</button>
   {{else}}
@@ -44,6 +43,12 @@
         </label>
     {{/each}}
   </div>
+
+  {{#each timer._tagIDs}}
+  <button type='button' class='btn'>{{arrindexprop grouped._tags.all this '_members.name'}}</button>
+  {{/each}}
+
+  <input type='text' id='front-form-start__description' name='description' value='{{this._members.description}}' placeholder='Description'>
 
   <div class='timer'>
     <button class='timer__add' type='submit'><img src='/images/add.svg' alt='add'></button>

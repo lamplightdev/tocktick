@@ -44,6 +44,8 @@ button {
   color: white;
   padding: 3px 5px;
   border-radius: 2px; }
+  .btn.tag {
+    background-color: #ac2323; }
 
 .icon-small {
   width: 20px;
@@ -74,6 +76,14 @@ select {
   white-space: nowrap; }
 
 .selectmebox__inner__option--selected {
+  border: 2px solid black; }
+
+.timer-tags__tag {
+  display: table-cell;
+  overflow: hidden;
+  white-space: nowrap; }
+
+.timer-tags__tag--selected {
   border: 2px solid black; }
 
 header {
