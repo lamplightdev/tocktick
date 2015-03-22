@@ -17,7 +17,7 @@
   </select>
   <button type='button' class='selectme btn' data-timer-id='{{_id}}'>{{arrindexprop @root.grouped._jobs.all _members.jobID '_members.name'}}</button>
 
-  <div class='timer-list-item__edit__tags'>
+  <div class='timer-list-item__edit__tags hide-for-js-version'>
     {{#each @root.grouped._tags.all}}
       <label for='timer-list-item__edit__tags-{{../_id}}-{{_id}}'>
         <input

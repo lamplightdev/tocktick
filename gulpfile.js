@@ -51,7 +51,7 @@ function bundle() {
     bundle()
     .pipe(source(getBundleName() + '.js'))
     .pipe(buffer())
-    //.pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(sourcemaps.init({loadMaps: true}))
       // Add transformation tasks to the pipeline here.
       //.pipe(uglify())
     .pipe(sourcemaps.write('./'))
