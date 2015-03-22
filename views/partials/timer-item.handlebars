@@ -2,7 +2,7 @@
 
   <div class='timer-list-item__name'>
   {{arrindexprop @root.grouped._jobs.all _members.jobID '_members.name'}}
-  {{#if _members.description}}<span class='timer-list-item__name__description'>{{_members.description}}{{/if}}</span>
+  {{#if _members.description}}<span class='timer-list-item__name__description'>{{_members.description}}</span>{{/if}}
   {{#if _tagIDs}}
   -
   {{#each _tagIDs}}

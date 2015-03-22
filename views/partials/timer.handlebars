@@ -45,8 +45,9 @@
   </div>
 
   {{#each timer._tagIDs}}
-  <button type='button' class='btn'>{{arrindexprop grouped._tags.all this '_members.name'}}</button>
+  <button type='button' class='btn tag'>{{arrindexprop ../grouped._tags.all this '_members.name'}}</button>
   {{/each}}
+  <button type='button' class='edittags' data-timer-id='{{timer._id}}'>Edit</button>
 
   <input type='text' id='front-form-start__description' name='description' value='{{this._members.description}}' placeholder='Description'>
 
