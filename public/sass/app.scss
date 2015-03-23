@@ -458,12 +458,24 @@ main {
     }
 
 
-.touchtest {
-  display: inline-block;
+.timer-adjustment {
 
-  img {
-    display: block;
-    width: 200px;
-    height: 200px;
-  }
 }
+
+  .timer-adjustment__dial {
+    display: inline-block;
+
+    img {
+      display: block;
+      width: 200px;
+      height: 200px;
+    }
+  }
+
+  .timer-adjustment__start {
+
+  }
+
+  .timer-adjustment__stop {
+
+  }

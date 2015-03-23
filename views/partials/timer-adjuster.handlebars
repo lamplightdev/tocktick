@@ -1,0 +1,39 @@
+<div class='overlay'>
+
+  <div class='overlay__content'>
+
+    <h2 class='overlay__title'>Edit times</h2>
+
+    <button class='overlay__close'><img src='/images/cross.svg' class='icon-small' alt='Close' title='Close'></button>
+
+    <div class='overlay__content__body'>
+
+      <div class='timer-adjustment timer-adjustment--start'>
+
+        <div class='timer-adjustment__dial'>
+          <img src='/images/timer.svg' alt=''>
+        </div>
+
+      </div>
+
+      <div class='timer-adjustment timer-adjustment--duration'>
+
+        <div class='timer-adjustment__dial'>
+          <img src='/images/timer.svg' alt=''>
+        </div>
+
+      </div>
+
+      <div class='timer-adjustment-values'>
+        <div class='timer-adjustment__duration'>Duration: <span>{{objcall timer 'getFormattedDuration'}}</span></div>
+        <div class='timer-adjustment__start'>Start: <span>{{objcall timer 'getFormattedStartTime'}}</span></div>
+        <div class='timer-adjustment__stop'>Stop: <span>{{objcall timer 'getFormattedStopTime'}}</span></div>
+      </div>
+
+      <button class='timer-adjuster-done'>Done</button>
+
+    </div>
+
+  </div>
+
+</div>

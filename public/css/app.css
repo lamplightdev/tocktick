@@ -337,9 +337,10 @@ header {
   right: 0.5rem;
   font-size: 1.1rem; }
 
-.touchtest {
+.timer-adjustment__dial {
   display: inline-block; }
-  .touchtest img {
+  .timer-adjustment__dial img {
     display: block;
     width: 200px;
     height: 200px; }
+
