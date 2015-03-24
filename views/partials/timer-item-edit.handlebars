@@ -20,7 +20,7 @@
         >{{_members.name}}</option>
     {{/each}}
   </select>
-  <button type='button' class='selectme btn' data-timer-id='{{_id}}'>{{arrindexprop @root.grouped._jobs.all _members.jobID '_members.name'}}</button>
+  <button type='button' class='selectme btn project' data-timer-id='{{_id}}'>{{arrindexprop @root.grouped._jobs.all _members.jobID '_members.name'}}</button>
 
   <div class='timer-list-item__edit__tags hide-for-js-version'>
     {{#each @root.grouped._tags.all}}

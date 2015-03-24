@@ -13,7 +13,7 @@
           <ul class='selectmebox__inner'>
             {{#each jobs}}
             <li
-              class='selectmebox__inner__option {{#ifequal this._id ../timer._members.jobID}}selectmebox__inner__option--selected{{/ifequal}} btn'
+              class='selectmebox__inner__option {{#ifequal this._id ../timer._members.jobID}}selectmebox__inner__option--selected{{/ifequal}} btn project'
               data-value='{{this._id}}'
               data-name='{{this._members.name}}'>
               {{this._members.name}}

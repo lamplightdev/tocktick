@@ -37,8 +37,17 @@ button {
   padding: 3px 5px;
   border-radius: 2px;
 
+  &.tag, &.project {
+    background-image: url(../images/project-white.svg);
+    background-position: 4px 50%;
+    padding-left: 18px;
+    background-repeat: no-repeat;
+    background-size: auto 10px;
+  }
+
   &.tag {
     background-color: $color-brand-alt;
+    background-image: url(../images/tag-white.svg);
   }
 }
 
@@ -144,10 +153,36 @@ header {
     text-align: center;
     text-decoration: none;
     border-bottom: 4px solid white;
+    font-size: 0.8rem;
+    line-height: 1rem;
 
     &.active {
       border-bottom: 4px solid gray;
       font-weight: bold;
+    }
+
+    @include respond-to(tablet) {
+      font-size: 1rem;
+      text-align: left;
+      padding-left: 60px;
+      background: transparent url(../images/home.svg) 20px 50% no-repeat;
+      background-size: auto 20px;
+
+      &.timers {
+        background-image: url(../images/clock.svg);
+      }
+
+      &.projects {
+        background-image: url(../images/project.svg);
+      }
+
+      &.reports {
+        background-image: url(../images/file-text.svg);
+      }
+
+      &.account {
+        background-image: url(../images/user.svg);
+      }
     }
   }
 }
@@ -161,8 +196,8 @@ header {
   }
 
   .nav-form-start {
-    height: 57px;
-    width: 57px;
+    height: 54px;
+    width: 54px;
     padding: 0.5rem;
 
     button {
@@ -173,15 +208,15 @@ header {
 
   .nav-timer__running {
     position: relative;
-    height: 57px;
-    width: 57px;
+    height: 54px;
+    width: 54px;
 
     &> a img, .nav-form-start {
       position: absolute;
       left: 0;
       top: 0;
-      height: 57px;
-      width: 57px;
+      height: 54px;
+      width: 54px;
       padding: 0.5rem;
 
       &.rotate {
@@ -212,7 +247,7 @@ main {
 }
 
 #view {
-    padding-top: 5.7rem;
+    padding-top: 5.5rem;
 }
 
 .loading {
@@ -313,6 +348,20 @@ main {
 
   }
 
+
+/*
+.timers-history {
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  align-items: flex-start;
+}
+
+  .timer-item-container {
+  }
+*/
 
 .timer-list-item {
   background-color: rgba($color-brand, 0.1);

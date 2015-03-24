@@ -1,0 +1,33 @@
+<div id='view-projects'>
+
+{{#eachobjcall grouped 'getOrderedJobs'}}
+<div>
+  {{_members.name}}
+  <form action='/projects/job/delete/{{_id}}' method='post' class='projects__job-delete' data-api-action='/api/job/delete/{{_id}}' data-api-method='delete' data-job-id='{{_id}}'>
+    <button type='submit' class='btn'>Delete</button>
+  </form>
+</div>
+{{/eachobjcall}}
+
+<form action='/projects/job/add' method='post' class='projects__job-add' data-api-action='/api/job/add'>
+  <input type='text' name='name'>
+  <button type='submit' class='btn'>Add Job</button>
+</form>
+
+<hr>
+
+{{#eachobjcall grouped 'getOrderedTags'}}
+<div>
+  {{_members.name}}
+  <form action='/projects/tag/delete/{{_id}}' method='post' class='projects__tag-delete' data-api-action='/api/tag/delete/{{_id}}' data-api-method='delete' data-tag-id='{{_id}}'>
+    <button type='submit' class='btn'>Delete</button>
+  </form>
+</div>
+{{/eachobjcall}}
+
+<form action='/projects/tag/add' method='post' class='projects__tag-add' data-api-action='/api/tag/add'>
+  <input type='text' name='name'>
+  <button type='submit' class='btn'>Add Tag</button>
+</form>
+
+</div>

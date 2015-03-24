@@ -7,14 +7,15 @@
     {{> nav-outer nav}}
   </div>
 
-  <div class='loading'>Loading...</div>
-
   <div id='view'>
     {{#ifequal nav.current 'front'}}
     {{>front view}}
     {{/ifequal}}
     {{#ifequal nav.current 'timers'}}
     {{>timers view}}
+    {{/ifequal}}
+    {{#ifequal nav.current 'projects'}}
+    {{>projects view}}
     {{/ifequal}}
     {{#ifequal nav.current 'account'}}
     {{>account view}}

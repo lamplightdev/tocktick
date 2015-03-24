@@ -44,8 +44,15 @@ button {
   color: white;
   padding: 3px 5px;
   border-radius: 2px; }
+  .btn.tag, .btn.project {
+    background-image: url(../images/project-white.svg);
+    background-position: 4px 50%;
+    padding-left: 18px;
+    background-repeat: no-repeat;
+    background-size: auto 10px; }
   .btn.tag {
-    background-color: #ac2323; }
+    background-color: #ac2323;
+    background-image: url(../images/tag-white.svg); }
 
 .icon-small {
   width: 20px;
@@ -124,10 +131,27 @@ header {
     padding: 1rem 0;
     text-align: center;
     text-decoration: none;
-    border-bottom: 4px solid white; }
+    border-bottom: 4px solid white;
+    font-size: 0.8rem;
+    line-height: 1rem; }
     .nav a.active {
       border-bottom: 4px solid gray;
       font-weight: bold; }
+    @media only screen and (min-width: 768px) {
+      .nav a {
+        font-size: 1rem;
+        text-align: left;
+        padding-left: 60px;
+        background: transparent url(../images/home.svg) 20px 50% no-repeat;
+        background-size: auto 20px; }
+        .nav a.timers {
+          background-image: url(../images/clock.svg); }
+        .nav a.projects {
+          background-image: url(../images/project.svg); }
+        .nav a.reports {
+          background-image: url(../images/file-text.svg); }
+        .nav a.account {
+          background-image: url(../images/user.svg); } }
 
 .nav-timer {
   float: left; }
@@ -135,22 +159,22 @@ header {
     width: auto;
     height: auto; }
   .nav-timer .nav-form-start {
-    height: 57px;
-    width: 57px;
+    height: 54px;
+    width: 54px;
     padding: 0.5rem; }
     .nav-timer .nav-form-start button {
       width: 100%;
       height: auto; }
   .nav-timer .nav-timer__running {
     position: relative;
-    height: 57px;
-    width: 57px; }
+    height: 54px;
+    width: 54px; }
     .nav-timer .nav-timer__running > a img, .nav-timer .nav-timer__running .nav-form-start {
       position: absolute;
       left: 0;
       top: 0;
-      height: 57px;
-      width: 57px;
+      height: 54px;
+      width: 54px;
       padding: 0.5rem; }
       .nav-timer .nav-timer__running > a img.rotate, .nav-timer .nav-timer__running .nav-form-start.rotate {
         -webkit-animation: spin 1s ease-in-out infinite;
@@ -171,7 +195,7 @@ header {
     text-align: center; }
 
 #view {
-  padding-top: 5.7rem; }
+  padding-top: 5.5rem; }
 
 .loading {
   position: absolute;
@@ -239,6 +263,19 @@ header {
 .timer--stopped .timer__clock img {
   opacity: 0; }
 
+/*
+.timers-history {
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  align-items: flex-start;
+}
+
+  .timer-item-container {
+  }
+*/
 .timer-list-item {
   background-color: rgba(35, 125, 172, 0.1);
   border-bottom: 1px solid white; }

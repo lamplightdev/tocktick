@@ -4,36 +4,6 @@
 <a href='/signin/google'>Sign in with Google</a>
 {{else}}
 {{user._members.name}} - <a href='/signin/signout'>Sign out</a>
-
-{{#eachobjcall grouped 'getOrderedJobs'}}
-<div>
-  {{_members.name}}
-  <form action='/account/job/delete/{{_id}}' method='post' class='account__job-delete' data-api-action='/api/job/delete/{{_id}}' data-api-method='delete' data-job-id='{{_id}}'>
-    <button type='submit' class='btn'>Delete</button>
-  </form>
-</div>
-{{/eachobjcall}}
-
-<form action='/account/job/add' method='post' class='account__job-add' data-api-action='/api/job/add'>
-  <input type='text' name='name'>
-  <button type='submit' class='btn'>Add Job</button>
-</form>
-
-<hr>
-
-{{#eachobjcall grouped 'getOrderedTags'}}
-<div>
-  {{_members.name}}
-  <form action='/account/tag/delete/{{_id}}' method='post' class='account__tag-delete' data-api-action='/api/tag/delete/{{_id}}' data-api-method='delete' data-tag-id='{{_id}}'>
-    <button type='submit' class='btn'>Delete</button>
-  </form>
-</div>
-{{/eachobjcall}}
-
-<form action='/account/tag/add' method='post' class='account__tag-add' data-api-action='/api/tag/add'>
-  <input type='text' name='name'>
-  <button type='submit' class='btn'>Add Tag</button>
-</form>
-
 {{/unless}}
+
 </div>

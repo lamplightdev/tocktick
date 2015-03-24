@@ -1,11 +1,13 @@
 var RouterAccount = require('../lib/routers/account');
 var RouterFront = require('../lib/routers/front');
 var RouterTimers = require('../lib/routers/timers');
+var RouterProjects = require('../lib/routers/projects');
 
 var AppController = require('../lib/controllers/app');
 var FrontController = require('../lib/controllers/front');
 var AccountController = require('../lib/controllers/account');
 var TimersController = require('../lib/controllers/timers');
+var ProjectsController = require('../lib/controllers/projects');
 var NavController = require('../lib/controllers/nav');
 
 var Timer = require('../lib/models/timer');
@@ -15,51 +17,51 @@ module.exports = (function() {
     'use strict';
     var router = require('express').Router();
 
-    router.post('/account/job/add', (req, res, next) => {
-        var accountController = new AccountController({
+    router.post('/projects/job/add', (req, res, next) => {
+        var appController = new AppController({
             user: req.user,
             grouped: res.locals.grouped
         });
 
-        accountController.addJob({
+        appController.addJob({
             name: req.body.name
         }).then(() => {
-            res.redirect('/account');
+            res.redirect('/projects');
         }).then(null, next);
     });
 
-    router.post('/account/job/delete/:id', function (req, res, next) {
+    router.post('/projects/job/delete/:id', function (req, res, next) {
         var appController = new AppController({
             user: req.user,
             grouped: res.locals.grouped,
         });
 
         appController.deleteJob(req.params.id).then(() => {
-            res.redirect('/account');
+            res.redirect('/projects');
         }).then(null, next);
     });
 
-    router.post('/account/tag/delete/:id', function (req, res, next) {
+    router.post('/projects/tag/add', (req, res, next) => {
+        var appController = new AppController({
+            user: req.user,
+            grouped: res.locals.grouped
+        });
+
+        appController.addTag({
+            name: req.body.name
+        }).then(() => {
+            res.redirect('/projects');
+        }).then(null, next);
+    });
+
+    router.post('/projects/tag/delete/:id', function (req, res, next) {
         var appController = new AppController({
             user: req.user,
             grouped: res.locals.grouped,
         });
 
         appController.deleteTag(req.params.id).then(() => {
-            res.redirect('/account');
-        }).then(null, next);
-    });
-
-    router.post('/account/tag/add', (req, res, next) => {
-        var accountController = new AccountController({
-            user: req.user,
-            grouped: res.locals.grouped
-        });
-
-        accountController.addTag({
-            name: req.body.name
-        }).then(() => {
-            res.redirect('/account');
+            res.redirect('/projects');
         }).then(null, next);
     });
 
@@ -91,6 +93,38 @@ module.exports = (function() {
 
         }, (err) => {
             console.log('account route error: ', err);
+            next();
+        });
+    });
+
+    // catch all for /projects/...
+    router.get(/projects(?:$|\/(.*))/i, (req, res, next) => {
+
+        RouterProjects.match(req.params[0], req.query, (matched) => {
+
+            var projectsController = new ProjectsController({
+                user: req.user,
+                grouped: res.locals.grouped
+            });
+            var navController = new NavController({
+                user: req.user,
+                grouped: res.locals.grouped,
+                current: 'projects'
+            });
+            var appController = new AppController({
+                user: req.user,
+                grouped: res.locals.grouped
+            });
+
+            appController.addExtraData({
+                view: projectsController.getViewData(),
+                nav: navController.getViewData()
+            });
+
+            res.render("app", appController.getViewData());
+
+        }, (err) => {
+            console.log('projects route error: ', err);
             next();
         });
     });

@@ -23,9 +23,9 @@
     {{/each}}
   </select>
   {{#if timer._members.jobID}}
-  <button type='button' class='selectme btn'>{{arrindexprop grouped._jobs.all timer._members.jobID '_members.name'}}</button>
+  <button type='button' class='selectme btn project'>{{arrindexprop grouped._jobs.all timer._members.jobID '_members.name'}}</button>
   {{else}}
-  <button type='button' class='selectme btn'>{{recentJob._members.name}}</button>
+  <button type='button' class='selectme btn project'>{{recentJob._members.name}}</button>
   {{/if}}
 
   <div class='front-form-start__tags hide-for-js-version'>
