@@ -247,6 +247,9 @@ header {
     display: table;
     clear: both; }
 
+.timer-list-item--dirty {
+  background-color: rgba(172, 35, 35, 0.1); }
+
 .timer-list-item__name {
   background-color: rgba(35, 125, 172, 0.7);
   color: white;

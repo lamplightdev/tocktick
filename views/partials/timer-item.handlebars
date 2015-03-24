@@ -1,4 +1,4 @@
-<div class='timer-list-item timer-list-item--{{_id}}'>
+<div class='timer-list-item timer-list-item--{{_id}} {{#if dirty}}timer-list-item--dirty{{/if}}'>
 
   <div class='timer-list-item__name'>
   {{arrindexprop @root.grouped._jobs.all _members.jobID '_members.name'}}
@@ -26,7 +26,7 @@
         <input name='actiontime' type='hidden' value=''>
         <button type='submit'><img src='/images/stop.svg' alt='stop'></button>
       </form>
-      {{#ifequal @root.view.timerEdit _id}}
+      {{#ifequal @root.view.timerEditID _id}}
       <div class='timer-list-item__actions__edit timer-list-item__actions__edit--active' data-timer-id='{{_id}}'>
         <a href='/timers/'><img src='/images/cog.svg' alt='edit'></a>
       </div>
@@ -49,7 +49,7 @@
 
     <div class='timer-list-item__status timer-list-item__status--complete'><img src='/images/checkmark.svg' alt='complete'></div>
     <div class='timer-list-item__actions'>
-      {{#ifequal @root.view.timerEdit _id}}
+      {{#ifequal @root.view.timerEditID _id}}
       <div class='timer-list-item__actions__edit timer-list-item__actions__edit--active' data-timer-id='{{_id}}'>
         <a href='/timers/'><img src='/images/cog.svg' alt='edit'></a>
       </div>
@@ -74,7 +74,7 @@
 
   {{/if}}
 
-  <div class='timer-list-item__subactions {{#ifequal @root.view.timerEdit _id}}timer-list-item__subactions--show{{/ifequal}}'>
+  <div class='timer-list-item__subactions {{#ifequal @root.view.timerEditID _id}}timer-list-item__subactions--show{{/ifequal}}'>
     {{>timer-item-edit}}
 
     <form

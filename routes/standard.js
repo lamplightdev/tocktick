@@ -149,7 +149,7 @@ module.exports = (function() {
 
             if (matched.name === 'timer-edit') {
                 timersController.addExtraData({
-                    timerEdit: matched.id
+                    timerEditID: matched.id
                 });
             }
 
@@ -206,6 +206,8 @@ module.exports = (function() {
             req.params.id, {
                 description: req.body.description,
                 jobID: req.body.jobid,
+                start: req.body.start,
+                stop: req.body.stop,
             }, req.body['tags[]']
         ).then(timer => {
             res.redirect('/timers/' + timer.getID());

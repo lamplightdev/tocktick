@@ -118,7 +118,7 @@ module.exports = (function() {
       ).then(timer => {
         let socket = req.app.get('socket');
         if (socket) {
-          socket.to(req.user.getID()).emit('timerUpdated', timer);
+          socket.to(req.user.getID()).emit('timerStopped', timer);
         }
         res.statusCode = 200;
         res.json(timer);
@@ -135,7 +135,9 @@ module.exports = (function() {
           req.params.id,
           {
             description: req.body.description,
-            jobID: req.body.jobid
+            jobID: req.body.jobid,
+            start: req.body.start,
+            stop: req.body.stop,
           }, req.body['tags[]']
       ).then(timer => {
         let socket = req.app.get('socket');

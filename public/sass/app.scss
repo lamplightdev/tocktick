@@ -320,6 +320,9 @@ main {
 
   @include clearfix();
 }
+  .timer-list-item--dirty {
+    background-color: rgba($color-brand-alt, 0.1);
+  }
 
   .timer-list-item__name {
     background-color: rgba($color-brand, 0.7);

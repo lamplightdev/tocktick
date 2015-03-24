@@ -7,6 +7,9 @@
   data-api-method='put'
   >
 
+  <input type='hidden' name='start' value='{{_members.start}}'>
+  <input type='hidden' name='stop' value='{{_members.stop}}'>
+
   <button type='button' class='edittimes' data-timer-id='{{_id}}'>Edit times</button>
 
   <select name='jobid' class='hide-for-js-version'>
