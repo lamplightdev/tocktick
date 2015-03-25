@@ -157,6 +157,19 @@ module.exports = (function() {
         }).then(null, next);
     });
 
+    router.post('/timer/copy/:id', (req, res, next) => {
+        var timersController = new TimersController({
+            user: req.user,
+            grouped: res.locals.grouped,
+        });
+
+        timersController.duplicateTimer(
+            req.params.id
+        ).then(() => {
+            res.redirect('/timers');
+        }).then(null, next);
+    });
+
     // catch all for /timers...
     router.get(/timers(?:$|\/(.*))/i, (req, res, next) => {
         RouterTimers.match(req.params[0], req.query, (matched) => {

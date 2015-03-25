@@ -46,3 +46,7 @@
   <input type='text' id='timer-list-item__edit__description__input' name='description' value='{{_members.description}}' placeholder='Description'>
   <button type='submit'><img class='icon-small' src='/images/checkmark.svg' alt='Save' title='Save'></button>
 </form>
+
+<form action='/timer/copy/{{_id}}' method='post'>
+  <button type='submit'>Copy</button>
+</form>
