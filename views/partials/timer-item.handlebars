@@ -9,12 +9,9 @@
     <span class='timer-list-item__name__tag'>{{arrindexprop @root.grouped._tags.all this '_members.name'}}</span>
   {{/each}}
   {{/if}}
-  </div>
 
-  {{#if isRunning}}
-
-    <div class='timer-list-item__status timer-list-item__status--running'><img src='/images/timer.svg' alt='running'></div>
     <div class='timer-list-item__actions'>
+      {{#if isRunning}}
       <form
         class='timer-list-item__actions__stop'
         data-timer-id='{{_id}}'
@@ -26,6 +23,8 @@
         <input name='actiontime' type='hidden' value=''>
         <button type='submit'><img src='/images/stop.svg' alt='stop'></button>
       </form>
+      {{/if}}
+
       {{#ifequal @root.view.timerEditID _id}}
       <div class='timer-list-item__actions__edit timer-list-item__actions__edit--active' data-timer-id='{{_id}}'>
         <a href='/timers/'><img src='/images/cog.svg' alt='edit'></a>
@@ -36,43 +35,30 @@
       </div>
       {{/ifequal}}
     </div>
-    <div class='timer-list-item__timings'>
-      <div class='timer-list-item__timings__duration'>
-      <span>{{objcall this 'getFormattedDuration' 0=true}}</span>
-      </div>
-      <div class='timer-list-item__timings__started'>
-      Started: {{getFormattedStartTime}}
-      </div>
-    </div>
 
-    {{else}}
-
-    <div class='timer-list-item__status timer-list-item__status--complete'><img src='/images/checkmark.svg' alt='complete'></div>
-    <div class='timer-list-item__actions'>
-      {{#ifequal @root.view.timerEditID _id}}
-      <div class='timer-list-item__actions__edit timer-list-item__actions__edit--active' data-timer-id='{{_id}}'>
-        <a href='/timers/'><img src='/images/cog.svg' alt='edit'></a>
-      </div>
-      {{else}}
-      <div class='timer-list-item__actions__edit' data-timer-id='{{_id}}'>
-        <a href='/timers/edit/{{_id}}/'><img src='/images/cog.svg' alt='edit'></a>
-      </div>
-      {{/ifequal}}
-    </div>
-    <div class='timer-list-item__timings'>
-      <div class='timer-list-item__timings__duration'>
-      {{objcall this 'getFormattedDuration' 0=true}}
-      </div>
-      <div class='timer-list-item__timings__started'>
-      Started: {{getFormattedStartTime}}
-      </div>
-      <div class='timer-list-item__timings__stopped'>
-      Stopped: {{getFormattedStopTime}}
-      </div>
-    </div>
+  </div>
 
 
+  {{#if isRunning}}
+  <div class='timer-list-item__status timer-list-item__status--running'><img src='/images/timer.svg' alt='running'></div>
+  {{else}}
+  <div class='timer-list-item__status timer-list-item__status--complete'><img src='/images/checkmark.svg' alt='complete'></div>
   {{/if}}
+
+  <div class='timer-list-item__timings'>
+    <div class='timer-list-item__timings__duration'>
+    {{objcall this 'getFormattedDuration' 0=true}}
+    </div>
+    <div class='timer-list-item__timings__started'>
+    Started: {{getFormattedStartTime}}
+    </div>
+    {{#if isRunning}}
+    <div class='timer-list-item__timings__stopped'>
+    Stopped: {{getFormattedStopTime}}
+    </div>
+    {{/if}}
+  </div>
+
 
   <div class='timer-list-item__subactions {{#ifequal @root.view.timerEditID _id}}timer-list-item__subactions--show{{/ifequal}}'>
     {{>timer-item-edit}}

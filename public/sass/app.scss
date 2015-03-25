@@ -136,14 +136,15 @@ header {
   right: 0;
   top: 2.2rem;
 
-  background-color: white;
   color: $color-brand;
+  border-bottom: 2px solid rgba(#d8d8d8, 0.5);
 }
 
 .nav {
-  margin-left: 60px;
+  margin-left: 54px;
   display: block;
   border-bottom: 2px solid gray;
+  background-color: white;
 
   a {
     width: 20%;
@@ -189,6 +190,7 @@ header {
 
 .nav-timer {
   float: left;
+  background-color: white;
 
   .timer {
     width: auto;
@@ -247,7 +249,7 @@ main {
 }
 
 #view {
-    padding-top: 5.5rem;
+    padding-top: 5.6rem;
 }
 
 .loading {
@@ -267,7 +269,6 @@ main {
   .loading.show {
     display: block;
   }
-
 
 #view-front {
   padding: 0.5rem;
@@ -363,11 +364,22 @@ main {
   }
 */
 
-.timer-list-item {
-  background-color: rgba($color-brand, 0.1);
-  border-bottom: 1px solid white;
+.timer-item-container {
+  margin: 0.2rem;
+  border-radius: 2px;
+  overflow: hidden;
 
+  border: 1px solid #d8d8d8;
+  background-color: #d8d8d8;
+  border-bottom-width: 2px;
+  border-top-width: 0;
+}
+
+.timer-list-item {
   @include clearfix();
+
+  background-color: rgba($color-brand, 0.1);
+  border-radius: 2px;
 }
   .timer-list-item--dirty {
     background-color: rgba($color-brand-alt, 0.1);
@@ -424,9 +436,13 @@ main {
   .timer-list-item__actions {
     float: right;
     width: 100px;
-    padding: 0.5rem;
 
     text-align: right;
+
+    img {
+      height: 1.2rem;
+      width: auto;
+    }
   }
 
     .timer-list-item__actions__stop {
@@ -451,6 +467,7 @@ main {
   .timer-list-item__subactions {
     display: none;
     clear: both;
+    padding: 0.5rem;
   }
 
     .timer-list-item__subactions--show {
