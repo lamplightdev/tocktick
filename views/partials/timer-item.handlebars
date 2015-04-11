@@ -45,18 +45,18 @@
   <div class='timer-list-item__status timer-list-item__status--complete'><img src='/images/checkmark.svg' alt='complete'></div>
   {{/if}}
 
-  <div class='timer-list-item__timings'>
+  <div class='timer-list-item__timings edittimes' data-timer-id='{{_id}}'>
     <div class='timer-list-item__timings__duration'>
     {{objcall this 'getFormattedDuration' 0=true}}
     </div>
     <div class='timer-list-item__timings__started'>
     Started: {{getFormattedStartTime}}
     </div>
-    {{#if isRunning}}
+    {{#unless isRunning}}
     <div class='timer-list-item__timings__stopped'>
     Stopped: {{getFormattedStopTime}}
     </div>
-    {{/if}}
+    {{/unless}}
   </div>
 
 

@@ -16,6 +16,8 @@
 
       </div>
 
+      {{#ifobjcall timer 'isRunning'}}
+      {{else}}
       <div class='timer-adjustment timer-adjustment--duration'>
 
         <div class='timer-adjustment__dial'>
@@ -23,11 +25,15 @@
         </div>
 
       </div>
+      {{/ifobjcall}}
 
       <div class='timer-adjustment-values'>
         <div class='timer-adjustment__duration'>Duration: <span>{{objcall timer 'getFormattedDuration'}}</span></div>
         <div class='timer-adjustment__start'>Start: <span>{{objcall timer 'getFormattedStartTime'}}</span></div>
+        {{#ifobjcall timer 'isRunning'}}
+        {{else}}
         <div class='timer-adjustment__stop'>Stop: <span>{{objcall timer 'getFormattedStopTime'}}</span></div>
+        {{/ifobjcall}}
       </div>
 
       <button class='timer-adjuster-done'>Done</button>

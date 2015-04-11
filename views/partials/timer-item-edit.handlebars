@@ -10,8 +10,6 @@
   <input type='hidden' name='start' value='{{_members.start}}'>
   <input type='hidden' name='stop' value='{{_members.stop}}'>
 
-  <button type='button' class='edittimes' data-timer-id='{{_id}}'>Edit times</button>
-
   <select name='jobid' class='hide-for-js-version'>
     {{#each @root.grouped._jobs.all}}
       <option
@@ -39,9 +37,11 @@
   </div>
 
   {{#each _tagIDs}}
-  <button type='button' class='btn tag'>{{arrindexprop @root.grouped._tags.all this '_members.name'}}</button>
+  <button type='button' class='btn tag edittags' data-timer-id='{{../_id}}'>{{arrindexprop @root.grouped._tags.all this '_members.name'}}</button>
   {{/each}}
-  <button type='button' class='edittags' data-timer-id='{{_id}}'>Edit tags</button>
+  {{#unless _tagIDs}}
+  <button type='button' class='btn tag edittags' data-timer-id='{{../_id}}'>Add tags</button>
+  {{/unless}}
 
   <input type='text' id='timer-list-item__edit__description__input' name='description' value='{{_members.description}}' placeholder='Description'>
   <button type='submit'><img class='icon-small' src='/images/checkmark.svg' alt='Save' title='Save'></button>
